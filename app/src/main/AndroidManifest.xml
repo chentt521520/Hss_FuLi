@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.haoss">
+
+    <!-- com.example.hss.haoss -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- <uses-permission android:name="android.permission.RECORD_AUDIO" /> -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- shareSDK权限 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 蓝牙分享所需的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- 支付宝权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <application
+        android:name=".base.AppLibLication"
+        android:allowBackup="true"
+        android:icon="@mipmap/app_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/app_logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <!-- 主界面页 -->
+        <activity android:name=".MainActivity">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+        <!-- 注册 -->
+        <activity android:name=".person.login.RegisteredActivity" />
+        <!-- 忘记密码 -->
+        <activity android:name=".person.login.BackPswActivity" />
+        <!-- 意见反馈 -->
+        <activity android:name=".person.opinion.OpinionActivity" />
+        <!-- 登录 -->
+        <activity android:name=".person.login.LoginActivity" />
+        <!-- 收货地址 -->
+        <activity android:name=".person.address.AddresShowActivity" />
+        <!-- 收货地址编辑 -->
+        <activity android:name=".person.address.activity.AddressEdit" />
+        <activity android:name=".person.other.PlusImageActivity" />
+        <!-- 订单 -->
+        <activity android:name=".person.dingdan.OrderListActivity" />
+        <!--订单详情-->
+        <activity android:name=".person.dingdan.MyOrderDetails" />
+        <!-- 生日汇 -->
+        <!-- 优选生活 -->
+        <activity android:name=".indexpage.activity.ExcellentLifeActivity" />
+        <!--健康生活-->
+        <activity android:name=".indexpage.activity.HealthLifeActivity" />
+        <!--年节礼包-->
+        <activity android:name=".indexpage.activity.FestivalGiftActivity" />
+        <!--独立购物车界面-->
+        <!--收藏界面-->
+        <!--优惠劵界面-->
+        <activity android:name=".person.coupon.CouponActivity" />
+        <!--个人设置-->
+        <activity android:name=".person.setting.PersonalSettingActivity" />
+        <!--系统设置-->
+        <activity android:name=".person.setting.SystemSettingActivity" />
+        <!--修改账号密码-->
+        <activity android:name=".person.setting.systemsetting.ChangePasswardActivity" />
+        <!--支付设置-->
+        <activity android:name=".person.setting.systemsetting.PaySettingActivity" />
+        <!--更换手机号码-->
+        <activity android:name=".person.setting.systemsetting.ChangePhoneActivity" />
+        <!--足迹-->
+        <activity android:name=".person.footprint.FootprintActivity" />
+        <!--积分/金币界面-->
+        <activity android:name=".person.integral.IntegralActivity" />
+        <!--我的钱包-->
+        <activity android:name=".person.wallet.WalletActivity" />
+        <!--售后服务-->
+        <activity android:name=".person.aftersale.AfterSaleActivity" />
+        <!--售后服务：申请售后-->
+        <activity android:name=".person.aftersale.activity.AfterSaleApplyForActivity" />
+        <!--售后服务：详情界面-->
+        <activity android:name=".person.aftersale.activity.AfterSaleDetailsActivity" />
+        <!--微信支付-->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="wxf82e7cb39cd3de8d"/>
+            </intent-filter>-->
+        </activity>
+
+        <!--引导页-->
+        <activity android:name=".main.GuideActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--服务条款界面-->
+        <activity android:name=".person.other.TermsOfService" />
+        <!--消息列表界面-->
+        <activity android:name=".person.msg.PersonMsgActivity" />
+        <!--待评价订单列表-->
+        <!--评价发表界面-->
+        <activity android:name=".person.dingdan.EstimatePublishActivity" />
+        <!--领券中心界面-->
+        <activity android:name=".indexpage.getcoupon.GetCouponCentreActivity" />
+        <!--今日特价界面-->
+        <activity android:name=".indexpage.specialoffer.NowSpecialOfferActivity" />
+        <!--拼团界面-->
+        <activity android:name=".indexpage.tourdiy.GrouponListActivity" />
+        <!--拼团详情-->
+        <activity android:name=".indexpage.tourdiy.GrouponDetail" />
+        <!--拼团结果-->
+        <activity android:name=".indexpage.tourdiy.GrouponNoticeActivity" />
+        <!--拼团完成-->
+        <activity android:name=".indexpage.tourdiy.GouponPayActivity" />
+        <!--美妆界面-->
+        <activity android:name=".indexpage.activity.MakeUpActivity" />
+        <!--母婴用品-->
+        <activity android:name=".indexpage.activity.BabyProductsActivity" />
+
+        <!--商品详情-->
+        <activity android:name=".goods.goodslist.GoodsListActivity" />
+        <!--商品搜索-->
+        <activity android:name=".goods.details.GoodsDetailsActivity" />
+        <!--商品列表显示(含搜索)-->
+        <activity android:name=".goods.search.GoodsSearchActivity" />
+        <!--积分商城-->
+        <activity android:name=".integralshop.IntegralShopActivity" />
+        <!--商品购买-订单确认页面-->
+        <activity android:name=".pay.GoodsBuyActivity" />
+        <!--商品支付界面-->
+        <activity android:name=".pay.GoodsPayActivity" />
+
+        <activity android:name=".person.collect.CollectListActivity" />
+        <activity android:name=".indexpage.activity.ExcellentBrandActivity" />
+        <activity android:name=".goods.estimate.EstimateListActivity" />
+
+        <!--&lt;!&ndash;微信支付&ndash;&gt;
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>-->
+
+        <!--支付宝支付-->
+        <activity
+            android:name=".pay.aliapi.AliPayActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" />
+
+        <activity
+            android:name=".pay.aliapi.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"></activity>
+
+
+        <activity
+            android:name=".conversation.ConversationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.example.haoss"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="RONG_CLOUD_APP_KEY"
+            android:value="x18ywvqfxc9tc" />
+
+        <activity android:name=".conversation.ServerOnlineActivity" />
+
+
+        <!--蒲公英-->
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="265af7ad0f05e289cba0000a206afe95 " />
+
+        <!-- 适配全面屏 -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" />
+
+    </application>
+
+</manifest>

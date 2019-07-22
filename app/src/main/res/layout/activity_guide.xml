@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lucencyColor"
+    android:orientation="horizontal">
+
+    <!--启动页-->
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/layout_guideactivity_start"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/start"
+        android:visibility="gone" />
+    <!--主体-->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/layout_guideactivity_carousel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
+</LinearLayout>

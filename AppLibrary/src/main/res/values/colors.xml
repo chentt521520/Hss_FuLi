@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--基本红-->
+    <color name="baseRedColor">#c22222</color>
+    <color name="redColor761810">#761810</color>
+    <color name="redColorf73962">#f73962</color>
+    <color name="redColorff284e">#ff284e</color>
+    <!--白-->
+    <color name="whiteColor">#ffffff</color>
+    <!--透明-->
+    <color name="lucencyColor">#00000000</color>
+    <!--灰-->
+    <color name="huiColorfa">#fafafa</color>
+    <color name="huiColorf0">#f0f0f0</color>
+    <color name="huiColor6665">#666565</color>
+    <color name="huiColor66">#666666</color>
+    <color name="huiColor80">#808080</color>
+    <color name="huiColor99">#999999</color>
+    <!--黑-->
+    <color name="blackColor00">#000000</color>
+    <color name="blackColor0f">#0f0f0f</color>
+    <color name="blackColor24">#242424</color>
+    <color name="blackColor33">#333333</color>
+    <color name="blackColor35383f">#35383f</color>
+    <color name="blackColor4d">#4d4d4d</color>
+    <!--黄-->
+    <color name="yellowColoreb">#ebbe64</color>
+
+    <!--橙色-->
+    <color name="orangeColorfd">#FD4E00</color>
+</resources>

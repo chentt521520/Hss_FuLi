@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.applibrary.widget.freshLoadView.RefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refresh_layout"
+    style="@style/base_padding_border"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.haoss.views.MyGridView
+        android:id="@+id/grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:horizontalSpacing="@dimen/margin10"
+        android:numColumns="2"
+        android:scrollbars="none"
+        android:verticalSpacing="@dimen/width5" />
+
+</com.example.applibrary.widget.freshLoadView.RefreshLayout>

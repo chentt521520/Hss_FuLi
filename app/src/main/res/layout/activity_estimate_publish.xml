@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    android:orientation="vertical">
+    <!--发表评价界面-->
+    <!--评价选择-->
+    <View style="@style/ui_line" />
+
+    <LinearLayout
+        style="@style/padding_left_right_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/estimatepublishactivity_goodsimage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/big_image01" />
+
+        <TextView
+            android:id="@+id/estimatepublishactivity_good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@mipmap/pingjia_good_y"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:padding="3dp"
+            android:text="好评"
+            android:textColor="@color/baseRedColor"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/estimatepublishactivity_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@mipmap/pingjia_cha_n"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:padding="3dp"
+            android:text="中评"
+            android:textColor="@color/huiColor66"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/estimatepublishactivity_differ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@mipmap/pingjia_cha_n"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:padding="3dp"
+            android:text="差评"
+            android:textColor="@color/huiColor66"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="2" />
+    </LinearLayout>
+
+    <View style="@style/ui_line" />
+
+    <!--评价语-->
+    <EditText
+        android:id="@+id/estimatepublishactivity_input"
+        style="@style/base_padding_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/pingjia_ed_bg"
+        android:gravity="start"
+        android:hint="写下你对产品的评价"
+        android:maxLines="5"
+        android:textColor="@color/blackColor0f"
+        android:textSize="12sp" />
+
+    <com.example.haoss.views.MyGridView
+        android:id="@+id/estimatepublishactivity_addimggv"
+        style="@style/base_margin_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:horizontalSpacing="@dimen/width5"
+        android:numColumns="4"
+        android:scrollbars="none"
+        android:verticalSpacing="5dp" />
+
+    <TextView
+        android:id="@+id/btn_comment_pulish"
+        style="@style/margin_all_30"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/bg_estimate_btn"
+        android:gravity="center"
+        android:text="立即发布"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+
+
+</LinearLayout>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0"
+    android:orientation="vertical">
+
+    <include layout="@layout/action_title" />
+
+    <!--消息、设置-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:paddingEnd="@dimen/margin10"
+        android:paddingStart="@dimen/margin10"
+        android:visibility="gone">
+        <!--消息-->
+        <ImageView
+            android:id="@+id/person_xiaoxi_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="5dp"
+            android:src="@mipmap/person_xiaoxi_img" />
+        <!--消息数量-->
+        <TextView
+            android:id="@+id/person_xiaoxi_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/person_xiaoxi_btn"
+            android:layout_alignLeft="@id/person_xiaoxi_btn"
+            android:layout_alignRight="@id/person_xiaoxi_btn"
+            android:layout_alignTop="@id/person_xiaoxi_btn"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/baseRedColor"
+            android:textSize="8sp" />
+        <!--设置-->
+        <ImageView
+            android:id="@+id/person_setting_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:src="@mipmap/person_setting_img" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--个人信息-->
+            <include layout="@layout/include_myinfo_header" />
+
+            <!--订单-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/margin10"
+                android:paddingEnd="@dimen/margin10"
+                android:paddingStart="@dimen/margin10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="我的订单"
+                    android:textColor="@color/text_black"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:id="@+id/person_chakan_dingdan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin10"
+                        android:text="查看全部订单"
+                        android:textSize="10sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/width10"
+                        android:layout_height="@dimen/width10"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/right_arrow_img" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View style="@style/ui_line" />
+            <!--<include layout="@layout/person_order_list"/>-->
+            <include layout="@layout/include_my_grid_view" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin10"
+                android:background="#f0f0f0" />
+            <!--其他操作-->
+            <include layout="@layout/frag_person_last_item" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+

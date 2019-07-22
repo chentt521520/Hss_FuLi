@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/margin5"
+    android:paddingTop="@dimen/margin5">
+    <!--首页搜索-->
+
+    <!--扫一扫-->
+    <LinearLayout
+        android:id="@+id/fistactivity_search_sys"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="3dp"
+            android:src="@mipmap/fistactivity_sys" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="扫一扫"
+            android:textColor="@color/whiteColor"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <!--搜索内容-->
+    <TextView
+        android:id="@+id/fistactivity_search_cont"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@mipmap/fistactivity_search_bg"
+        android:drawableLeft="@mipmap/fistactivity_search"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="5dp" />
+
+    <!--消息-->
+    <RelativeLayout
+        android:id="@+id/fistactivity_search_msg"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/fistactivity_search_msgimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="3dp"
+            android:src="@mipmap/fistactivity_msg" />
+
+        <TextView
+            android:id="@+id/fistactivity_search_msgtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fistactivity_search_msgimage"
+            android:layout_centerHorizontal="true"
+            android:text="消息"
+            android:textColor="@color/whiteColor"
+            android:textSize="10sp" />
+        <!--消息数-->
+        <TextView
+            android:id="@+id/fistactivity_search_msgnumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/fistactivity_search_msgimage"
+            android:layout_alignLeft="@id/fistactivity_search_msgimage"
+            android:layout_alignRight="@id/fistactivity_search_msgimage"
+            android:layout_alignTop="@id/fistactivity_search_msgimage"
+            android:gravity="center"
+            android:textColor="@color/whiteColor"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+</LinearLayout>

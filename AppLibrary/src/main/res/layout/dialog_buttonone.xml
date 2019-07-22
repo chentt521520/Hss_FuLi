@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="150dp"
+    android:paddingTop="25dp"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    android:background="@drawable/bk_hui01"
+    android:orientation="vertical">
+
+    <!--普通对话框界面-->
+    <TextView
+        android:id="@+id/dialog_buttonone_text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="15dp"
+        android:text="对话框内容"
+        android:textSize="14sp"
+        android:textColor="#0f0f0f"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/dialog_buttonone_sure"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:textSize="14sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/bg_red01"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:gravity="center"
+        android:layout_gravity="center" />
+
+</LinearLayout>

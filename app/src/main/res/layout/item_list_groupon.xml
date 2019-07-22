@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/margin10"
+    android:paddingEnd="@dimen/width15"
+    android:paddingStart="@dimen/width15">
+
+    <!--特价数据列表item界面-->
+    <LinearLayout
+        style="@style/base_padding_border"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@mipmap/nowspecialoffer_cont_bg">
+        <!--图片-->
+        <ImageView
+            android:id="@+id/item_tourdiy_image"
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="@dimen/margin10"
+            android:background="@drawable/bg_corner_border_grey"
+            android:padding="1dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/big_image01" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/item_tourdiy_image"
+            android:paddingBottom="@dimen/height5"
+            android:paddingTop="@dimen/height5">
+
+            <!--名称-->
+            <TextView
+                android:id="@+id/item_tourdiy_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="商品名称"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:id="@+id/item_tourdiy_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item_tourdiy_name"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@mipmap/pintuan_item_tx"
+                android:drawablePadding="@dimen/height10"
+                android:text="3人拼团"
+                android:textColor="#c22222"
+                android:textSize="10sp" />
+
+
+            <TextView
+                android:id="@+id/item_tourdiy_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="¥ 999.99"
+                android:textColor="#333232"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!--原价-->
+            <TextView
+                android:id="@+id/item_tourdiy_original_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/item_tourdiy_cost"
+                android:text="¥ 999.99"
+                android:textColor="#666666"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <!--按钮-->
+            <TextView
+                android:id="@+id/item_tourdiy_go"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:background="@mipmap/nowspecialoffer_button"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="立即购买"
+                android:textColor="@color/whiteColor"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

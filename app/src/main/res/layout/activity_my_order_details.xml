@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/huiColorf0"
+    android:orientation="vertical">
+    <!--订单详情页-->
+
+    <!--交易内容-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/baseRedColor" />
+
+        <!--状态-->
+        <TextView
+            android:id="@+id/ui_order_status"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="@string/null_text"
+            android:textColor="@color/whiteColor"
+            android:textSize="14sp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="60dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--物流信息-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bk_hui01"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/ui_order_express_info"
+                        style="@style/base_padding_border"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!--物流图片-->
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_weight="0"
+                            android:src="@drawable/orderdetails_car" />
+                        <!--物流提示-->
+                        <TextView
+                            android:id="@+id/ui_order_express_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingEnd="@dimen/margin10"
+                            android:paddingStart="@dimen/margin10"
+                            android:singleLine="true"
+                            android:text="@string/null_text"
+                            android:textColor="@color/blackColor0f"
+                            android:textSize="12sp" />
+
+                        <!--物流go图片-->
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_weight="0"
+                            android:src="@mipmap/right_dingdan_img" />
+                    </LinearLayout>
+
+                    <View style="@style/ui_line" />
+
+                    <RelativeLayout
+                        style="@style/base_padding_border"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <!--物流地址图片-->
+                        <ImageView
+                            android:id="@+id/ui_order_address_image"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/margin10"
+                            android:src="@drawable/orderdetails_dw" />
+
+
+                        <!--物流收货人-->
+                        <TextView
+                            android:id="@+id/ui_order_user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/ui_order_address_image"
+                            android:text="收货人"
+                            android:textColor="@color/blackColor0f"
+                            android:textSize="13sp" />
+
+                        <!--收货人电话-->
+                        <TextView
+                            android:id="@+id/ui_order_user_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin10"
+                            android:layout_toEndOf="@+id/ui_order_user_name"
+                            android:text="@string/null_text"
+                            android:textColor="@color/huiColor66"
+                            android:textSize="13sp" />
+
+                        <!--收货人详细地址-->
+                        <TextView
+                            android:id="@+id/ui_order_user_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignStart="@+id/ui_order_user_name"
+                            android:layout_below="@id/ui_order_user_name"
+                            android:layout_marginTop="@dimen/margin10"
+                            android:maxLines="2"
+                            android:text="@string/null_text"
+                            android:textColor="@color/blackColor0f"
+                            android:textSize="13sp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/base_padding_border"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bk_hui01"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/ui_order_item_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/height5" />
+
+                    <include layout="@layout/include_order_good_detail" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/base_padding_border"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:background="@drawable/bk_hui01"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/include_order_detail" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+    <!--操作栏-->
+    <RelativeLayout
+        style="@style/padding_left_right_15"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/whiteColor"
+        android:orientation="horizontal">
+
+        <!--删除-->
+        <TextView
+            android:id="@+id/ui_order_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:text="删除订单"
+            android:textColor="@color/blackColor0f"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!--售后-->
+        <TextView
+            android:id="@+id/ui_order_service"
+            style="@style/btn_border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/ui_order_again"
+            android:background="@drawable/bk_black01"
+            android:text="申请售后"
+            android:textColor="@color/blackColor0f"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!--购买-->
+        <TextView
+            android:id="@+id/ui_order_again"
+            style="@style/btn_border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/bg_red_02"
+            android:text="再次购买"
+            android:textColor="@color/whiteColor"
+            android:textSize="14sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,21 @@
+<resources>
+    <!--<string name="app_name">AppLibrary</string>-->
+    <string name="input_text">1234567890QWERTYUIOPLKJHGFDSAZXCVBNMqwertyuioplkjhgfdsazxcvbnm</string>
+    <string name="input_phone">1234567890</string>
+
+
+    <!--上拉下拉控件-->
+    <string name="listview_load_more">上拉加载更多</string>
+
+    <string name="listview_loading">加载中…</string>
+
+    <string name="listview_pull_to_refresh">下拉刷新</string>
+
+    <string name="listview_release_refresh">释放刷新</string>
+
+    <string name="listview_refreshing">刷新中…</string>
+
+
+    <!--母婴用品-->
+    <string name="hot_package">热销套餐</string>
+</resources>

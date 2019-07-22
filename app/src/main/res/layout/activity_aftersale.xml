@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--售后界面-->
+
+    <!--标题-->
+    <include layout="@layout/action_title" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/huiColorf0" />
+
+    <!--售后类型选择-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+        <!--售后申请-->
+        <TextView
+            android:id="@+id/aftersaleactivity_applyfor"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="售后申请"
+            android:textSize="14sp"
+            android:textColor="@color/blackColor4d"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <!--处理中-->
+        <TextView
+            android:id="@+id/aftersaleactivity_inhand"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="处理中"
+            android:textSize="12sp"
+            android:textColor="@color/blackColor0f"
+            android:gravity="center" />
+
+        <!--申请记录-->
+        <TextView
+            android:id="@+id/aftersaleactivity_record"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="申请记录"
+            android:textSize="12sp"
+            android:textColor="@color/blackColor0f"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/huiColorf0" />
+
+    <!--售后数据-->
+    <ListView
+        android:id="@+id/aftersaleactivity_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:padding="12dp"
+        android:divider="@color/huiColorf0"
+        android:dividerHeight="1dp"></ListView>
+</LinearLayout>

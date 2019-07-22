@@ -1,0 +1,100 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="padding2">2dp</dimen>
+    <dimen name="padding3">3dp</dimen>
+    <dimen name="padding5">5dp</dimen>
+    <dimen name="padding8">8dp</dimen>
+    <dimen name="padding10">10dp</dimen>
+    <dimen name="padding16">16dp</dimen>
+    <dimen name="padding20">20dp</dimen>
+    <dimen name="padding24">24dp</dimen>
+    <dimen name="padding50">50dp</dimen>
+
+
+    <dimen name="margin2">2dp</dimen>
+    <dimen name="margin5">5dp</dimen>
+    <dimen name="margin16">16dp</dimen>
+    <dimen name="margin10">10dp</dimen>
+    <dimen name="margin20">20dp</dimen>
+    <dimen name="margin30">30dp</dimen>
+    <dimen name="margin50">50dp</dimen>
+    <dimen name="margin100">100dp</dimen>
+
+
+    <dimen name="height20">20dp</dimen>
+    <dimen name="height25">25dp</dimen>
+    <dimen name="height32">32dp</dimen>
+    <dimen name="height35">35dp</dimen>
+    <dimen name="height40">40dp</dimen>
+    <dimen name="height48">48dp</dimen>
+    <dimen name="height50">50dp</dimen>
+    <dimen name="height60">60dp</dimen>
+    <dimen name="height80">80dp</dimen>
+    <dimen name="height90">90dp</dimen>
+    <dimen name="height100">100dp</dimen>
+    <dimen name="height120">120dp</dimen>
+    <dimen name="height160">160dp</dimen>
+    <dimen name="height220">220dp</dimen>
+
+    <dimen name="height5">5dp</dimen>
+    <dimen name="height3">3dp</dimen>
+    <dimen name="height1">1dp</dimen>
+    <dimen name="height8">8dp</dimen>
+    <dimen name="height10">10dp</dimen>
+
+    <dimen name="width5">5dp</dimen>
+    <dimen name="width10">10dp</dimen>
+    <dimen name="width15">15dp</dimen>
+    <dimen name="width20">20dp</dimen>
+    <dimen name="width25">25dp</dimen>
+    <dimen name="width30">30dp</dimen>
+    <dimen name="width40">40dp</dimen>
+    <dimen name="width50">50dp</dimen>
+    <dimen name="width60">60dp</dimen>
+    <dimen name="width70">70dp</dimen>
+    <dimen name="width80">80dp</dimen>
+    <dimen name="width100">100dp</dimen>
+
+
+    <dimen name="line">1px</dimen>
+
+    <!--字体大小-->
+
+    <dimen name="text_font_0">10sp</dimen>
+    <dimen name="text_font_1">11sp</dimen>
+    <dimen name="text_font_2">12sp</dimen>
+    <dimen name="text_font_3">13sp</dimen>
+    <dimen name="text_font_4">14sp</dimen>
+    <dimen name="text_font_5">15sp</dimen>
+    <dimen name="text_font_6">14sp</dimen>
+    <dimen name="text_font_7">17sp</dimen>
+    <dimen name="text_font_8">18sp</dimen>
+    <dimen name="text_font_10">20sp</dimen>
+
+    <!--标题栏字体大小-->
+    <!--字体大小-->
+    <dimen name="button_font_1">16sp</dimen>
+
+    <!--底部标签栏字体大小-->
+
+    <!--登陆页面-->
+
+    <dimen name="login_font_0">12sp</dimen>
+
+    <!--绑定手机-->
+    <dimen name="bindingMobile_font_1">14sp</dimen>
+
+    <!--手机验证-->
+    <dimen name="Mobile_yanzheng_font_1">10sp</dimen>
+
+
+    <!-- 全局使用的大小 -->
+
+    <!-- Login页面 -->
+
+    <!-- 文字的大小 -->
+    <dimen name="text_small_size">14sp</dimen>
+    <dimen name="text_medium_size">18sp</dimen>
+
+
+</resources>

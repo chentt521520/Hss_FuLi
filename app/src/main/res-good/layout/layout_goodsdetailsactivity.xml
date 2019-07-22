@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--商品详情-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/huiColorf0"
+            android:orientation="vertical">
+
+            <!--轮播-->
+            <com.example.applibrary.custom.viewfragment.FragmentView
+                android:id="@+id/goodsdetailsactivity__carousel"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:background="@color/whiteColor"
+                android:scaleType="centerCrop" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/whiteColor"
+                android:paddingBottom="@dimen/margin10"
+                android:paddingEnd="@dimen/width15"
+                android:paddingStart="@dimen/width15"
+                android:paddingTop="@dimen/margin10"
+                android:visibility="visible">
+                <!--新区间价格-->
+                <TextView
+                    android:id="@+id/goodsdetailsactivity_newmoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/null_text"
+                    android:textColor="@color/baseRedColor"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!--商家优惠-->
+                <TextView
+                    android:id="@+id/goodsdetailsactivity_shopprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/goodsdetailsactivity_newmoney"
+                    android:layout_marginBottom="@dimen/margin5"
+                    android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@+id/goodsdetailsactivity_newmoney"
+                    android:text="@string/null_text"
+                    android:textColor="@color/baseRedColor"
+                    android:textSize="9sp"
+                    android:visibility="gone" />
+
+                <!--月销量-->
+                <TextView
+                    android:id="@+id/goodsdetailsactivity_monthlysales"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/goodsdetailsactivity_shopprice"
+                    android:layout_alignParentEnd="true"
+                    android:singleLine="true"
+                    android:text="@string/null_text"
+                    android:textColor="@color/blackColor0f"
+                    android:textSize="12sp" />
+
+                <!--原区间价-->
+                <TextView
+                    android:id="@+id/goodsdetailsactivity_originalprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/goodsdetailsactivity_newmoney"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:text="@string/null_text"
+                    android:textColor="@color/blackColor4d"
+                    android:textSize="12sp" />
+
+                <!--商品简介-->
+                <TextView
+                    android:id="@+id/goodsdetailsactivity_intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/goodsdetailsactivity_originalprice"
+                    android:layout_marginTop="10dp"
+                    android:maxLines="2"
+                    android:singleLine="true"
+                    android:text="@string/null_text"
+                    android:textColor="@color/blackColor4d"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <View
+                style="@style/ui_line"
+                android:layout_marginTop="@dimen/margin10" />
+
+            <!--发货地-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingEnd="@dimen/width15"
+                android:paddingStart="@dimen/width15"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="发货"
+                    android:textColor="@color/blackColor4d"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/goodsdetailsactivity_shipmentsland"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/width15"
+                    android:text="@string/null_text"
+                    android:textColor="@color/blackColor0f"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <TextView style="@style/ui_line" />
+
+            <!--促销-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingEnd="@dimen/width15"
+                android:paddingStart="@dimen/width15"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/goodsdetailsactivity_promotion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="促销"
+                    android:textColor="@color/blackColor4d"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/goodsdetailsactivity_newbag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/width15"
+                    android:text="[新人礼包]"
+                    android:textColor="@color/baseRedColor"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/goodsdetailsactivity_juan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/width15"
+                    android:text="购第一单领10元劵"
+                    android:textColor="@color/blackColor0f"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <View style="@style/ui_line" />
+
+            <!--选择:净含量-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingEnd="@dimen/width15"
+                android:paddingStart="@dimen/width15"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="选择"
+                    android:textColor="@color/blackColor4d"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/goodsdetailsactivity_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/width15"
+                    android:drawableEnd="@mipmap/right_arrow_img"
+                    android:drawablePadding="@dimen/width15"
+                    android:singleLine="true"
+                    android:text="净含量"
+                    android:textColor="@color/blackColor0f"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <View style="@style/ui_line" />
+
+            <!--运费-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingEnd="@dimen/width15"
+                android:paddingStart="@dimen/width15">
+
+                <TextView
+                    android:id="@+id/goodsdetailsactivity_freight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="运费"
+                    android:textColor="@color/blackColor4d"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/goodsdetailsactivity_exempt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/width15"
+                    android:text="满99元免运费"
+                    android:textColor="@color/blackColor0f"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <View style="@style/ui_line" />
+
+            <!--选择:净含量-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingEnd="@dimen/width15"
+                android:paddingStart="@dimen/width15"
+                android:visibility="visible">
+                <!--说明-->
+                <TextView
+                    android:id="@+id/goodsdetailsactivity_explain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="说明"
+                    android:textColor="@color/blackColor4d"
+                    android:textSize="12sp" />
+
+                <!--假一赔十-->
+                <TextView
+                    android:id="@+id/goodsdetailsactivity_loss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/width15"
+                    android:text="假一赔十|不支持7天无理由退货"
+                    android:textColor="@color/blackColor0f"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <include layout="@layout/include_good_estimate" />
+
+            <!--嵌套网页-->
+            <com.example.applibrary.custom.webview.NoScrollWebView
+                android:id="@+id/goodsdetailsactivity_webview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp" />
+
+            <include layout="@layout/include_bottom_tip" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!--操作栏-->
+    <include
+        layout="@layout/action_goodschecked"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp" />
+</LinearLayout>

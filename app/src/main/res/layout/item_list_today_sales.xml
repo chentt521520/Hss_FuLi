@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/base_padding_border"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@mipmap/nowspecialoffer_cont_bg">
+
+    <!--图片-->
+    <ImageView
+        android:id="@+id/item_nowspecialoffer_image"
+        android:layout_width="110dp"
+        android:layout_height="100dp"
+        android:background="@drawable/bg_corner_border_grey"
+        android:padding="1dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/big_image01" />
+
+    <!--名称-->
+    <TextView
+        android:id="@+id/item_nowspecialoffer_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin10"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/item_nowspecialoffer_image"
+        android:maxLines="2"
+        android:text="商品名称"
+        android:textColor="@color/blackColor0f"
+        android:textSize="12sp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/item_nowspecialoffer_money"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@id/item_nowspecialoffer_image">
+
+        <ProgressBar
+            android:id="@+id/item_nowspecialoffer_sb"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="40"
+            android:progressTint="@color/baseRedColor" />
+
+        <TextView
+            android:id="@+id/item_nowspecialoffer_sales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="@dimen/height8" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/item_nowspecialoffer_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="@dimen/margin10"
+        android:layout_toEndOf="@+id/item_nowspecialoffer_image"
+        android:text="¥ 999.99"
+        android:textColor="#333232"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <!--原价-->
+    <TextView
+        android:id="@+id/item_nowspecialoffer_originalcost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="@dimen/margin10"
+        android:layout_toEndOf="@+id/item_nowspecialoffer_money"
+        android:text="¥ 999.99"
+        android:textColor="#666666"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+    <!--按钮-->
+    <TextView
+        android:id="@+id/item_nowspecialoffer_go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin10"
+        android:background="@mipmap/nowspecialoffer_button"
+        android:gravity="center"
+        android:padding="2dp"
+        android:text="立即购买"
+        android:textColor="@color/whiteColor"
+        android:textSize="12sp" />
+
+</RelativeLayout>

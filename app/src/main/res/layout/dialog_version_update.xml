@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/update_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="发现新版本"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/textView2"
+        android:background="@drawable/tudate_title_bg" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="软件版本：3.0.0"
+        android:id="@+id/textView3"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textColor="#666666"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="以后再说"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:layout_margin="3dp"
+            android:id="@+id/textView5"
+            android:textColor="#cccccc"
+            android:background="@drawable/yhzs_bg"
+            android:layout_gravity="bottom" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="立即更新"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:layout_margin="3dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/ljgx_bg"
+            android:id="@+id/textView6"
+            android:layout_gravity="bottom" />
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/height5">
+
+    <!--图片-->
+    <ImageView
+        android:id="@+id/item_orderformshopping_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/item_orderformshopping_time"
+        android:background="@drawable/bg_corner_border_grey"
+        android:padding="1dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/frist_jp_img01" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/item_orderformshopping_time"
+        android:layout_marginStart="@dimen/margin10"
+        android:layout_toEndOf="@+id/item_orderformshopping_image"
+        android:paddingTop="@dimen/height5"
+        android:paddingBottom="@dimen/height5">
+
+        <!--商品名称、介绍-->
+        <TextView
+            android:id="@+id/item_orderformshopping_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/item_orderformshopping_money"
+            android:ellipsize="end"
+            android:lineSpacingExtra="@dimen/width5"
+            android:maxLines="2"
+            android:paddingEnd="10dp"
+            android:text="商品介绍"
+            android:textColor="@color/blackColor33"
+            android:textSize="12sp" />
+
+        <!--金额-->
+        <TextView
+            android:id="@+id/item_orderformshopping_money"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="right"
+            android:text="¥ 285"
+            android:textColor="@color/blackColor33"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <!--商品规格-->
+        <TextView
+            android:id="@+id/item_orderformshopping_specification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_orderformshopping_name"
+            android:layout_marginTop="10dp"
+            android:minLines="1"
+            android:text="170CL"
+            android:textColor="@color/huiColor66"
+            android:textSize="12sp" />
+
+        <!--商品数量-->
+        <TextView
+            android:id="@+id/item_orderformshopping_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_orderformshopping_money"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/margin10"
+            android:text="x 1"
+            android:textColor="@color/huiColor66"
+            android:textSize="10sp" />
+
+        <!--&lt;!&ndash;总数量&ndash;&gt;-->
+        <!--<TextView-->
+        <!--android:id="@+id/item_orderformshopping_allnumber"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_toStartOf="@+id/item_orderformshopping_allmoney"-->
+        <!--android:paddingLeft="2dp"-->
+        <!--android:paddingRight="2dp"-->
+        <!--android:text="共1件商品，"-->
+        <!--android:textColor="@color/huiColor66"-->
+        <!--android:textSize="12sp" />-->
+
+        <!--&lt;!&ndash;总金额&ndash;&gt;-->
+        <!--<TextView-->
+        <!--android:id="@+id/item_orderformshopping_allmoney"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:text="合计：¥ 155"-->
+        <!--android:textColor="@color/huiColor66"-->
+        <!--android:textSize="12sp" />-->
+    </RelativeLayout>
+
+</RelativeLayout>

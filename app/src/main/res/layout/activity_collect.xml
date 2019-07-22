@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--收藏-->
+
+    <View style="@style/ui_line" />
+
+    <!--选项-->
+    <LinearLayout
+        android:id="@+id/pop_show_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:visibility="gone">
+
+        <!--全部类目-->
+        <TextView
+            android:id="@+id/collectactivity_category"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/collect_down"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:singleLine="true"
+            android:text="全部类目"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+
+        <!--全部状态-->
+        <TextView
+            android:id="@+id/collectactivity_status"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/collect_down"
+            android:gravity="center"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:text="全部状态"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <View style="@style/ui_line" />
+
+    <!--数据列表-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/collectactivity_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:divider="@color/huiColorf0"
+            android:dividerHeight="1dp"
+            android:listSelector="#00000000"
+            android:padding="12dp"
+            android:scrollbars="none" />
+
+        <!--类型选择-->
+        <GridView
+            android:id="@+id/collectactivity_gridtype"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#504d4d4d"
+            android:numColumns="2"
+            android:visibility="gone" />
+        <!--状态选择-->
+        <GridView
+            android:id="@+id/collectactivity_gridstatus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#504d4d4d"
+            android:numColumns="2"
+            android:visibility="gone" />
+    </RelativeLayout>
+</LinearLayout>

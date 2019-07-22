@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    android:orientation="vertical">
+
+    <!--内容-->
+    <TextView
+        android:id="@+id/layout_termsofservice_text"
+        style="@style/base_margin_border"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/bk_hui_02"
+        android:padding="7dp"
+        android:scrollbars="none"
+        android:textColor="@color/blackColor0f"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:id="@+id/layout_termsofservice_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/layout_termsofservice_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/height50"
+            android:background="@drawable/bk_hui_01"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:text="拒绝"
+            android:textColor="@color/blackColor24"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/layout_termsofservice_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bk_red_01"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:text="同意"
+            android:textColor="@color/baseRedColor"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>

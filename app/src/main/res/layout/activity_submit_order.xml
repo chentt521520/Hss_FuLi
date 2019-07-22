@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/huiColorf0"
+    android:orientation="vertical">
+
+    <!--商品支付信息-->
+    <ScrollView
+        style="@style/base_margin_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/good_list"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--收货信息-->
+            <LinearLayout
+                android:id="@+id/ui_good_pay_siteinfo"
+                style="@style/base_padding_border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_bai01"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0"
+                    android:src="@mipmap/location" />
+
+                <RelativeLayout
+                    style="@style/margin_left_right_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/ui_good_pay_name_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="收货人："
+                        android:textColor="@color/blackColor0f"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/ui_good_pay_name"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/ui_good_pay_name_view"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@+id/ui_good_pay_name_view"
+                        android:singleLine="true"
+                        android:text="@string/null_text"
+                        android:textColor="@color/blackColor0f"
+                        android:textSize="14sp" />
+                    <!--联系人电话-->
+                    <TextView
+                        android:id="@+id/ui_good_pay_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/ui_good_pay_name"
+                        android:layout_alignParentEnd="true"
+                        android:singleLine="true"
+                        android:text="@string/null_text"
+                        android:textColor="@color/blackColor33"
+                        android:textSize="13sp" />
+
+                    <!--收货地址-->
+                    <TextView
+                        android:id="@+id/ui_good_pay_site_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ui_good_pay_name"
+                        android:layout_marginTop="7dp"
+                        android:text="收货地址："
+                        android:textColor="@color/blackColor4d"
+                        android:textSize="12sp" />
+                    <!--收货地址-->
+                    <TextView
+                        android:id="@+id/ui_good_pay_site"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ui_good_pay_name"
+                        android:layout_alignTop="@id/ui_good_pay_site_view"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toRightOf="@id/ui_good_pay_site_view"
+                        android:ellipsize="end"
+                        android:lineSpacingExtra="@dimen/width5"
+                        android:maxLines="2"
+                        android:text="@string/null_text"
+                        android:textColor="@color/blackColor24"
+                        android:textSize="12sp" />
+
+                    <!--提示-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ui_good_pay_site"
+                        android:layout_marginTop="7dp"
+                        android:text="为了保证订单尽快达到，请确认是否该收货地址。"
+                        android:textColor="@color/yellowColoreb"
+                        android:textSize="9sp"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <!--地址更改-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0"
+                    android:src="@mipmap/choose_image" />
+
+            </LinearLayout>
+
+            <!--无收货人信息时显示-->
+            <TextView
+                android:id="@+id/ui_good_pay_no_site"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_bai01"
+                android:drawableEnd="@mipmap/choose_image"
+                android:gravity="center_vertical"
+                android:padding="@dimen/margin10"
+                android:text="请选择收货人信息"
+                android:textColor="@color/baseRedColor"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <include
+                style="@style/margin_top_bottom_10"
+                layout="@layout/include_submit_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include layout="@layout/include_pay_layout" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--支付信息-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="0"
+        android:background="@color/whiteColor">
+
+        <TextView
+            android:id="@+id/ui_good_pay_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/width20"
+            android:text="@string/null_text"
+            android:textColor="@color/baseRedColor"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/ui_good_pay_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@color/redColorf73962"
+            android:gravity="center"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:text="提交订单"
+            android:textColor="@color/whiteColor"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/huiColorf0" />
+
+    <!--使用情况-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal">
+
+        <!--未使用-->
+        <TextView
+            android:id="@+id/couponactivity_unused"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="未使用"
+            android:textColor="@color/blackColor4d"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <!--已使用-->
+        <TextView
+            android:id="@+id/couponactivity_hassed"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="已使用"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+
+        <!--已过期-->
+        <TextView
+            android:id="@+id/couponactivity_out"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="已过期"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/huiColorf0" />
+
+    <!--数据列表-->
+    <ListView
+        android:id="@+id/couponactivity_listview"
+        style="@style/padding_left_right_15"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f0f0f0"
+        android:divider="@color/whiteColor"
+        android:listSelector="#00000000"
+        android:paddingTop="@dimen/margin10"
+        android:scrollbars="none" />
+</LinearLayout>

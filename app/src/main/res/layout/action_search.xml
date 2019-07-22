@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+    <!--搜索-->
+    <TextView
+        android:id="@+id/action_search_ss"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@mipmap/search_bg"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:text="请输入要搜索的商品"
+        android:textSize="12sp"
+        android:textColor="@color/hinttextcolor"
+        android:drawableLeft="@mipmap/search_image"
+        android:drawablePadding="3dp"
+        android:layout_centerVertical="true" />
+
+</RelativeLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/good_item"
+        android:layout_width="match_parent"
+        android:layout_height="90dp">
+
+        <!--商品图片-->
+        <ImageView
+            android:id="@+id/ui_order_item_good_image"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginEnd="@dimen/margin10"
+            android:scaleType="fitCenter"
+            android:src="@drawable/def" />
+
+        <!--商品昵称类型-->
+        <TextView
+            android:id="@+id/ui_order_item_good_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/height5"
+            android:layout_toEndOf="@id/ui_order_item_good_image"
+            android:maxLines="2"
+            android:text="@string/null_text"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/ui_order_item_good_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ui_order_item_good_name"
+            android:layout_alignStart="@+id/ui_order_item_good_name"
+            android:layout_marginTop="10dp"
+            android:singleLine="true"
+            android:text="数量："
+            android:textColor="@color/huiColor66"
+            android:textSize="10sp" />
+
+
+        <TextView
+            android:id="@+id/ui_order_item_good_suk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ui_order_item_good_count"
+            android:layout_marginStart="@dimen/height20"
+            android:layout_toEndOf="@+id/ui_order_item_good_count"
+            android:singleLine="true"
+            android:text="净含量："
+            android:textColor="@color/huiColor66"
+            android:textSize="10sp" />
+
+        <!--价格-->
+        <TextView
+            android:id="@+id/ui_order_item_good_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/ui_order_item_good_name"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:text=""
+            android:textColor="@color/huiColor66"
+            android:textSize="13sp" />
+
+        <!--售后申请-->
+        <TextView
+            android:id="@+id/ui_order_item_good_service"
+            style="@style/btn_border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ui_order_item_good_price"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/bk_hui_01"
+            android:text="申请售后"
+            android:textColor="@color/huiColor66"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+</FrameLayout>

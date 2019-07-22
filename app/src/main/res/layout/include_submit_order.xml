@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/base_padding_border"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bai01"
+    android:orientation="vertical">
+
+    <!--商品列表-->
+    <com.example.applibrary.custom.MyListView
+        android:id="@+id/ui_good_pay_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/lucencyColor"
+        android:dividerHeight="10dp"
+        android:listSelector="@color/lucencyColor"
+        android:scrollbars="none" />
+
+    <View
+        style="@style/ui_line"
+        android:layout_marginTop="@dimen/width15" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/ui_good_pay_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
+            android:text="此商品不支持7天无理由退货"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:visibility="gone">
+
+            <View style="@style/ui_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="商品数量"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+
+            <!--配送选择-->
+            <TextView
+                android:id="@+id/ui_good_pay_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="right"
+                android:text="@string/null_text"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ui_good_pay_send_way_view"
+            android:layout_width="match_parent"
+            android:layout_height="35dp">
+
+            <View style="@style/ui_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="配送方式"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+
+            <!--配送选择-->
+            <TextView
+                android:id="@+id/ui_good_pay_send_way"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="@string/null_text"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <View style="@style/ui_line" />
+
+        <LinearLayout
+            android:id="@+id/ui_good_pay_remark_view"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="买家留言"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+
+            <!--备注-->
+            <EditText
+                android:id="@+id/ui_good_pay_remark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="#00ffffff"
+                android:gravity="end"
+                android:hint="选填，请先和商家协商一致"
+                android:inputType="none"
+                android:maxLines="1"
+                android:textColor="@color/blackColor33"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <View style="@style/ui_line" />
+
+        <LinearLayout
+            android:id="@+id/ui_good_pay_coupon_view"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="优惠券"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/ui_good_pay_coupon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/height10"
+                android:layout_weight="1"
+                android:gravity="end|center"
+                android:text="@string/null_text"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="7dp"
+                android:layout_height="10dp"
+                android:layout_weight="0"
+                android:src="@mipmap/choose_image" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/ui_good_pay_gold_icon_view"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <View style="@style/ui_line" />
+
+            <TextView
+                android:id="@+id/ui_good_pay_gold_icon_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="金币抵扣"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/ui_good_pay_gold_icon_check"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/checked_true" />
+        </RelativeLayout>
+
+        <!--未优惠金额-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp">
+
+            <View style="@style/ui_line" />
+
+            <!--小计数量-->
+            <TextView
+                android:id="@+id/ui_good_pay_total_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="@string/null_text"
+                android:textColor="@color/blackColor4d"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

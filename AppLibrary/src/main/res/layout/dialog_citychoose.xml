@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/whiteColor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <!--标题-->
+        <TextView
+            android:id="@+id/citychoose_title"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="标题"
+            android:textSize="14sp"
+            android:textColor="@color/blackColor0f"
+            android:gravity="center" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/huiColorf0" />
+
+        <!--选择的省市县-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/citychoose_province"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="四川省"
+                android:textSize="12sp"
+                android:textColor="@color/baseRedColor"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/citychoose_city"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="成都市"
+                android:textSize="12sp"
+                android:textColor="@color/blackColor0f"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/citychoose_county"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="武侯区"
+                android:textSize="12sp"
+                android:textColor="@color/blackColor0f"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <!--线-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/citychoose_line_province"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/line_citychoose_checked" />
+
+            <TextView
+                android:id="@+id/citychoose_line_city"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/line_citychoose_checked" />
+
+            <TextView
+                android:id="@+id/citychoose_line_county"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/line_citychoose_checked" />
+        </LinearLayout>
+
+        <!--省数据列表-->
+        <ListView
+            android:id="@+id/citychoose_provincelist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#f0f0f0"
+            android:dividerHeight="0.5dp"
+            android:padding="20dp" />
+        <!--市数据列表-->
+        <ListView
+            android:id="@+id/citychoose_citylist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#f0f0f0"
+            android:dividerHeight="0.5dp"
+            android:padding="20dp" />
+        <!--县数据列表-->
+        <ListView
+            android:id="@+id/citychoose_countylist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#f0f0f0"
+            android:dividerHeight="0.5dp"
+            android:padding="20dp" />
+    </LinearLayout>
+    <!--<View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/blackColor00"/>-->
+</LinearLayout>

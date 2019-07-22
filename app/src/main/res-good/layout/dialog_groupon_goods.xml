@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:background="@color/whiteColor"
+    android:orientation="vertical">
+
+    <!--商品信息-->
+    <RelativeLayout
+        style="@style/base_padding_border"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <!--图片-->
+        <ImageView
+            android:id="@+id/dialog_goods_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_corner_border_grey"
+            android:padding="2dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/big_image01" />
+
+        <!--关闭-->
+        <ImageView
+            android:id="@+id/dialog_close"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:layout_alignParentRight="true"
+            android:padding="9dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/goods_close" />
+
+        <!--名称-->
+        <TextView
+            android:id="@+id/dialog_goods_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/width5"
+            android:layout_marginRight="60dp"
+            android:layout_toRightOf="@id/dialog_goods_image"
+            android:maxLines="2"
+            android:text="商品名称"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+
+        <!--价格-->
+        <TextView
+            android:id="@+id/dialog_goods_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/dialog_goods_name"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:text="¥ "
+            android:textColor="@color/baseRedColor"
+            android:textSize="14sp" />
+
+        <!--库存-->
+        <TextView
+            android:id="@+id/dialog_good_stock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:text="库存数量：0"
+            android:textColor="@color/huiColor66"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <!--种类数据-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/dialog_goods_type"
+            style="@style/base_padding_border"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/type1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="类型" />
+
+            <com.example.applibrary.widget.WordWrapView
+                android:id="@+id/type1_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <View style="@style/ui_line" />
+
+    <LinearLayout
+        style="@style/base_padding_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="数量"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+
+        <!--减少-->
+        <TextView
+            android:id="@+id/dialog_goods_jian"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingStart="9dp"
+            android:paddingEnd="9dp"
+            android:text="—"
+            android:textColor="@color/huiColor99"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!--数量-->
+        <TextView
+            android:id="@+id/dialog_goods_number"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+
+        <!--添加-->
+        <TextView
+            android:id="@+id/dialog_goods_jia"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="+"
+            android:textColor="@color/blackColor4d"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <View style="@style/ui_line" />
+
+    <!--加入购物车、立即购买-->
+    <TextView
+        android:id="@+id/dialog_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/baseRedColor"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/whiteColor"
+        android:textSize="18sp" />
+</LinearLayout>

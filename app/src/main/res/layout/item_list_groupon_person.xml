@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/btn_border"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/partner_head"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/image_default_head" />
+
+    <TextView
+        android:id="@+id/partner_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/partner_head"
+        android:text="@string/null_text"
+        android:textColor="#333333"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/margin10"
+        android:layout_toStartOf="@+id/groupon_btn"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/left_people_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="@string/null_text"
+            android:textColor="#333333"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/left_time_over"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="@string/null_text"
+            android:textColor="#333333"
+            android:textSize="9sp" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/groupon_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@mipmap/groupon_btn"
+        android:gravity="center"
+        android:text="@string/groupon_now"
+        android:textColor="#fffefe"
+        android:textSize="12sp" />
+
+
+</RelativeLayout>

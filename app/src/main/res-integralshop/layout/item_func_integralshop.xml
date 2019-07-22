@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/lucencyColor">
+
+    <ImageView
+        android:id="@+id/item_func_integralshop_image"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/integralshop_yhsh"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/item_func_integralshop_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="12345"
+        android:textSize="12sp"
+        android:textColor="@color/whiteColor"
+        android:gravity="center"
+        android:layout_marginTop="10dp" />
+</LinearLayout>

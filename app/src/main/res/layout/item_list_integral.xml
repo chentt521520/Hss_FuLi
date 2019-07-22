@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="horizontal">
+    <!--积分/金币item-->
+
+    <!--图片-->
+    <ImageView
+        android:id="@+id/item_integral_image"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:src="@drawable/big_image01"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center" />
+
+    <!--名称、规格、时间、说明-->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="10dp">
+        <!--名称-->
+        <TextView
+            android:id="@+id/item_integral_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:text="测试 750CL"
+            android:textSize="12sp"
+            android:textColor="@color/blackColor33" />
+
+        <!--时间-->
+        <TextView
+            android:id="@+id/item_integral_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:text="赠送 2019-09-09 21:21:22"
+            android:textSize="12sp"
+            android:textColor="@color/huiColor99"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <!--数量-->
+    <TextView
+        android:id="@+id/item_integral_number"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="+98765"
+        android:textSize="15sp"
+        android:textColor="@color/yellowColoreb"
+        android:gravity="center" />
+</LinearLayout>

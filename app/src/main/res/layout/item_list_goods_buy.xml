@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin10">
+
+    <!--图片-->
+    <ImageView
+        android:id="@+id/item_goodsbuyadapter_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/bg_corner_border_grey"
+        android:padding="1dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_load_lose" />
+    <!--名称-->
+    <TextView
+        android:id="@+id/item_goodsbuyadapter_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="@dimen/width5"
+        android:layout_marginRight="15dp"
+        android:layout_toEndOf="@+id/item_goodsbuyadapter_image"
+        android:maxLines="2"
+        android:text="@string/null_text"
+        android:textColor="@color/blackColor24"
+        android:textSize="12sp" />
+
+    <!--样式-->
+    <TextView
+        android:id="@+id/item_goodsbuyadapter_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_goodsbuyadapter_name"
+        android:layout_alignStart="@id/item_goodsbuyadapter_name"
+        android:layout_alignEnd="@id/item_goodsbuyadapter_name"
+        android:layout_marginTop="10dp"
+        android:maxLines="2"
+        android:text="@string/null_text"
+        android:textColor="@color/blackColor4d"
+        android:textSize="12sp" />
+
+    <!--金额-->
+    <TextView
+        android:id="@+id/item_goodsbuyadapter_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_goodsbuyadapter_type"
+        android:layout_marginStart="@dimen/width15"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/item_goodsbuyadapter_image"
+        android:text="¥ 199.00"
+        android:textColor="@color/blackColor0f"
+        android:textSize="12sp" />
+
+    <!--金额-->
+    <TextView
+        android:id="@+id/item_goodsbuyadapter_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_goodsbuyadapter_type"
+        android:layout_alignTop="@+id/item_goodsbuyadapter_money"
+        android:layout_alignBottom="@+id/item_goodsbuyadapter_money"
+        android:layout_alignParentEnd="true"
+        android:text="x 12"
+        android:textColor="@color/blackColor4d"
+        android:textSize="12sp" />
+
+</RelativeLayout>

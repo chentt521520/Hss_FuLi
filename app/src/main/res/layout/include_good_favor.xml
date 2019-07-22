@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/ui_good_favor_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/whiteColor"
+        android:padding="10dp"
+        android:text="为你推荐"
+        android:textColor="@color/blackColor4d"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <com.example.haoss.views.MyGridView
+        android:id="@+id/ui_grid_favor"
+        style="@style/base_padding_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:horizontalSpacing="@dimen/margin10"
+        android:numColumns="2"
+        android:scrollbars="none"
+        android:verticalSpacing="@dimen/width5" />
+
+</LinearLayout>

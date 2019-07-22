@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    android:orientation="vertical">
+    <!--商品搜索-->
+
+    <include layout="@layout/include_good_search" />
+
+    <com.example.applibrary.widget.WordWrapView
+        android:id="@+id/search_good_tag"
+        style="@style/base_padding_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <!--提示-->
+    <TextView
+        android:id="@+id/goodssearchactivity_hint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="未搜索到您查询的商品，请换个商品搜索！"
+        android:textColor="@color/huiColor66"
+        android:textSize="13sp" />
+
+    <!--搜索结果-->
+    <ListView
+        android:id="@+id/goodssearchactivity_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/huiColorf0"
+        android:dividerHeight="0.5dp"
+        android:listSelector="@color/lucencyColor"
+        android:scrollbars="none" />
+</LinearLayout>

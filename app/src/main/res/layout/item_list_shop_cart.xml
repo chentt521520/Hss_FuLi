@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <!--选中-->
+    <ImageView
+        android:id="@+id/item_shoppingcart_checked"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:src="@mipmap/checked_false" />
+
+    <!--图片-->
+    <ImageView
+        android:id="@+id/item_shoppingcart_image"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:src="@mipmap/frist_jp_dapai01" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--名称-->
+        <TextView
+            android:id="@+id/item_shoppingcart_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin10"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/null_text"
+            android:textColor="#333333"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/item_shoppingcart_suk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_shoppingcart_name"
+            android:layout_marginStart="@dimen/margin10"
+            android:layout_marginTop="@dimen/width5"
+            android:singleLine="true"
+            android:text="@string/null_text"
+            android:textColor="#666666"
+            android:textSize="11sp" />
+
+        <!--金额-->
+        <TextView
+            android:id="@+id/item_shoppingcart_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/margin10"
+            android:layout_marginBottom="@dimen/height5"
+            android:singleLine="true"
+            android:text="¥ 188.88"
+            android:textColor="#c22222"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <!--减-->
+            <ImageView
+                android:id="@+id/item_shoppingcart_jian"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:padding="@dimen/height5"
+                android:src="@mipmap/number_subtract" />
+
+            <!--数量-->
+            <TextView
+                android:id="@+id/item_shoppingcart_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="100"
+                android:textColor="#0f0f0f"
+                android:textSize="15sp" />
+
+            <!--加-->
+            <ImageView
+                android:id="@+id/item_shoppingcart_jia"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:padding="@dimen/height5"
+                android:src="@mipmap/number_add" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

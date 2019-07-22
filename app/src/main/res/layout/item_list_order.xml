@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/margin10"
+    android:paddingTop="@dimen/margin10"
+    android:paddingEnd="@dimen/margin10">
+
+
+    <LinearLayout
+        android:id="@+id/item_orderformshopping_relative"
+        style="@style/base_padding_border_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bk_hui01"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--时间-->
+            <TextView
+                android:id="@+id/item_orderformshopping_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2019-09-08 19:23:54"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+
+            <!--说明-->
+            <TextView
+                android:id="@+id/item_orderformshopping_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="商家已发货"
+                android:textColor="@color/baseRedColor"
+                android:textSize="12sp" />
+
+            <!--&lt;!&ndash;图片&ndash;&gt;-->
+            <!--<ImageView-->
+            <!--android:id="@+id/item_orderformshopping_image"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="90dp"-->
+            <!--android:layout_below="@id/item_orderformshopping_time"-->
+            <!--android:background="@drawable/bg_corner_border_grey"-->
+            <!--android:padding="1dp"-->
+            <!--android:scaleType="fitCenter"-->
+            <!--android:src="@mipmap/frist_jp_img01" />-->
+
+            <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="90dp"-->
+            <!--android:layout_below="@+id/item_orderformshopping_time"-->
+            <!--android:layout_marginStart="@dimen/margin10"-->
+            <!--android:layout_toEndOf="@+id/item_orderformshopping_image">-->
+
+            <!--&lt;!&ndash;商品名称、介绍&ndash;&gt;-->
+            <!--<TextView-->
+            <!--android:id="@+id/item_orderformshopping_name"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_toStartOf="@+id/item_orderformshopping_money"-->
+            <!--android:ellipsize="end"-->
+            <!--android:lineSpacingExtra="@dimen/width5"-->
+            <!--android:maxLines="2"-->
+            <!--android:paddingEnd="10dp"-->
+            <!--android:text="商品介绍"-->
+            <!--android:textColor="@color/blackColor33"-->
+            <!--android:textSize="12sp" />-->
+
+            <!--&lt;!&ndash;金额&ndash;&gt;-->
+            <!--<TextView-->
+            <!--android:id="@+id/item_orderformshopping_money"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:gravity="right"-->
+            <!--android:text="¥ 285"-->
+            <!--android:textColor="@color/blackColor33"-->
+            <!--android:textSize="12sp"-->
+            <!--android:textStyle="bold" />-->
+
+            <!--&lt;!&ndash;商品规格&ndash;&gt;-->
+            <!--<TextView-->
+            <!--android:id="@+id/item_orderformshopping_specification"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/item_orderformshopping_name"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:minLines="1"-->
+            <!--android:text="170CL"-->
+            <!--android:textColor="@color/huiColor66"-->
+            <!--android:textSize="12sp" />-->
+
+            <!--&lt;!&ndash;商品数量&ndash;&gt;-->
+            <!--<TextView-->
+            <!--android:id="@+id/item_orderformshopping_number"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/item_orderformshopping_money"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginTop="@dimen/margin10"-->
+            <!--android:text="x 1"-->
+            <!--android:textColor="@color/huiColor66"-->
+            <!--android:textSize="10sp" />-->
+
+            <!--&lt;!&ndash;总数量&ndash;&gt;-->
+            <!--<TextView-->
+            <!--android:id="@+id/item_orderformshopping_allnumber"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_toStartOf="@+id/item_orderformshopping_allmoney"-->
+            <!--android:paddingLeft="2dp"-->
+            <!--android:paddingRight="2dp"-->
+            <!--android:text="共1件商品，"-->
+            <!--android:textColor="@color/huiColor66"-->
+            <!--android:textSize="12sp" />-->
+
+            <!--&lt;!&ndash;总金额&ndash;&gt;-->
+            <!--<TextView-->
+            <!--android:id="@+id/item_orderformshopping_allmoney"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:text="合计：¥ 155"-->
+            <!--android:textColor="@color/huiColor66"-->
+            <!--android:textSize="12sp" />-->
+            <!--</RelativeLayout>-->
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/order_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin10"
+            android:layout_marginBottom="@dimen/margin10"
+            android:orientation="vertical" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin10">
+            <!--总数量-->
+            <TextView
+                android:id="@+id/item_orderformshopping_allnumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/item_orderformshopping_allmoney"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:text="共1件商品，"
+                android:textColor="@color/huiColor66"
+                android:textSize="12sp" />
+
+            <!--总金额-->
+            <TextView
+                android:id="@+id/item_orderformshopping_allmoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="合计：¥ 155"
+                android:textColor="@color/huiColor66"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--确认收货-->
+            <TextView
+                android:id="@+id/item_right_btn"
+                style="@style/btn_border"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/bk_red_01"
+                android:text="确认收货"
+                android:textColor="@color/baseRedColor"
+                android:textSize="12sp" />
+
+            <!--查看物流-->
+            <TextView
+                android:id="@+id/item_left_btn"
+                style="@style/btn_border"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15sp"
+                android:layout_toStartOf="@id/item_right_btn"
+                android:background="@drawable/bk_hui_01"
+                android:text="确认收货"
+                android:textColor="@color/huiColor66"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</FrameLayout>

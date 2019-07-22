@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--隐藏状态栏，用来控制布局不被上顶-->
+
+    <LinearLayout
+        android:id="@+id/linear_bar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="vertical"
+        android:visibility="visible" />
+
+    <com.example.haoss.views.NoScrollViewPager
+        android:id="@+id/main_vp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View style="@style/ui_line" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <RadioGroup
+            android:id="@+id/guzhu_rg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/guzhu_rb"
+                style="@style/MyRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="true"
+                android:drawableTop="@drawable/guzhu1"
+                android:text="首页" />
+
+            <RadioButton
+                android:id="@+id/fuwushang_rb"
+                style="@style/MyRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/fuwushang1"
+                android:text="分类" />
+
+
+            <RadioButton
+                android:id="@+id/xiaoxi_rb"
+                style="@style/MyRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/xiaoxi1"
+                android:text="购物车" />
+
+            <RadioButton
+                android:id="@+id/wode_rb"
+                style="@style/MyRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/wode1"
+                android:text="我的" />
+
+        </RadioGroup>
+
+    </FrameLayout>
+</LinearLayout>

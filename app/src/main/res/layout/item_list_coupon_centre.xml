@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin10">
+    <!--领券中心item-->
+
+    <LinearLayout
+        android:id="@+id/item_getcouponcentre_bg"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@mipmap/bg_coupon_used">
+
+        <!--左界面-->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="2.5">
+
+            <!--图片-->
+            <ImageView
+                android:id="@+id/item_getcouponcentre_image"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/getcouponcentre_iten_img" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/item_getcouponcentre_image"
+                android:orientation="vertical">
+                <!--名称-->
+                <TextView
+                    android:id="@+id/item_getcouponcentre_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="通用类优惠劵"
+                    android:textColor="@color/huiColor66"
+                    android:textSize="12sp" />
+
+                <!--有效期-->
+                <TextView
+                    android:id="@+id/item_getcouponcentre_validity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="有效期"
+                    android:textColor="@color/huiColor99"
+                    android:textSize="10sp" />
+
+                <!--状态包含剩余-->
+                <TextView
+                    android:id="@+id/item_getcouponcentre_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="剩余：1%"
+                    android:textColor="@color/redColorf73962"
+                    android:textSize="10sp" />
+
+                <!--进度条-->
+                <ProgressBar
+                    android:id="@+id/item_getcouponcentre_pb"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="100dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="5dp"
+                    android:max="100"
+                    android:maxHeight="12dp"
+                    android:minHeight="12dp"
+                    android:progress="19"
+                    android:progressTint="@color/baseRedColor" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <!--右界面-->
+        <LinearLayout
+            android:id="@+id/getcouponcentre_item_bgr"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <!--优惠劵金额-->
+            <TextView
+                android:id="@+id/item_getcouponcentre_maoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxLines="1"
+                android:text="¥ 5"
+                android:textColor="@color/whiteColor"
+                android:textSize="24sp" />
+
+            <!--领券按钮-->
+            <TextView
+                android:id="@+id/item_getcouponcentre_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="7dp"
+                android:background="@mipmap/getcouponcentre_button"
+                android:gravity="center"
+                android:text="去领券"
+                android:textColor="@color/redColorf73962"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/whiteColor">
+    <!--积分商城界面-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/integralshop_bg"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:text="积分商城"
+                android:textSize="14sp"
+                android:textColor="@color/whiteColor"
+                android:gravity="center" />
+            <!--返回-->
+            <ImageView
+                android:id="@+id/integralshop_return"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:src="@drawable/integralshop_goback"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/integralshop_bjjf">
+
+            <!--头像-->
+            <ImageView
+                android:id="@+id/integralshop_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/integralshop_timg"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:id="@+id/integralshop_kyjf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="25dp"
+                android:text="可用积分"
+                android:textSize="14sp"
+                android:textColor="@color/blackColor0f" />
+
+            <!--积分数量-->
+            <TextView
+                android:id="@+id/integralshop_integralnumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="9999"
+                android:textSize="24sp"
+                android:textColor="@color/blackColor35383f"
+                android:layout_alignRight="@id/integralshop_kyjf"
+                android:layout_below="@id/integralshop_kyjf"
+                android:layout_marginTop="10dp" />
+
+            <!--昵称-->
+            <TextView
+                android:id="@+id/integralshop_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:layout_alignTop="@id/integralshop_kyjf"
+                android:layout_toLeftOf="@id/integralshop_kyjf"
+                android:layout_toRightOf="@id/integralshop_image"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="去去去"
+                android:textSize="14sp"
+                android:textColor="@color/blackColor0f" />
+
+            <!--兑换记录-->
+            <TextView
+                android:id="@+id/integralshop_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="兑换记录"
+                android:textSize="12sp"
+                android:textColor="@color/blackColor0f"
+                android:layout_below="@id/integralshop_image"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:drawableRight="@drawable/integralshop_go"
+                android:drawablePadding="5dp" />
+        </RelativeLayout>
+
+        <!--5功能导航-->
+        <com.example.applibrary.custom.MyGridView
+            android:id="@+id/integralshop_func"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:numColumns="5"
+            android:scrollbars="none"
+            android:listSelector="#00000000" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/integralshop_bgnr"
+        android:layout_margin="12dp"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="猜您喜欢"
+            android:textSize="12sp"
+            android:textColor="@color/blackColor4d"
+            android:layout_marginBottom="10dp" />
+
+        <!--内容-->
+        <ListView
+            android:id="@+id/integralshop_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@color/lucencyColor"
+            android:divider="@color/huiColorf0"
+            android:dividerHeight="0.5dp"
+            android:scrollbars="none"></ListView>
+    </LinearLayout>
+</LinearLayout>

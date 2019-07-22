@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="8dp"
+    android:orientation="horizontal"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp"
+    android:background="@color/whiteColor">
+
+    <!--全部 线1-->
+    <TextView
+        android:id="@+id/action_line_all"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_weight="1"
+        android:background="@color/baseRedColor"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
+
+    <!--待付款 线2-->
+    <TextView
+        android:id="@+id/action_line_staypay"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_weight="1"
+        android:background="@color/whiteColor"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
+
+    <!--待发货 线3-->
+    <TextView
+        android:id="@+id/action_line_staysend"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_weight="1"
+        android:background="@color/whiteColor"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
+
+    <!--待收货 线4-->
+    <TextView
+        android:id="@+id/action_line_stayrecv"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_weight="1"
+        android:background="@color/whiteColor"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
+
+    <!--已完成 线5-->
+    <TextView
+        android:id="@+id/action_line_finish"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_weight="1"
+        android:background="@color/whiteColor"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
+
+    <!--已取消 线6-->
+    <!--<TextView
+        android:id="@+id/action_line_cancel"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_weight="1"
+        android:background="@color/whiteColor"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>-->
+</LinearLayout>

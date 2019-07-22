@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    android:orientation="vertical">
+    <!--商品搜索-->
+
+    <include layout="@layout/include_good_search" />
+
+    <View style="@style/ui_line" />
+
+    <!--提示-->
+    <TextView
+        android:id="@+id/goodslistactivity_hint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingTop="20dp"
+        android:text="未搜索到您查询的商品！"
+        android:textColor="@color/huiColor66"
+        android:textSize="13sp"
+        android:visibility="gone" />
+
+
+    <!--选择栏-->
+    <LinearLayout
+        android:id="@+id/goodslistactivity_selectionbar"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:background="@color/whiteColor"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/goodslistactivity_synthesize"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <!--综合-->
+            <TextView
+                android:id="@+id/goodslistactivity_synthesize_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="综合"
+                android:textColor="@color/baseRedColor"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/goodslistactivity_synthesize_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin10"
+                android:src="@drawable/choose_true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/goodslistactivity_sales"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <!--综合-->
+            <TextView
+                android:id="@+id/goodslistactivity_sales_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="销量"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/goodslistactivity_sales_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin10" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/goodslistactivity_price"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <!--综合-->
+            <TextView
+                android:id="@+id/goodslistactivity_price_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="价格"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/goodslistactivity_price_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin10" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <include layout="@layout/include_fresh_list_layout" />
+</LinearLayout>
+

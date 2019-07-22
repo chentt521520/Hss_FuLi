@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    android:orientation="vertical"
+    android:padding="@dimen/height20">
+    <!--支付设置-->
+
+    <!--支付设置页-->
+    <LinearLayout
+        android:id="@+id/paysettingactivity_payset"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <View style="@style/ui_line" />
+        <!--设置支付密码-->
+        <TextView
+            android:id="@+id/paysettingactivity_setpaypas"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:drawableEnd="@mipmap/more_image"
+            android:gravity="center_vertical"
+            android:text="设置支付密码"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+
+        <View style="@style/ui_line" />
+
+    </LinearLayout>
+
+    <!--设置支付密码页-->
+    <RelativeLayout
+        android:id="@+id/paysettingactivity_paysetpass"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="25dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/paysettingactivity_paysetpass_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="设置六位纯数字密码" />
+
+        <!--6位密码-->
+        <RelativeLayout
+            android:id="@+id/paysettingactivity_paysetpass_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/paysettingactivity_paysetpass_hint"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <!--1-->
+            <TextView
+                android:id="@+id/paysettingactivity_paysetpass_one"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/bk_hui_03"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:maxLength="1"
+                android:text=""
+                android:textSize="15sp" />
+            <!--2-->
+            <TextView
+                android:id="@+id/paysettingactivity_paysetpass_two"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_toEndOf="@+id/paysettingactivity_paysetpass_one"
+                android:background="@drawable/bk_hui_03"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:maxLength="1"
+                android:text=""
+                android:textSize="15sp" />
+            <!--3-->
+            <TextView
+                android:id="@+id/paysettingactivity_paysetpass_three"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_toEndOf="@+id/paysettingactivity_paysetpass_two"
+                android:background="@drawable/bk_hui_03"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:maxLength="1"
+                android:text=""
+                android:textSize="15sp" />
+            <!--4-->
+            <TextView
+                android:id="@+id/paysettingactivity_paysetpass_four"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_toEndOf="@+id/paysettingactivity_paysetpass_three"
+                android:background="@drawable/bk_hui_03"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:maxLength="1"
+                android:text=""
+                android:textSize="15sp" />
+            <!--5-->
+            <TextView
+                android:id="@+id/paysettingactivity_paysetpass_five"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_toEndOf="@+id/paysettingactivity_paysetpass_four"
+                android:background="@drawable/bk_hui_03"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:maxLength="1"
+                android:text=""
+                android:textSize="15sp" />
+            <!--6-->
+            <TextView
+                android:id="@+id/paysettingactivity_paysetpass_six"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_toEndOf="@+id/paysettingactivity_paysetpass_five"
+                android:background="@drawable/bk_hui_03"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:maxLength="1"
+                android:text=""
+                android:textSize="15sp" />
+
+            <!--支付密码设置输入-->
+            <EditText
+                android:id="@+id/paysettingactivity_paysetpass_input"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignStart="@+id/paysettingactivity_paysetpass_one"
+                android:layout_alignTop="@+id/paysettingactivity_paysetpass_one"
+                android:background="#00000000"
+                android:digits="1234567890"
+                android:maxLength="6"
+                android:textColor="#00000000"
+                android:textSize="1sp" />
+        </RelativeLayout>
+
+        <!--确定按钮-->
+        <TextView
+            android:id="@+id/paysettingactivity_paysetpass_sure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/paysettingactivity_paysetpass_linear"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/bg_red_02"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="确定"
+            android:textColor="@color/whiteColor"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <!--账户验证页-->
+    <include
+        android:id="@+id/paysettingactivity_acc"
+        layout="@layout/action_phone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <!--设置成功页-->
+    <LinearLayout
+        android:id="@+id/paysettingactivity_ok"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="40dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/password_updata_ok" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="成功啦！放心去购物吧！"
+            android:textColor="@color/baseRedColor"
+            android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/whiteColor">
+
+    <ImageView
+        android:id="@+id/fragment_guide_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/guide_one" />
+
+    <!--引导页按钮-->
+    <LinearLayout
+        android:id="@+id/fragment_guide_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/fragment_guide_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="立即体验"
+            android:textSize="18sp"
+            android:textColor="@color/whiteColor"
+            android:background="@drawable/guide_buootn"
+            android:gravity="center"
+            android:visibility="visible"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/margin10"
+    android:paddingEnd="@dimen/width15"
+    android:paddingStart="@dimen/width15">
+
+    <RelativeLayout
+        style="@style/base_padding_border"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_bai01">
+
+        <ImageView
+            android:id="@+id/item_address_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/checked_false" />
+
+        <TextView
+            android:id="@+id/item_user_name"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/height10"
+            android:layout_toEndOf="@+id/item_address_check"
+            android:maxLines="1"
+            android:textColor="#0f0f0f"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/item_user_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/height50"
+            android:layout_toEndOf="@+id/item_user_name"
+            android:maxLines="1"
+            android:textColor="#0f0f0f"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/item_user_address_def"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/item_user_name"
+            android:layout_below="@+id/item_user_name"
+            android:layout_marginTop="@dimen/height10"
+            android:text="默认"
+            android:textColor="#c44444"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/item_user_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_user_name"
+            android:layout_marginStart="@dimen/height10"
+            android:layout_marginTop="@dimen/height10"
+            android:layout_toEndOf="@+id/item_user_address_def"
+            android:layout_toStartOf="@+id/item_address_edit"
+            android:ellipsize="end"
+            android:lineSpacingExtra="@dimen/height5"
+            android:maxLines="2"
+            android:textColor="#4d4d4d"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:id="@+id/item_address_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/height10"
+            android:src="@mipmap/addre_editor_img" />
+    </RelativeLayout>
+
+</FrameLayout>

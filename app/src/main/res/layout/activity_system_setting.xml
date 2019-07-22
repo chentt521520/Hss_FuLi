@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/base_padding_border"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor">
+    <!--系统设置-->
+
+
+    <!--线-->
+    <TextView
+        android:id="@+id/systemsettingactivity_line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/huiColorf0" />
+
+    <!--手机号码-->
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/systemsettingactivity_line1"
+        android:gravity="center_vertical"
+        android:text="手机号码"
+        android:textColor="@color/blackColor0f"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/systemsettingactivity_phone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/systemsettingactivity_line1"
+        android:drawablePadding="8dp"
+        android:drawableRight="@mipmap/right_dingdan_img"
+        android:gravity="right|center_vertical"
+        android:hint="电话号码修改"
+        android:paddingLeft="120dp"
+        android:textColor="@color/huiColor80"
+        android:textColorHint="@color/huiColor80"
+        android:textSize="12sp" />
+
+    <!--线-->
+    <TextView
+        android:id="@+id/systemsettingactivity_line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/systemsettingactivity_phone"
+        android:background="@color/huiColorf0" />
+
+    <!--支付设置-->
+    <TextView
+        android:id="@+id/systemsettingactivity_pay"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/systemsettingactivity_line2"
+        android:drawableRight="@mipmap/right_dingdan_img"
+        android:gravity="center_vertical"
+        android:text="支付设置"
+        android:textColor="@color/blackColor0f"
+        android:textSize="12sp" />
+
+    <!--线-->
+    <TextView
+        android:id="@+id/systemsettingactivity_line3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/systemsettingactivity_pay"
+        android:background="@color/huiColorf0" />
+
+    <!--账号密码-->
+    <TextView
+        android:id="@+id/systemsettingactivity_password"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/systemsettingactivity_line3"
+        android:drawableRight="@mipmap/right_dingdan_img"
+        android:gravity="center_vertical"
+        android:text="账号密码"
+        android:textColor="@color/blackColor0f"
+        android:textSize="12sp" />
+
+    <!--线-->
+    <TextView
+        android:id="@+id/systemsettingactivity_line4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/systemsettingactivity_password"
+        android:background="@color/huiColorf0" />
+
+    <!--清除缓存-->
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/systemsettingactivity_line4"
+        android:gravity="center_vertical"
+        android:text="清除缓存"
+        android:textColor="@color/blackColor0f"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/systemsettingactivity_cache"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/systemsettingactivity_line4"
+        android:drawablePadding="8dp"
+        android:drawableRight="@mipmap/right_dingdan_img"
+        android:gravity="right|center_vertical"
+        android:hint="0.0 M"
+        android:paddingLeft="120dp"
+        android:textColor="@color/huiColor80"
+        android:textSize="12sp" />
+
+    <!--线-->
+    <TextView
+        android:id="@+id/systemsettingactivity_line5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/systemsettingactivity_cache"
+        android:background="@color/huiColorf0" />
+
+    <!--关于我们-->
+    <TextView
+        android:id="@+id/systemsettingactivity_guanyu"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/systemsettingactivity_line5"
+        android:drawableRight="@mipmap/right_dingdan_img"
+        android:gravity="center_vertical"
+        android:text="关于我们"
+        android:textColor="@color/blackColor0f"
+        android:textSize="12sp" />
+
+    <!--线-->
+    <TextView
+        android:id="@+id/systemsettingactivity_line6"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/systemsettingactivity_guanyu"
+        android:background="@color/huiColorf0" />
+
+    <!--版本说明-->
+    <TextView
+        android:id="@+id/systemsettingactivity_versions"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/systemsettingactivity_line6"
+        android:drawableRight="@mipmap/right_dingdan_img"
+        android:gravity="center_vertical"
+        android:text="版本说明"
+        android:textColor="@color/blackColor0f"
+        android:textSize="12sp" />
+
+    <!--线-->
+    <TextView
+        android:id="@+id/systemsettingactivity_line7"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/systemsettingactivity_versions"
+        android:layout_marginBottom="35dp"
+        android:background="@color/huiColorf0" />
+
+    <!--退出登录-->
+    <TextView
+        android:id="@+id/systemsettingactivity_exitlogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/systemsettingactivity_line7"
+        android:background="@drawable/bg_red_02"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="退出登录"
+        android:textColor="@color/whiteColor"
+        android:textSize="15sp" />
+
+</RelativeLayout>

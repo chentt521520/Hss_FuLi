@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">蜀猪猪</string>
+    <string name="load_full">已加载全部</string>
+    <string name="no_data">暂无数据</string>
+    <string name="more">加载中...</string>
+    <color name="colorhit">#cccccc</color>
+    <string name="fast_login">第三方登录</string>
+
+
+    <string name="null_text">--</string>
+
+
+    <!--我的-->
+    <string name="add_new_address">添加新地址</string>
+    <string name="shopping_address">收货地址</string>
+    <string name="default_address">默认</string>
+    <string name="btn_confirm">确定</string>
+
+
+    <!--拼团-->
+    <string name="select_partner_groupon">选择下面的小伙伴快速拼团</string>
+    <string name="groupon_now">立即参团</string>
+    <string name="groupon_rules">拼团规则说明</string>
+    <string name="groupon_oerder_pay_success">订单支付成功</string>
+    <string name="congratulation_groupon_success">恭喜您，拼团成功</string>
+    <string name="groupon_together">快来和我一起拼团吧！</string>
+    <string name="pity_groupon_fail">很遗憾，差一点就成功了</string>
+    <string name="groupon_success">拼团成功</string>
+    <string name="groupon_fild">拼团失败</string>
+    <string name="groupon_more">查看更多拼团活动</string>
+    <string name="groupon_has_beyound_24">限时24小时拼团已超时</string>
+    <string name="invite_partner_groupon">邀请小伙伴拼团</string>
+    <string name="groupon_process_tip">支付开团—支付参团—凑齐人数发货—凑不齐退款</string>
+</resources>

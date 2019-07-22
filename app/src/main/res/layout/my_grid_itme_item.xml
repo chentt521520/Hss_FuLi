@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="70dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/gv_iv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin10"
+        android:src="@mipmap/person_no_delivery_img" />
+
+    <TextView
+        android:id="@+id/gv_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gv_iv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="@dimen/margin10"
+        android:text="@string/null_text"
+        android:textColor="#5e5e5e"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/gv_num"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_above="@+id/gv_iv"
+        android:layout_marginStart="-10dp"
+        android:layout_marginBottom="-20dp"
+        android:layout_toEndOf="@+id/gv_iv"
+        android:background="@mipmap/red_dot"
+        android:gravity="center"
+        android:text="1111"
+        android:textColor="#ffffff"
+        android:textSize="8sp" />
+
+</RelativeLayout>

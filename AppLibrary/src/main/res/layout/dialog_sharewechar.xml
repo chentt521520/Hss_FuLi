@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bk_hui01"
+    android:orientation="vertical">
+    <!--微信分享对话框-->
+
+    <!--标题-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <!--标题-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="分享"
+            android:textColor="@color/blackColor0f"
+            android:textSize="14sp" />
+
+        <!--关闭-->
+        <ImageView
+            android:id="@+id/dialog_sharewechar_close"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="7dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/share_close" />
+    </RelativeLayout>
+
+    <View style="@style/ui_line" />
+    <!--分享按钮-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--微信好友-->
+        <TextView
+            android:id="@+id/dialog_sharewechar_wx"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/share_wx"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="微信好友"
+            android:textColor="@color/blackColor24"
+            android:textSize="10sp" />
+
+        <!--微信朋友圈-->
+        <TextView
+            android:id="@+id/dialog_sharewechar_pyq"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/share_pyq"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="微信朋友圈"
+            android:textColor="@color/blackColor24"
+            android:textSize="10sp" />
+
+        <!--复制链接-->
+        <TextView
+            android:id="@+id/dialog_sharewechar_copy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/share_copy"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="复制链接"
+            android:textColor="@color/blackColor24"
+            android:textSize="10sp" />
+    </LinearLayout>
+</LinearLayout>

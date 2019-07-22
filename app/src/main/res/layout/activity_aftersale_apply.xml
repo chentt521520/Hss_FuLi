@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/whiteColor">
+    <!--售后服务申请界面-->
+
+    <!--标题-->
+    <include layout="@layout/action_title" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/huiColorf0" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <!--商品信息-->
+            <include layout="@layout/item_list_aftersale" />
+
+            <!--线-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/huiColorf0" />
+
+            <!--服务类型选择-->
+            <LinearLayout
+                android:id="@+id/aftersaleapplyforactivity_typechoose"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!--退款（无需退货）-->
+                <TextView
+                    android:id="@+id/aftersaleapplyforactivity_refund"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="退款（无需退货）"
+                    android:textSize="12sp"
+                    android:textColor="@color/blackColor0f"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@mipmap/more_image" />
+
+                <!--线-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/huiColorf0" />
+
+                <!--退货退款-->
+                <TextView
+                    android:id="@+id/aftersaleapplyforactivity_refundandsalesreturn"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="退货退款"
+                    android:textSize="12sp"
+                    android:textColor="@color/blackColor0f"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@mipmap/more_image" />
+
+                <!--线-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/huiColorf0" />
+
+                <!--换货-->
+                <TextView
+                    android:id="@+id/aftersaleapplyforactivity_barter"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="换货"
+                    android:textSize="12sp"
+                    android:textColor="@color/blackColor0f"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@mipmap/more_image" />
+            </LinearLayout>
+
+
+            <!--退货退款/退款/换货-->
+            <LinearLayout
+                android:id="@+id/aftersaleapplyforactivity_quitlinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!--货物状态-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/aftersaleapplyforactivity_statetext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="货物状态"
+                        android:textSize="12sp"
+                        android:textColor="@color/blackColor0f"
+                        android:gravity="center_vertical"
+                        android:paddingRight="5dp" />
+
+                    <TextView
+                        android:id="@+id/aftersaleapplyforactivity_state"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:hint="请选择"
+                        android:textSize="12sp"
+                        android:textColor="@color/blackColor0f"
+                        android:gravity="center_vertical|right"
+                        android:drawableRight="@mipmap/more_image"
+                        android:drawablePadding="10dp" />
+                </LinearLayout>
+
+                <!--线-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/huiColorf0" />
+
+                <!--退款原因-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/aftersaleapplyforactivity_causetext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="退款原因"
+                        android:textSize="12sp"
+                        android:textColor="@color/blackColor0f"
+                        android:gravity="center_vertical"
+                        android:paddingRight="5dp" />
+
+                    <TextView
+                        android:id="@+id/aftersaleapplyforactivity_cause"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="请选择"
+                        android:textSize="12sp"
+                        android:textColor="@color/blackColor0f"
+                        android:gravity="center_vertical|right"
+                        android:drawableRight="@mipmap/more_image"
+                        android:drawablePadding="10dp" />
+                </LinearLayout>
+
+                <!--线-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/huiColorf0" />
+
+                <!--退款金额-->
+                <LinearLayout
+                    android:id="@+id/aftersaleapplyforactivity_moneylinear"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="退款金额："
+                        android:textSize="12sp"
+                        android:textColor="@color/blackColor0f"
+                        android:gravity="center_vertical"
+                        android:paddingRight="5dp" />
+
+                    <TextView
+                        android:id="@+id/aftersaleapplyforactivity_money"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="¥ 100"
+                        android:textSize="12sp"
+                        android:textColor="@color/baseRedColor"
+                        android:gravity="center_vertical" />
+                </LinearLayout>
+
+                <!--线-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/huiColorf0" />
+
+                <!--退款说明-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/aftersaleapplyforactivity_explaintext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="退款说明："
+                        android:textSize="12sp"
+                        android:textColor="@color/blackColor0f"
+                        android:gravity="center_vertical"
+                        android:paddingRight="5dp" />
+
+                    <EditText
+                        android:id="@+id/aftersaleapplyforactivity_explain"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="选填"
+                        android:textSize="12sp"
+                        android:textColor="@color/blackColor0f"
+                        android:gravity="center_vertical"
+                        android:background="@color/whiteColor" />
+                </LinearLayout>
+
+                <!--线-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/huiColorf0" />
+
+                <!--上传凭证-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="上传凭证：（最多上传5张）"
+                    android:textSize="12sp"
+                    android:textColor="@color/blackColor0f"
+                    android:gravity="center_vertical" />
+
+                <!--上传凭证的图片-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="80dp">
+                    <!--1-->
+                    <ImageView
+                        android:id="@+id/aftersaleapplyforactivity_imageone"
+                        android:layout_width="60dp"
+                        android:layout_height="70dp"
+                        android:background="@mipmap/image_paizhao"
+                        android:layout_margin="3dp" />
+                    <!--2-->
+                    <ImageView
+                        android:id="@+id/aftersaleapplyforactivity_imagetwo"
+                        android:layout_width="60dp"
+                        android:layout_height="70dp"
+                        android:background="@mipmap/image_paizhao"
+                        android:layout_margin="3dp" />
+                    <!--3-->
+                    <ImageView
+                        android:id="@+id/aftersaleapplyforactivity_imagethree"
+                        android:layout_width="60dp"
+                        android:layout_height="70dp"
+                        android:background="@mipmap/image_paizhao"
+                        android:layout_margin="3dp" />
+                    <!--4-->
+                    <ImageView
+                        android:id="@+id/aftersaleapplyforactivity_imagefour"
+                        android:layout_width="60dp"
+                        android:layout_height="70dp"
+                        android:background="@mipmap/image_paizhao"
+                        android:layout_margin="3dp" />
+                    <!--5-->
+                    <ImageView
+                        android:id="@+id/aftersaleapplyforactivity_imagefive"
+                        android:layout_width="60dp"
+                        android:layout_height="70dp"
+                        android:background="@mipmap/image_paizhao"
+                        android:layout_margin="3dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/aftersaleapplyforactivity_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="提交"
+                    android:textSize="14sp"
+                    android:textColor="@color/whiteColor"
+                    android:gravity="center"
+                    android:background="@drawable/bg_red_02"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

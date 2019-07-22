@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--无消息提示-->
+    <TextView
+        android:id="@+id/personmsgactivity_hint"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="当前无系统信息"
+        android:textSize="13sp"
+        android:textColor="@color/baseRedColor"
+        android:gravity="center"
+        android:visibility="gone"
+        android:background="@color/whiteColor" />
+
+    <!--信息列表-->
+    <ListView
+        android:id="@+id/personmsgactivity_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/huiColorf0"
+        android:dividerHeight="1dp"
+        android:listSelector="@color/lucencyColor"
+        android:layout_margin="2dp"
+        android:background="@color/whiteColor"
+        android:scrollbars="none" />
+
+</LinearLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/ui_brand_recommad_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/whiteColor"
+        android:padding="10dp"
+        android:text="品牌推荐"
+        android:textColor="@color/blackColor4d"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ui_grid_brand_recommad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/whiteColor"
+        android:horizontalSpacing="10dp"
+        android:listSelector="@color/lucencyColor"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:scrollbars="none" />
+
+</LinearLayout>

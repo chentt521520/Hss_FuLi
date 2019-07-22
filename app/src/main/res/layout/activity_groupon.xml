@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--拼团界面-->
+
+    <!--头-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tourdiyactivity_h"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/pintuan_bg_h" />
+
+        <!--提示-->
+        <TextView
+            android:id="@+id/tourdiyactivity_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tourdiyactivity_h"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/pintuan_bg_line"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="拼团享优惠"
+            android:textColor="@color/whiteColor"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/redColorff284e"
+        android:paddingTop="@dimen/margin10">
+
+        <include layout="@layout/include_fresh_list_layout" />
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/whiteColor">
+        <!--轮播-->
+        <com.example.applibrary.custom.viewfragment.FragmentView
+            android:id="@+id/ui_bannar"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <!--搜索-->
+        <include
+            layout="@layout/action_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp" />
+    </RelativeLayout>
+
+    <com.example.haoss.views.MyGridView
+        android:id="@+id/ui_grid_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/whiteColor"
+        android:gravity="center"
+        android:listSelector="@color/lucencyColor"
+        android:numColumns="4"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:scrollbars="none" />
+
+</LinearLayout>

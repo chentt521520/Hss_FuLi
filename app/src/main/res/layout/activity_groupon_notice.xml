@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/groupon_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/bg_groupon"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/groupon_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/margin20"
+            android:text="@string/congratulation_groupon_success"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/groupon_state"
+            android:layout_marginTop="@dimen/width70"
+            android:background="#ffffff" />
+
+        <LinearLayout
+            android:id="@+id/groupon_form"
+            style="@style/base_padding_border"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_below="@+id/groupon_state"
+            android:layout_marginStart="@dimen/width15"
+            android:layout_marginEnd="@dimen/width15"
+            android:background="@mipmap/bg_groupon_order_form">
+
+            <ImageView
+                android:id="@+id/groupon_good_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@mipmap/frist_jp_img01" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin10"
+                android:paddingTop="@dimen/height5"
+                android:paddingBottom="@dimen/height5">
+
+                <TextView
+                    android:id="@+id/groupon_good_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="3dp"
+                    android:maxLines="2"
+                    android:text="@string/null_text"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/groupon_good_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="@string/null_text"
+                    android:textColor="#c22222"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/single_buy_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/groupon_good_price"
+                    android:layout_marginStart="@dimen/width15"
+                    android:layout_toEndOf="@+id/groupon_good_price"
+                    android:text="单人购买："
+                    android:textColor="#666666"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/single_buy_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/groupon_good_price"
+                    android:layout_toEndOf="@+id/single_buy_view"
+                    android:text="@string/null_text"
+                    android:textColor="#666666"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/group_people_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/height20">
+
+        <LinearLayout
+            android:id="@+id/groupon_team_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+
+        <!--拼团状态-->
+        <include layout="@layout/include_groupon_status_view" />
+    </LinearLayout>
+
+
+</LinearLayout>

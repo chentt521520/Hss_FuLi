@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <!--商品样式1-->
+
+    <ImageView
+        android:id="@+id/item_gift_package_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_corner_border_grey"
+        android:padding="1dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/addre_editor_img" />
+
+    <TextView
+        android:id="@+id/item_gift_package_descript"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_gift_package_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="商品名称"
+        android:textColor="@color/blackColor0f"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/item_gift_package_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_gift_package_descript"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin10"
+        android:text="¥ 100"
+        android:textColor="#c22222"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

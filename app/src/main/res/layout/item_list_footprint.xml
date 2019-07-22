@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/whiteColor"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/footprint_shoppinglinear"
+        style="@style/base_padding_border"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/whiteColor">
+
+        <!--选中按钮-->
+        <ImageView
+            android:id="@+id/footprint_shoppingchecked"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/margin10"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/checked_false"
+            android:visibility="gone" />
+        <!--图片-->
+        <ImageView
+            android:id="@+id/footprint_shoppingimage"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/footprint_shoppingchecked"
+            android:background="@drawable/bg_corner_border_grey"
+            android:padding="1dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/big_image01" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height100"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin10"
+            android:layout_toEndOf="@+id/footprint_shoppingimage">
+            <!--名称，规格-->
+            <TextView
+                android:id="@+id/footprint_shoppingname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/width5"
+                android:ellipsize="end"
+                android:lineSpacingExtra="@dimen/width5"
+                android:maxLines="2"
+                android:text="商品"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+            <!--价格-->
+            <TextView
+                android:id="@+id/footprint_shoppingmoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/height5"
+                android:text="¥ 100"
+                android:textColor="@color/baseRedColor"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View style="@style/ui_line" />
+</LinearLayout>

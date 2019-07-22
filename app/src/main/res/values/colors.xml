@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="white">#ffffff</color>
+    <color name="text_black">#000000</color>
+    <color name="text_hint">#e4c7c5</color>
+    <color name="login_btn_bg">#e43739</color>
+    <color name="text_1">#0f0f0f</color>
+
+    <color name="fengexian">#f8f8f8</color>
+    <color name="line">#efefef</color>
+    <color name="text_red">#c22222</color>
+    <color name="line2">#dedede</color>
+    <color name="line3">#f4f4f4</color>
+    <color name="hinttextcolor">#bbbcbf</color>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    android:orientation="vertical">
+    <!--足迹-->
+
+    <include
+        layout="@layout/include_fresh_list_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+
+    <RelativeLayout
+        android:id="@+id/footprintactivity_linear"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="0"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <!--全选-->
+        <TextView
+            android:id="@+id/footprintactivity_checkall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:drawableStart="@mipmap/checked_false"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="全选"
+            android:textColor="@color/blackColor0f"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/footprintactivity_delele_all"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="@dimen/height20"
+            android:layout_toStartOf="@+id/footprintactivity_delete"
+            android:drawableStart="@mipmap/ic_footprint_delete_all"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="清空"
+            android:textColor="@color/blackColor0f"
+            android:textSize="14sp" />
+        <!--删除-->
+        <TextView
+            android:id="@+id/footprintactivity_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="1dp"
+            android:background="@color/baseRedColor"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="删除"
+            android:textColor="@color/whiteColor"
+            android:textSize="14sp" />
+    </RelativeLayout>
+</LinearLayout>

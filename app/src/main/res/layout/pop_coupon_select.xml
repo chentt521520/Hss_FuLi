@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/whiteColor"
+        android:paddingStart="@dimen/width15"
+        android:paddingTop="@dimen/margin10"
+        android:paddingEnd="@dimen/width15"
+        android:paddingBottom="@dimen/margin10"
+        android:text="优惠券"
+        android:textColor="#4d4d4d"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/whiteColor"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/item_pop_viable_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/margin10"
+            android:text="可用优惠券"
+            android:textColor="#c22222"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/item_pop_unavailable_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/margin10"
+            android:text="不可用优惠券"
+            android:textColor="#0f0f0f"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <View style="@style/ui_line" />
+
+
+    <TextView
+        android:id="@+id/item_pop_save_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/whiteColor"
+        android:gravity="center_vertical"
+        android:padding="@dimen/margin10"
+        android:text="已选中推荐优惠券，使用该优惠券抵扣10"
+        android:textColor="#0f0f0f"
+        android:textSize="10sp" />
+
+
+    <ListView
+        android:id="@+id/item_pop_coupon_list"
+        style="@style/base_padding_border"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:divider="@null"
+        android:scrollbars="none" />
+</LinearLayout>

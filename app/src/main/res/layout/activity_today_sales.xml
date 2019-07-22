@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/huiColorf0"
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
+    <!--今日特价界面-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/nowspecialoffer_title_bg">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingEnd="@dimen/width15"
+            android:paddingStart="@dimen/width15">
+
+            <ImageView
+                android:id="@+id/page_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="今日特价"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <com.example.applibrary.widget.freshLoadView.RefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp">
+
+        <!--数据列表-->
+        <ListView
+            android:id="@+id/nowspecialofferactivity_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_hui_01"
+            android:divider="@color/lucencyColor"
+            android:dividerHeight="5dp"
+            android:listSelector="@color/lucencyColor"
+            android:scrollbars="none" />
+    </com.example.applibrary.widget.freshLoadView.RefreshLayout>
+
+</RelativeLayout>

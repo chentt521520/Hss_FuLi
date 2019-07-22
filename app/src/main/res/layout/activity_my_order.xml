@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/huiColorf0"
+    android:orientation="vertical">
+
+    <View style="@style/ui_line" />
+
+    <!--选项-->
+    <include layout="@layout/action_textbutton" />
+
+    <include layout="@layout/action_line" />
+
+    <!--订单商品信息-->
+    <com.example.haoss.views.NoScrollViewPager
+        android:id="@+id/layout_myorderform_vpager"
+        style="@style/base_padding_border"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <include
+        layout="@layout/include_fresh_list_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin10" />
+
+</LinearLayout>

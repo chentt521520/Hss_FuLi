@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--标题-->
+    <include
+        android:id="@+id/title"
+        layout="@layout/action_title" />
+
+    <!--未登录状态-->
+    <LinearLayout
+        android:id="@+id/not_login_hint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="您还未登录，请点击下方按钮登录。"
+            android:textColor="@color/baseRedColor"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/three_fragment_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/baseRedColor"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="立即登录"
+            android:textColor="@color/whiteColor"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!--已登录，无数据状态-->
+    <TextView
+        android:id="@+id/shop_car_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:text="购物车空空如也"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/shop_car_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#f0f0f0">
+            <!--已登录，列表状态-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--已登录，列表状态-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin10"
+                    android:background="@drawable/bg_shop_car"
+                    android:orientation="vertical">
+                    <!--android:background=""-->
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="true"
+                        android:padding="@dimen/margin10">
+
+                        <ImageView
+                            android:id="@+id/three_fragment_allchecked"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:padding="5dp"
+                            android:src="@mipmap/checked_false" />
+
+                        <TextView
+                            android:id="@+id/three_fragment_allcheck"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/margin10"
+                            android:layout_toRightOf="@+id/three_fragment_allchecked"
+                            android:text="全选"
+                            android:textColor="#333333"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                    <View style="@style/ui_line" />
+
+                    <com.example.applibrary.custom.MyListView
+                        android:id="@+id/three_fragment_listview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_marginBottom="@dimen/width5"
+                        android:background="#ffffff"
+                        android:divider="#f0f0f0"
+                        android:dividerHeight="0.5dp"
+                        android:listSelector="@color/lucencyColor"
+                        android:scrollbars="none" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#f0f0f0" />
+            </LinearLayout>
+
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/shop_control_view"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="0">
+            <!--收藏、删除按钮-->
+            <RelativeLayout
+                android:id="@+id/three_fragment_operate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:visibility="gone">
+
+                <!--收藏-->
+                <TextView
+                    android:id="@+id/three_fragment_collect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/margin10"
+                    android:layout_toStartOf="@+id/three_fragment_delete"
+                    android:background="@drawable/bk_hui_01"
+                    style="@style/base_padding_border"
+                    android:text="移到收藏"
+                    android:textColor="#4d4d4d"
+                    android:textSize="14sp" />
+
+                <!--删除-->
+                <TextView
+                    android:id="@+id/three_fragment_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/bk_red_01"
+                    style="@style/base_padding_border"
+                    android:text="删除"
+                    android:textColor="#c22222"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <!--总金额和结账按钮-->
+            <RelativeLayout
+                android:id="@+id/three_fragment_shoppay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/three_fragment_moneytext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/base_margin_border"
+                    android:text="商品合计："
+                    android:textColor="#0f0f0f"
+                    android:textSize="12sp" />
+
+                <!--总金额-->
+                <TextView
+                    android:id="@+id/three_fragment_allmoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/three_fragment_moneytext"
+                    android:layout_toRightOf="@id/three_fragment_moneytext"
+                    android:singleLine="true"
+                    android:text="¥ 0.00"
+                    android:textColor="#c22222"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/three_fragment_moneytext"
+                    android:layout_alignLeft="@id/three_fragment_moneytext"
+                    android:text="不含配送费"
+                    android:textColor="#666464"
+                    android:textSize="10sp" />
+
+                <!--去结账-->
+                <TextView
+                    android:id="@+id/three_fragment_gopay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/bg_hui_02"
+                    style="@style/base_padding_border"
+                    android:text="去结算"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0"
+    android:orientation="vertical">
+    <!--生日汇-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants">
+        <!--轮播-->
+        <com.example.applibrary.custom.viewfragment.FragmentView
+            android:id="@+id/festival_gift_bannar"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:background="@color/whiteColor" />
+
+        <!--搜索-->
+        <include
+            layout="@layout/action_search"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/festival_gift_package"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/festival_gift_bannar"
+            android:background="@color/whiteColor"
+            android:padding="10dp"
+            android:text="节日礼包"
+            android:textColor="@color/blackColor4d"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <!--导航-->
+        <com.example.haoss.views.MyGridView
+            android:id="@+id/festival_gift_package_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/festival_gift_package"
+            android:background="@color/whiteColor"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:listSelector="@color/lucencyColor"
+            android:numColumns="4"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:verticalSpacing="10dp" />
+
+        <TextView
+            android:id="@+id/festival_gift_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/festival_gift_package_list"
+            android:layout_marginTop="@dimen/margin10"
+            android:background="@color/whiteColor"
+            android:padding="10dp"
+            android:text="节日礼卡"
+            android:textColor="@color/blackColor4d"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <com.example.applibrary.custom.MyListView
+            android:id="@+id/festival_gift_card_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/festival_gift_card"
+            android:background="@color/whiteColor"
+            android:divider="#f0f0f0"
+            android:dividerHeight="0.5dp" />
+
+    </RelativeLayout>
+</ScrollView>

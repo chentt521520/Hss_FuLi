@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    android:orientation="vertical">
+
+    <!--线-->
+    <View
+        style="@style/ui_line"
+        android:layout_marginTop="@dimen/height20" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:paddingStart="@dimen/width15"
+        android:paddingEnd="@dimen/width15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="头像"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+        <!--头像-->
+        <ImageView
+            android:id="@+id/ui_person_setting_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/image_default_head" />
+
+    </RelativeLayout>
+    <!--线-->
+    <View style="@style/ui_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:paddingStart="@dimen/width15"
+        android:paddingEnd="@dimen/width15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="昵称"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+        <!--昵称-->
+        <EditText
+            android:id="@+id/ui_person_setting_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:background="@color/whiteColor"
+            android:gravity="end|center_vertical"
+            android:hint="昵称输入"
+            android:singleLine="true"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <!--线-->
+    <View style="@style/ui_line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:paddingStart="@dimen/width15"
+        android:paddingEnd="@dimen/width15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="性别"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+        <!--性别-->
+        <RadioGroup
+            android:id="@+id/ui_person_setting_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal">
+
+            <!--男-->
+            <RadioButton
+                android:id="@+id/ui_person_setting_male"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:button="@null"
+                android:checked="true"
+                android:drawableStart="@drawable/sex_ischoose"
+                android:drawablePadding="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="男"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+            <!--女-->
+            <RadioButton
+                android:id="@+id/ui_person_setting_female"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:button="@null"
+                android:drawableStart="@drawable/sex_ischoose"
+                android:drawablePadding="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="女"
+                android:textColor="@color/blackColor0f"
+                android:textSize="12sp" />
+        </RadioGroup>
+    </RelativeLayout>
+    <!--线-->
+    <View style="@style/ui_line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:paddingStart="@dimen/width15"
+        android:paddingEnd="@dimen/width15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="生日"
+            android:textColor="@color/blackColor0f"
+            android:textSize="12sp" />
+        <!--生日-->
+        <TextView
+            android:id="@+id/ui_person_setting_birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/margin10"
+            android:gravity="center_vertical|end"
+            android:hint="选择生日"
+            android:singleLine="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/right_dingdan_img" />
+    </RelativeLayout>
+    <!--线-->
+    <View style="@style/ui_line" />
+</LinearLayout>

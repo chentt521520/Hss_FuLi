@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="150dp"
+    android:paddingTop="25dp"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    android:background="@drawable/bk_hui01">
+
+    <!--普通对话框界面-->
+    <TextView
+        android:id="@+id/dialog_buttontwo_text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="15dp"
+        android:text="对话框内容"
+        android:textSize="14sp"
+        android:textColor="#0f0f0f"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/dialog_buttontwo_sure"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_buttontwo_text"
+        android:layout_marginLeft="20dp"
+        android:text="确定"
+        android:textSize="14sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/bg_red01"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/dialog_buttontwo_cancel"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_buttontwo_text"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="取消"
+        android:textSize="14sp"
+        android:textColor="@color/baseRedColor"
+        android:background="@drawable/bk_red01"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:gravity="center" />
+</RelativeLayout>

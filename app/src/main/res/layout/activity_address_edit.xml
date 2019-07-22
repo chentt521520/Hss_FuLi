@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/huiColorf0">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--收货人-->
+        <TextView
+            android:id="@+id/addressedit_shr"
+            android:layout_width="@dimen/height100"
+            android:layout_height="@dimen/height35"
+            android:text="收货人："
+            android:textSize="14sp"
+            android:textColor="@color/blackColor0f"
+            android:layout_marginTop="0.5dp"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:background="@color/whiteColor" />
+
+        <EditText
+            android:id="@+id/addressedit_ed_shr"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height35"
+            android:layout_alignTop="@id/addressedit_shr"
+            android:layout_toRightOf="@id/addressedit_shr"
+            android:background="@color/whiteColor"
+            android:hint="请输入收货人姓名"
+            android:textSize="12sp"
+            android:textColor="@color/huiColor66"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:maxLength="10"
+            android:singleLine="true"
+            android:paddingRight="15dp" />
+
+        <!--手机电话-->
+        <TextView
+            android:id="@+id/addressedit_phone"
+            android:layout_width="@dimen/height100"
+            android:layout_height="@dimen/height35"
+            android:text="手机号码："
+            android:textSize="14sp"
+            android:textColor="@color/blackColor0f"
+            android:layout_marginTop="0.5dp"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:background="@color/whiteColor"
+            android:layout_below="@id/addressedit_shr" />
+
+        <EditText
+            android:id="@+id/addressedit_ed_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height35"
+            android:layout_alignTop="@id/addressedit_phone"
+            android:layout_toRightOf="@id/addressedit_phone"
+            android:background="@color/whiteColor"
+            android:hint="请输入11位手机号码"
+            android:textSize="12sp"
+            android:textColor="@color/huiColor66"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:maxLength="11"
+            android:inputType="number"
+            android:paddingRight="15dp" />
+
+        <!--地区-->
+        <TextView
+            android:id="@+id/addressedit_site"
+            android:layout_width="@dimen/height100"
+            android:layout_height="@dimen/height35"
+            android:text="所在地区："
+            android:textSize="14sp"
+            android:textColor="@color/blackColor0f"
+            android:layout_marginTop="0.5dp"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:background="@color/whiteColor"
+            android:layout_below="@id/addressedit_phone" />
+
+        <TextView
+            android:id="@+id/addressedit_ed_site"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height35"
+            android:hint="请选择收货地区"
+            android:textSize="12sp"
+            android:textColor="@color/huiColor66"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp"
+            android:layout_alignTop="@id/addressedit_site"
+            android:layout_toRightOf="@id/addressedit_site"
+            android:background="@color/whiteColor"
+            android:drawableRight="@mipmap/more_image" />
+
+        <!--详细地址-->
+        <TextView
+            android:id="@+id/addressedit_address"
+            android:layout_width="@dimen/height100"
+            android:layout_height="@dimen/height90"
+            android:text="详细地址："
+            android:textSize="14sp"
+            android:textColor="@color/blackColor0f"
+            android:layout_marginTop="0.5dp"
+            android:paddingLeft="@dimen/margin10"
+            android:paddingTop="@dimen/margin10"
+            android:background="@color/whiteColor"
+            android:layout_below="@id/addressedit_site" />
+
+        <EditText
+            android:id="@+id/addressedit_ed_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height90"
+            android:layout_alignTop="@id/addressedit_address"
+            android:layout_toRightOf="@id/addressedit_address"
+            android:background="@color/whiteColor"
+            android:hint="请输入详细收货地址"
+            android:textSize="12sp"
+            android:textColor="@color/huiColor66"
+            android:gravity="left"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp" />
+
+        <!--默认地址-->
+        <TextView
+            android:id="@+id/addressedit_defaultaddress"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height35"
+            android:text="设为默认地址："
+            android:textSize="14sp"
+            android:textColor="@color/blackColor0f"
+            android:layout_marginTop="0.5dp"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:layout_below="@id/addressedit_address"
+            android:background="@color/whiteColor" />
+
+        <ImageView
+            android:id="@+id/addressedit_ed_defaultaddress"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height35"
+            android:layout_below="@id/addressedit_address"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/defaultaddress_off"
+            android:paddingTop="8dp" />
+    </RelativeLayout>
+</LinearLayout>
