@@ -19,6 +19,7 @@
 
     <!--拼团-->
     <string name="select_partner_groupon">选择下面的小伙伴快速拼团</string>
+    <string name="look_more">查看更多</string>
     <string name="groupon_now">立即参团</string>
     <string name="groupon_rules">拼团规则说明</string>
     <string name="groupon_oerder_pay_success">订单支付成功</string>
@@ -31,4 +32,13 @@
     <string name="groupon_has_beyound_24">限时24小时拼团已超时</string>
     <string name="invite_partner_groupon">邀请小伙伴拼团</string>
     <string name="groupon_process_tip">支付开团—支付参团—凑齐人数发货—凑不齐退款</string>
+    <string name="card_rule">使用说明\n
+1、蜀猪猪购物卡是指由成都市好蔬食农业科技有限公司(“本公司”) 发行的，可以在www.haoshusi.com (“本网站”)或蜀猪猪APP上购买自营商品。\n
+2、为保障资金安全，使用蜀猪猪购物卡之前必须开启支付密码，开启支付密码位置:”个人中心-设置-支付密码设置”中设置并开启支付密码。\n
+3、购买蜀猪猪购物卡可开具电子普通发票，订单付款且完成后，可在提交订单时填写的邮箱中接收。\n
+4、订单金额中使用礼品卡支付的部分，将不再开具发票，如需发票可开具零元保修发票。\n
+5、使用购物卡支付商品发生退货时，购物卡支付部分将退回到个人账户，不能直接退还现金。\n
+6、购物卡兑换有效期为12个月，充值成余额长期有效，请各位会员尽早进行充值。\n
+7、蜀猪猪的其他使用规则以《购卡章程》及蜀猪猪所公示的内容为准。</string>
+    <string name="please_input_card_code">请输入购物卡兑换码</string>
 </resources>

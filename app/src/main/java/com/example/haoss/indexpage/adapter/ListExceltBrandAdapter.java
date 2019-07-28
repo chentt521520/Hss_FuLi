@@ -10,11 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.applibrary.entity.GoodInfo;
 import com.example.applibrary.utils.IntentUtils;
 import com.example.applibrary.utils.TextViewUtils;
 import com.example.haoss.R;
 import com.example.haoss.goods.details.GoodsDetailsActivity;
-import com.example.haoss.indexpage.entity.GoodInfo;
 
 import java.util.List;
 

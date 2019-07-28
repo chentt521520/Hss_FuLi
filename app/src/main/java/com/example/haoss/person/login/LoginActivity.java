@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +18,10 @@ import android.widget.TextView;
 import com.example.applibrary.base.ConfigHttpReqFields;
 import com.example.applibrary.base.ConfigVariate;
 import com.example.applibrary.base.Netconfig;
-import com.example.applibrary.entity.LoginInfo;
 import com.example.applibrary.httpUtils.HttpHander;
+import com.example.applibrary.httpUtils.OnHttpCallback;
+import com.example.applibrary.resp.Resp;
+import com.example.applibrary.resp.RespLogin;
 import com.example.applibrary.utils.IntentUtils;
 import com.example.applibrary.utils.MD5Util;
 import com.example.applibrary.utils.StringUtils;
@@ -33,7 +34,6 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -53,6 +53,9 @@ public class LoginActivity extends BaseActivity {
     //账号
     @BindView(R.id.input_edit_name)
     EditText inputEditName;
+    //密码隐藏
+    @BindView(R.id.page_back)
+    ImageView page_back;
     //密码隐藏
     @BindView(R.id.psw_yn_no_kejian)
     ImageView pswYnNoKejian;
@@ -123,11 +126,14 @@ public class LoginActivity extends BaseActivity {
         super.onDestroy();
     }
 
-    @OnClick({R.id.input_edit_name, R.id.input_edit_psw, R.id.forget_psw_text, R.id.zhanghao_login_show,
+    @OnClick({R.id.page_back, R.id.input_edit_name, R.id.input_edit_psw, R.id.forget_psw_text, R.id.zhanghao_login_show,
             R.id.input_edit_phoneNum, R.id.input_edit_code, R.id.obtain_code, R.id.phone_login_show, R.id.login_button, R.id.login_code_btn,
             R.id.login_psw_btn, R.id.login_registered, R.id.btn_wechat_login, R.id.btn_qq_login, R.id.psw_yn_no_kejian})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.page_back:
+                finish();
+                break;
             case R.id.input_edit_name:
                 break;
             case R.id.psw_yn_no_kejian:
@@ -279,10 +285,10 @@ public class LoginActivity extends BaseActivity {
             super.onSucceed(msg);
             switch (msg.arg1) {
                 case 1: //获取验证码
-                    Map<String, Object> mapLogin = jsontoMap(msg.obj.toString());
-                    if (mapLogin != null) {
-                        if (TextUtils.equals((String) mapLogin.get("msg"), "ok")) {
-                            showToast("已发送");
+                    getResultStatus(msg.obj.toString(), new OnHttpCallback<Resp>() {
+                        @Override
+                        public void success(Resp result) {
+                            tost("已发送");
                             obtainCode.setEnabled(false);
                             timer = new Timer();
                             timer.schedule(new TimerTask() {
@@ -291,18 +297,28 @@ public class LoginActivity extends BaseActivity {
                                     mHd.sendEmptyMessage(TIMECODE);
                                 }
                             }, 0, 1000);
-                        } else {
-                            tost(mapLogin.get("msg") + "");
                         }
-                    }
+
+                        @Override
+                        public void error(int code, String msg) {
+                            tost(code + "," + msg);
+                        }
+                    });
                     break;
 
                 case 2: //密码登录/验证码登录
                     Log.e("loginResult", msg + "");
-                    Map<String, Object> map = jsontoMap(msg.obj.toString());
-                    if (map != null) {
-                        loginOk(map);
-                    }
+                    getLogin(msg.obj.toString(), new OnHttpCallback<RespLogin.LoginInfo>() {
+                        @Override
+                        public void success(RespLogin.LoginInfo result) {
+                            loginOk(result);
+                        }
+
+                        @Override
+                        public void error(int code, String msg) {
+                            tost(code + "," + msg);
+                        }
+                    });
                     break;
 
                 case 3:
@@ -312,38 +328,19 @@ public class LoginActivity extends BaseActivity {
     };
 
     //成功登录数据设置
-    private void loginOk(Map<String, Object> map) {
-        Map<String, Object> mapJson = (Map<String, Object>) map.get("data");
-        if (mapJson != null) {
-            Map<String, String> mapString = httpHander.getStringMap(mapJson, "nickname", "avatar", "token", "account", "now_money", "integral");
-            Map<String, Integer> mapInteger = httpHander.getIntegerMap(mapJson, "uid", "status", "level");
-
-            LoginInfo info = new LoginInfo();
-            info.setStatus(1);
-            info.setAccount(mapString.get("account"));
-            info.setNickname(mapString.get("nickname"));
-            info.setAvatar(mapString.get("avatar"));
-            info.setToken(mapString.get("token"));
-
-            info.setUid(mapInteger.get("uid"));
-            info.setStatus(mapInteger.get("status"));
-            info.setLevel(mapInteger.get("level"));
-
-            info.setNow_money(mapString.get("now_money"));
-            info.setIntegral(mapString.get("integral"));
-
-            info.setLast_time((long) httpHander.getDouble(mapJson, "last_time"));
+    private void loginOk(RespLogin.LoginInfo result) {
+        if (result != null) {
 
             SharedPreferenceUtils.setPreference(this, ConfigVariate.sPdbAccount, account, "S");
             SharedPreferenceUtils.setPreference(this, ConfigVariate.sPdbPassword, password, "S");
-            SharedPreferenceUtils.setPreference(this, ConfigVariate.sPdbToken, mapString.get("token"), "S");
-            SharedPreferenceUtils.setPreference(this, ConfigVariate.nickname, mapString.get("nickname"), "S");
-            SharedPreferenceUtils.setPreference(this, ConfigVariate.avatar, mapString.get("avatar"), "S");
-            SharedPreferenceUtils.setPreference(this, ConfigVariate.uid, mapInteger.get("uid"), "I");
-            SharedPreferenceUtils.setPreference(this, ConfigVariate.status, mapInteger.get("status"), "I");
-            SharedPreferenceUtils.setPreference(this, ConfigVariate.level, mapInteger.get("level"), "I");
-            SharedPreferenceUtils.setPreference(this, ConfigVariate.now_money, mapString.get("now_money"), "S");
-            SharedPreferenceUtils.setPreference(this, ConfigVariate.integral, mapString.get("integral"), "S");
+            SharedPreferenceUtils.setPreference(this, ConfigVariate.sPdbToken, result.getToken(), "S");
+            SharedPreferenceUtils.setPreference(this, ConfigVariate.nickname, result.getNickname(), "S");
+            SharedPreferenceUtils.setPreference(this, ConfigVariate.avatar, result.getAvatar(), "S");
+            SharedPreferenceUtils.setPreference(this, ConfigVariate.uid, result.getUid(), "I");
+            SharedPreferenceUtils.setPreference(this, ConfigVariate.status, result.getStatus(), "I");
+            SharedPreferenceUtils.setPreference(this, ConfigVariate.level, result.getLevel(), "I");
+            SharedPreferenceUtils.setPreference(this, ConfigVariate.now_money, result.getNow_money(), "S");
+            SharedPreferenceUtils.setPreference(this, ConfigVariate.integral, result.getIntegral(), "S");
             SharedPreferenceUtils.setPreference(this, ConfigVariate.login, true, "B");
 
             tost("登录成功！");

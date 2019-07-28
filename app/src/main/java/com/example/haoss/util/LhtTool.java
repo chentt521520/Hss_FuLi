@@ -27,7 +27,6 @@ import android.widget.TextView;
 
 import com.example.haoss.R;
 import com.example.haoss.base.BaseActivity;
-import com.example.haoss.base.BaseStatusBarActivity;
 import com.example.haoss.other.UpdateTask;
 import com.example.haoss.views.ViewDialog;
 
@@ -134,67 +133,9 @@ public class LhtTool {
             public void onClick(View v) {
                 loadingDialog.dismiss();
                 new UpdateTask(context, url);
-
             }
         });
-
         return loadingDialog;
-
-    }
-
-    //因为泛型不太行，所以只有重载了
-
-    /**
-     * 创建更新下载的弹窗
-     *
-     * @param context
-     * @param before
-     * @param num
-     * @param content
-     * @param url
-     * @return
-     */
-    public static ViewDialog createUPdateDilog(final BaseStatusBarActivity context, String before, String num, String content, final String url) {
-
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.dialog_version_update, null);// 得到加载view
-        RelativeLayout layout = (RelativeLayout) v.findViewById(R.id.update_dialog);// 加载布局
-        TextView versionnum = (TextView) v.findViewById(R.id.textView3);// 软件版本更新內容
-        TextView button1 = (TextView) v.findViewById(R.id.textView5);// 以后再说
-        TextView button2 = (TextView) v.findViewById(R.id.textView6);// 立即更新
-
-        versionnum.setText(Html.fromHtml("当前版本：v" + before + "<br>最新版本：v" + num + "<br><br>更新内容：<br>" + content));
-        final ViewDialog loadingDialog = new ViewDialog(context, R.style.update_dialog);// 创建自定义样式dialog
-        loadingDialog.setCancelable(true);// 不可以用“返回键”取消
-        loadingDialog.setCanceledOnTouchOutside(false);
-        loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.FILL_PARENT,
-                LinearLayout.LayoutParams.FILL_PARENT));// 设置布局
-        WindowManager windowManager = context.getWindowManager();
-        Display d = windowManager.getDefaultDisplay();
-        WindowManager.LayoutParams params = loadingDialog.getWindow().getAttributes();
-        params.height = (int) (d.getHeight() * 0.5);
-        params.width = (int) (d.getWidth() * 0.8);
-        loadingDialog.getWindow().setAttributes(params);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                loadingDialog.dismiss();
-
-            }
-        });
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadingDialog.dismiss();
-                new UpdateTask(context, url);
-
-            }
-        });
-
-        return loadingDialog;
-
     }
 
     /**

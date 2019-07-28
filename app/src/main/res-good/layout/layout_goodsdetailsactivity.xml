@@ -93,7 +93,7 @@
                     android:singleLine="true"
                     android:text="@string/null_text"
                     android:textColor="@color/blackColor4d"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 

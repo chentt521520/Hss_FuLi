@@ -9,9 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.applibrary.entity.GrouponListInfo;
+import com.example.applibrary.resp.RespGrouponList;
 import com.example.applibrary.utils.TextViewUtils;
 import com.example.haoss.R;
-import com.example.haoss.indexpage.tourdiy.entity.GrouponListInfo;
 
 import java.util.List;
 
@@ -19,14 +20,14 @@ import java.util.List;
 public class GrouponAdapter extends BaseAdapter {
 
     private Context context;
-    private List<GrouponListInfo> list;
+    private List<RespGrouponList.GrouponList> list;
 
-    public GrouponAdapter(Context context, List<GrouponListInfo> list) {
+    public GrouponAdapter(Context context, List<RespGrouponList.GrouponList> list) {
         this.context = context;
         this.list = list;
     }
 
-    public void freshList(List<GrouponListInfo> list) {
+    public void freshList(List<RespGrouponList.GrouponList> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -61,7 +62,7 @@ public class GrouponAdapter extends BaseAdapter {
         info = (Info) view.getTag();
 
         //设置数据
-        GrouponListInfo grouponListInfo = list.get(position);
+        RespGrouponList.GrouponList grouponListInfo = list.get(position);
         Glide.with(context)
                 .load(grouponListInfo.getImage())
                 .into(info.image);

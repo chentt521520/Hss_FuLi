@@ -7,7 +7,9 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,7 +18,9 @@ import android.widget.TextView;
 
 import com.example.applibrary.base.ConfigHttpReqFields;
 import com.example.applibrary.base.Netconfig;
+import com.example.applibrary.entity.GoodList;
 import com.example.applibrary.httpUtils.HttpHander;
+import com.example.applibrary.httpUtils.OnHttpCallback;
 import com.example.applibrary.utils.DensityUtil;
 import com.example.applibrary.utils.IntentUtils;
 import com.example.applibrary.utils.SharedPreferenceUtils;
@@ -24,11 +28,8 @@ import com.example.applibrary.widget.WordWrapView;
 import com.example.haoss.R;
 import com.example.haoss.base.BaseActivity;
 import com.example.haoss.goods.details.GoodsDetailsActivity;
-import com.example.haoss.helper.DialogHelp;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 //商品搜索
 public class GoodsSearchActivity extends BaseActivity {
@@ -38,7 +39,7 @@ public class GoodsSearchActivity extends BaseActivity {
     TextView goodssearchactivity_hint;  //提示
     ListView goodssearchactivity_list;  //数据
 
-    List<GoodsSearchInfo> listGoods; //商品数据
+    List<GoodList> listGoods; //商品数据
     GoodsSearchAdapter goodsSearchAdapter;  //商品促销适配器
     String searchText = "";  //要搜索的内容
     private WordWrapView wordWrapView;
@@ -65,9 +66,18 @@ public class GoodsSearchActivity extends BaseActivity {
 
         goodssearchactivity_go.setOnClickListener(onClickListener);
         findViewById(R.id.page_back).setOnClickListener(onClickListener);
+        goodssearchactivity_input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    startSearch();
+                    // 在这里编写自己想要实现的功能
+                }
+                return false;
+            }
+        });
         showAndHide(0);
-        setEdtext();
-        setSearchTag();
+//        setSearchTag();
     }
 
     private void setSearchTag() {
@@ -94,7 +104,7 @@ public class GoodsSearchActivity extends BaseActivity {
         }
     }
 
-    //flag==0,全部隐藏，==1：显示提示，==2：显示数据
+    //flag==1：无数据，==2：显示数据
     private void showAndHide(int flag) {
         goodssearchactivity_hint.setVisibility(flag == 1 ? View.VISIBLE : View.GONE);
         goodssearchactivity_list.setVisibility(flag == 2 ? View.VISIBLE : View.GONE);
@@ -110,17 +120,24 @@ public class GoodsSearchActivity extends BaseActivity {
                     finish();
                     break;
                 case R.id.goodslistactivity_go:
-                    searchText = goodssearchactivity_input.getText().toString();
-                    if (TextUtils.isEmpty(searchText)) {
-                        goodssearchactivity_go.setEnabled(false);
-                    } else {
-                        goodssearchactivity_go.setEnabled(true);
-                        goSearch();
-                    }
+                    showInput(goodssearchactivity_input, false);
+                    startSearch();
                     break;
             }
         }
     };
+
+
+    private void startSearch() {
+        searchText = goodssearchactivity_input.getText().toString();
+        if (TextUtils.isEmpty(searchText)) {
+            tost("请输入要搜索的内容");
+            goodssearchactivity_go.setEnabled(false);
+        } else {
+            goodssearchactivity_go.setEnabled(true);
+            goSearch();
+        }
+    }
 
     //加入商品详情
     AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
@@ -130,30 +147,13 @@ public class GoodsSearchActivity extends BaseActivity {
         }
     };
 
-    //设置编辑框
-    private void setEdtext() {
-        goodssearchactivity_input.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                showAndHide(0);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-    }
-
     //开始搜索
     private void goSearch() {
-        DialogHelp.showLoading(this);
-        SharedPreferenceUtils.setPreference(this, "SearchTag", searchText, "S");
+//        String SearchTag = (String) SharedPreferenceUtils.getPreference(GoodsSearchActivity.this, "SearchTag", "S");
+//        if (!searchText.contains(searchText)){
+//            SharedPreferenceUtils.setPreference(this, "SearchTag", searchText, "S");
+//        }
+
         String url = Netconfig.commoditySearch + Netconfig.assemble(true, ConfigHttpReqFields.sendKeyword, searchText);
         httpHander.getHttpGson(this, url, "", 1);
     }
@@ -163,49 +163,27 @@ public class GoodsSearchActivity extends BaseActivity {
         @Override
         public void onSucceed(Message msg) {
             super.onSucceed(msg);
-            analysisJson(msg.obj.toString());
+            searchGoodList(msg.obj.toString(), new OnHttpCallback<List<GoodList>>() {
+                @Override
+                public void success(List<GoodList> result) {
+                    listGoods = result;
+                    if (listGoods == null || listGoods.isEmpty()) {
+                        showAndHide(1);
+                    } else {
+                        showAndHide(2);
+                    }
+                    if (goodsSearchAdapter == null) {
+                        goodsSearchAdapter = new GoodsSearchAdapter(GoodsSearchActivity.this, listGoods);
+                        goodssearchactivity_list.setAdapter(goodsSearchAdapter);
+                    } else
+                        goodsSearchAdapter.setRefresh(listGoods);
+                }
+
+                @Override
+                public void error(int code, String msg) {
+
+                }
+            });
         }
     };
-
-    //解析
-    private void analysisJson(String json) {
-        DialogHelp.hideLoading();
-        //解析
-        ArrayList<Object> list = httpHander.jsonToList(json);
-        if (list == null || list.size() == 0) {
-            showAndHide(1);
-        } else {  //有数据
-            showAndHide(2);
-            if (listGoods == null)
-                listGoods = new ArrayList<>();
-            listGoods.clear();
-            setData(list);
-            if (goodsSearchAdapter == null) {
-                goodsSearchAdapter = new GoodsSearchAdapter(this, listGoods);
-                goodssearchactivity_list.setAdapter(goodsSearchAdapter);
-            } else
-                goodsSearchAdapter.setRefresh(listGoods);
-        }
-    }
-
-    //设置解析数据
-    private void setData(ArrayList<Object> list) {
-        //{id=4.0, store_name=互联网电热水器1A, cate_id=3, image=http://datong.crmeb.net/public/uploads/attach/2019/01/15/5c3dc23646fff.jpg, sales=97, price=999.00, stock=413.0, vip_price=989.01}
-        for (int i = 0; i < list.size(); i++) {
-            Map<String, Object> map = (Map<String, Object>) list.get(i);
-            Map<String, String> mapString = httpHander.getStringMap(map, "store_name", "image", "cate_id");
-            Map<String, Double> mapDouble = httpHander.getDoubleMap(map, "price", "vip_price");
-            Map<String, Integer> mapInteger = httpHander.getIntegerMap(map, "id", "stock", "sales");
-            GoodsSearchInfo goodsSearchInfo = new GoodsSearchInfo();
-            goodsSearchInfo.setImage(mapString.get("image"));
-            goodsSearchInfo.setName(mapString.get("store_name"));
-            goodsSearchInfo.setCateId(mapString.get("cate_id"));
-            goodsSearchInfo.setSaies(mapInteger.get("sales"));
-            goodsSearchInfo.setId(mapInteger.get("id"));
-            goodsSearchInfo.setStock(mapInteger.get("stock"));
-            goodsSearchInfo.setPrice(mapDouble.get("price"));
-            goodsSearchInfo.setVipPrice(mapDouble.get("vip_price"));
-            listGoods.add(goodsSearchInfo);
-        }
-    }
 }

@@ -32,10 +32,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/whiteColor"
-                android:paddingBottom="@dimen/margin10"
-                android:paddingEnd="@dimen/width15"
                 android:paddingStart="@dimen/width15"
-                android:paddingTop="@dimen/margin10">
+                android:paddingTop="@dimen/margin10"
+                android:paddingEnd="@dimen/width15"
+                android:paddingBottom="@dimen/margin10">
                 <!--新区间价格-->
                 <TextView
                     android:id="@+id/goodsdetailsactivity_newmoney"
@@ -101,22 +101,22 @@
                     android:maxLines="2"
                     android:text="@string/null_text"
                     android:textColor="@color/blackColor4d"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/groupon_parter_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin10"
                 android:background="#ffffff"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/margin10"
-                android:paddingEnd="@dimen/width15"
                 android:paddingStart="@dimen/width15"
-                android:paddingTop="@dimen/margin10">
+                android:paddingTop="@dimen/margin10"
+                android:paddingEnd="@dimen/width15"
+                android:paddingBottom="@dimen/margin10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -125,13 +125,26 @@
                     android:textColor="#4d4d4d"
                     android:textSize="12sp" />
 
-                <com.example.haoss.views.MyListView
-                    android:id="@+id/partner_listview"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/look_more"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:drawableEnd="@mipmap/more_image"
+                    android:drawablePadding="@dimen/margin10"
+                    android:text="@string/look_more"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
+
+                <com.example.applibrary.custom.MyListView
+                    android:id="@+id/partner_listview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/look_more"
+                    android:layout_marginTop="@dimen/margin10"
                     android:scrollbars="none" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <ImageView
                 android:layout_width="match_parent"
@@ -170,11 +183,11 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="5dp"
             android:drawableTop="@drawable/goods_service"
+            android:drawablePadding="5dp"
             android:gravity="center"
-            android:paddingBottom="@dimen/height8"
             android:paddingTop="@dimen/height8"
+            android:paddingBottom="@dimen/height8"
             android:text="联系客服"
             android:textColor="@color/blackColor0f"
             android:textSize="10dp" />
@@ -184,11 +197,11 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="5dp"
             android:drawableTop="@drawable/goods_collect"
+            android:drawablePadding="5dp"
             android:gravity="center"
-            android:paddingBottom="@dimen/height8"
             android:paddingTop="@dimen/height8"
+            android:paddingBottom="@dimen/height8"
             android:text="收藏"
             android:textColor="@color/blackColor0f"
             android:textSize="10dp" />

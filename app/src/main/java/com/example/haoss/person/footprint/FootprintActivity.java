@@ -8,6 +8,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.applibrary.httpUtils.OnHttpCallback;
+import com.example.applibrary.resp.Resp;
+import com.example.applibrary.resp.RespFootPrints;
 import com.example.haoss.base.AppLibLication;
 import com.example.applibrary.base.Netconfig;
 import com.example.applibrary.dialog.MyDialogTwoButton;
@@ -31,17 +34,15 @@ import java.util.Map;
 //足迹
 public class FootprintActivity extends BaseActivity {
 
-    TextView action_title_other;  //编辑
     RelativeLayout footprintactivity_linear;  //操作栏
     TextView footprintactivity_checkall, footprintactivity_delete;    // 全选、删除
     ListView listView;    //数据控件
 
-    List<FootprintInfo> listFootprint;   //足迹数据
+    List<RespFootPrints.FootPrints> listFootprint;   //足迹数据
     FootprintAdapter footprintAdapter;  //足迹适配器
     boolean isOk = true;   //是否点击完成，==false：编辑
     private RefreshLayout refreshLayout;
     private int page = 1;
-    private int status = 0;//是否为刷新
     private AppLibLication appLibLication;
     private String id[];
     private boolean isCheckAll = false;
@@ -57,6 +58,14 @@ public class FootprintActivity extends BaseActivity {
     private void init() {
         listFootprint = new ArrayList<>();
         this.getTitleView().setTitleText("我的足迹");
+        this.getTitleView().setRightText(isOk ? "编辑" : "完成");
+        this.getTitleView().setRightOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isOk = !isOk;
+                setIsOk();
+            }
+        });
 
         footprintactivity_linear = findViewById(R.id.footprintactivity_linear);
         footprintactivity_checkall = findViewById(R.id.footprintactivity_checkall);
@@ -64,7 +73,6 @@ public class FootprintActivity extends BaseActivity {
         listView = findViewById(R.id.list_view);
         refreshLayout = findViewById(R.id.refresh_layout);
 
-        action_title_other.setOnClickListener(onClickListener);
         footprintactivity_checkall.setOnClickListener(onClickListener);
         footprintactivity_delete.setOnClickListener(onClickListener);
         findViewById(R.id.footprintactivity_delele_all).setOnClickListener(onClickListener);
@@ -80,7 +88,7 @@ public class FootprintActivity extends BaseActivity {
 
             @Override
             public void setOnItemCheckListener(int pos) {
-                FootprintInfo footprintIfo = listFootprint.get(pos);
+                RespFootPrints.FootPrints footprintIfo = listFootprint.get(pos);
                 if (footprintIfo.isCheck()) {
                     footprintIfo.setCheck(false);
                 } else {
@@ -96,7 +104,6 @@ public class FootprintActivity extends BaseActivity {
             public void onRefresh(RefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 page = 1;
-                status = 0;
                 getPrintList();
             }
 
@@ -104,7 +111,6 @@ public class FootprintActivity extends BaseActivity {
             public void onLoadMore(RefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
                 page++;
-                status = 1;
                 getPrintList();
             }
         });
@@ -117,13 +123,6 @@ public class FootprintActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.action_title_goback:  //返回
-                    finish();
-                    break;
-                case R.id.action_title_other:   //编辑
-                    isOk = !isOk;
-                    setIsOk();
-                    break;
                 case R.id.footprintactivity_checkall:   //全选
                     isCheckAll = !isCheckAll;
                     allChoose();
@@ -172,7 +171,7 @@ public class FootprintActivity extends BaseActivity {
 
     private void delectPrint() {
         StringBuilder builder = new StringBuilder();
-        for (FootprintInfo info : listFootprint) {
+        for (RespFootPrints.FootPrints info : listFootprint) {
             if (info.isCheck()) {
                 builder.append(info.getId()).append(",");
             }
@@ -204,12 +203,29 @@ public class FootprintActivity extends BaseActivity {
             super.onSucceed(msg);
             switch (msg.arg1) {
                 case 1:
-                    analysisJson(msg.obj.toString());
+                    refreshLayout.finishRefreshing();
+                    refreshLayout.finishLoadmore();
+                    getFootPrints(msg.obj.toString(), new OnHttpCallback<List<RespFootPrints.FootPrints>>() {
+                        @Override
+                        public void success(List<RespFootPrints.FootPrints> result) {
+                            if (page == 1) {
+                                listFootprint.clear();
+                            }
+                            listFootprint.addAll(result);
+                            footprintAdapter.setRefresh(listFootprint, isOk);
+                        }
+
+                        @Override
+                        public void error(int code, String msg) {
+                            tost(code + "," + msg);
+                        }
+                    });
                     break;
                 case 2:
-                    try {
-                        Map<String, Object> map = new Gson().fromJson(msg.obj.toString(), HashMap.class);
-                        if (map != null && Double.parseDouble(map.get("code") + "") == 200) {
+                    getResultStatus(msg.obj.toString(), new OnHttpCallback<Resp>() {
+                        @Override
+                        public void success(Resp result) {
+                            tost("已删除");
                             for (int i = 0; i < id.length; i++) {
                                 for (int j = 0; j < listFootprint.size(); j++) {
                                     if (listFootprint.get(j).getId() == Integer.parseInt(id[i])) {
@@ -218,64 +234,39 @@ public class FootprintActivity extends BaseActivity {
                                 }
                             }
                             footprintAdapter.setRefresh(listFootprint, false);
-                            tost("删除成功");
-                        } else {
-                            tost(map.get("msg").toString());
                         }
-                    } catch (Exception e) {
-                        tost(e.getMessage());
-                    }
+
+                        @Override
+                        public void error(int code, String msg) {
+                            tost(code + "," + msg);
+                        }
+                    });
                     break;
                 case 3:
-                    try {
-                        Map<String, Object> map = new Gson().fromJson(msg.obj.toString(), HashMap.class);
-                        if (map != null && Double.parseDouble(map.get("code") + "") == 200) {
+                    getResultStatus(msg.obj.toString(), new OnHttpCallback<Resp>() {
+                        @Override
+                        public void success(Resp result) {
+                            tost("已清空");
                             listFootprint.clear();
                             footprintAdapter.setRefresh(listFootprint, false);
-                            tost("已全部删除");
-                        } else {
-                            tost(map.get("msg").toString());
                         }
-                    } catch (Exception e) {
-                        tost(e.getMessage());
-                    }
+
+                        @Override
+                        public void error(int code, String msg) {
+                            tost(code + "," + msg);
+                        }
+                    });
                     break;
             }
         }
     };
-
-    private void analysisJson(String json) {
-        if (status == 0) {
-            listFootprint.clear();
-            refreshLayout.finishRefreshing();
-        } else {
-            refreshLayout.finishLoadmore();
-        }
-
-        List<Object> list = httpHander.jsonToList(json);
-        for (int i = 0; i < list.size(); i++) {
-            Map<String, Object> map = (Map<String, Object>) list.get(i);
-            FootprintInfo info = new FootprintInfo();
-            info.setImage(httpHander.getString(map, "image"));
-            info.setAdd_time(httpHander.getString(map, "add_time"));
-            info.setFicti((int) httpHander.getDouble(map, "ficti"));
-            info.setId((int) httpHander.getDouble(map, "id"));
-            info.setIs_del((int) httpHander.getDouble(map, "is_del"));
-            info.setPrice(httpHander.getString(map, "price"));
-            info.setProduct_id((int) httpHander.getDouble(map, "product_id"));
-            info.setStore_name(httpHander.getString(map, "store_name"));
-
-            listFootprint.add(info);
-        }
-        footprintAdapter.setRefresh(listFootprint, isOk);
-    }
 
 
     //全选
     private void allChoose() {
         TextViewUtils.setImage(this, footprintactivity_checkall, isCheckAll ? R.mipmap.checked_true : R.mipmap.checked_false, 1);
 
-        for (FootprintInfo footprintIfo : listFootprint) {
+        for (RespFootPrints.FootPrints footprintIfo : listFootprint) {
             footprintIfo.setCheck(isCheckAll);
         }
         footprintAdapter.setRefresh(listFootprint, isOk);
@@ -283,9 +274,9 @@ public class FootprintActivity extends BaseActivity {
 
     //设置是否显示选项框
     private void setIsOk() {
-        action_title_other.setText(isOk ? "编辑" : "完成");
+        this.getTitleView().setRightText(isOk ? "编辑" : "完成");
         footprintactivity_linear.setVisibility(isOk ? View.GONE : View.VISIBLE);    //显示完成则显示操作
-        for (FootprintInfo footprintIfo : listFootprint) {
+        for (RespFootPrints.FootPrints footprintIfo : listFootprint) {
         }
         footprintAdapter.setRefresh(listFootprint, isOk);
     }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/width15">
+
+    <ImageView
+        android:id="@+id/ui_estimate_user_head"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/person_user_head_img" />
+
+    <TextView
+        android:id="@+id/ui_estimate_user_name"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="@dimen/margin10"
+        android:layout_toEndOf="@+id/ui_estimate_user_head"
+        android:gravity="center_vertical"
+        android:text="@string/null_text"
+        android:textColor="#4d4d4d"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/ui_estimate_add_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ui_estimate_user_name"
+        android:layout_marginTop="@dimen/margin10"
+        android:textColor="#666666"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/ui_estimate_good_suk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ui_estimate_add_time"
+        android:layout_marginStart="@dimen/margin10"
+        android:layout_toEndOf="@+id/ui_estimate_add_time"
+        android:textColor="#666666"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/ui_estimate_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ui_estimate_add_time"
+        android:layout_marginTop="@dimen/margin10"
+        android:lineSpacingExtra="@dimen/height5"
+        android:textColor="#333333"
+        android:textSize="12sp" />
+
+    <com.example.haoss.views.MyGridView
+        android:id="@+id/my_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ui_estimate_comment"
+        android:layout_marginTop="@dimen/height5"
+        android:numColumns="4" />
+
+</RelativeLayout>

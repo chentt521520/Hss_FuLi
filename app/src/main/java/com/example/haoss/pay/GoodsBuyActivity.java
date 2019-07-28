@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +24,10 @@ import android.widget.TextView;
 
 import com.example.applibrary.dialog.MyDialogTwoButton;
 import com.example.applibrary.dialog.interfac.DialogOnClick;
+import com.example.applibrary.entity.AddreInfo;
+import com.example.applibrary.httpUtils.OnHttpCallback;
+import com.example.applibrary.resp.RespDefaultSite;
+import com.example.applibrary.utils.DecimalUtils;
 import com.example.applibrary.utils.MD5Util;
 import com.example.applibrary.utils.SharedPreferenceUtils;
 import com.example.applibrary.widget.CustomerKeyboard;
@@ -45,12 +48,10 @@ import com.example.haoss.indexpage.tourdiy.GouponPayActivity;
 import com.example.haoss.pay.aliapi.PayAliPay;
 import com.example.haoss.pay.wxapi.PayWeChar;
 import com.example.haoss.person.address.AddresShowActivity;
-import com.example.haoss.person.address.entity.AddreInfo;
 import com.example.haoss.person.coupon.CouponAdapter;
 import com.example.haoss.person.coupon.CouponInfo;
 import com.example.haoss.person.dingdan.OrderListActivity;
 import com.example.haoss.person.setting.systemsetting.PaySettingActivity;
-import com.example.haoss.shopcat.entity.ShoppingCartInfo;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -96,10 +97,8 @@ public class GoodsBuyActivity extends BaseActivity {
     List<GoodsBuyInfo> listGoodsBuyInfo;    //商品数据
     GoodsBuyAdapter goodsBuyAdapter;    //商品适配器
     AddreInfo siteInfo;  //收货地址信息
-    int couponId = 0;   //优惠劵ID
     private AppLibLication application;
     private GoodsBuyInfo goodsBuyInfo;
-    private ArrayList<ShoppingCartInfo> arrayListJson;//来自购物车的商品
     private double totalPrice;
     private String carId;
     private List<CouponInfo> listUseCoupon;
@@ -110,12 +109,15 @@ public class GoodsBuyActivity extends BaseActivity {
     private ImageView wexin_pay_check;
     private ImageView ali_pay_check;
     private ImageView banlence_pay_check;
-    double storePostage = 10;
+    double storePostage;
     private CouponAdapter couponAdapter;
     private List<CouponInfo> listCoupon;
     private int intentFlag;
     private int pinkId;
-    private int couponType;
+    private int couponType = 1;
+    private int selectIndex = -1;
+    private int couponIndex = -1;
+    private double payPrice;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -263,7 +265,11 @@ public class GoodsBuyActivity extends BaseActivity {
         final TextView viableBtn = view.findViewById(R.id.item_pop_viable_btn);
         final TextView unavailableBtn = view.findViewById(R.id.item_pop_unavailable_btn);
         final TextView saveText = view.findViewById(R.id.item_pop_save_text);
+        final TextView btn_ok = view.findViewById(R.id.btn_ok);
+        final ImageView close = view.findViewById(R.id.close);
         ListView couponList = view.findViewById(R.id.item_pop_coupon_list);
+        viableBtn.setText("可用优惠券(" + listUseCoupon.size() + ")");
+        unavailableBtn.setText("不可用优惠券(" + listUnuseCoupon.size() + ")");
 
         saveText.setText("已选中推荐优惠券，使用该优惠券抵扣¥" + getCouponPrice() + "元");
 
@@ -303,17 +309,37 @@ public class GoodsBuyActivity extends BaseActivity {
                 if (couponType != 1) {
                     return;
                 }
-                couponId = listCoupon.get(i).getId();
                 for (CouponInfo info : listCoupon) {
                     info.setCheck(false);
                 }
-                listCoupon.get(i).setCheck(true);
+
+                if (couponIndex == i) {
+                    listCoupon.get(i).setCheck(false);
+                    selectIndex = -1;
+                } else {
+                    listCoupon.get(i).setCheck(true);
+                    selectIndex = i;
+                }
                 couponAdapter.setRefresh(listCoupon);
-                setData();
-                popupWindow.dismiss();
-                saveText.setText("已选中推荐优惠券，使用该优惠券抵扣¥" + listCoupon.get(i).getCoupon_price() + "元");
             }
         });
+
+
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                couponIndex = selectIndex;
+                setData();
+                popupWindow.dismiss();
+            }
+        });
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
 
         popupWindow.setFocusable(true);
         //设置背景半透明
@@ -390,6 +416,13 @@ public class GoodsBuyActivity extends BaseActivity {
                 }
             }
         }
+
+        if (listUseCoupon.isEmpty()) {
+            couponIndex = -1;
+        } else {
+            couponIndex = 0;
+        }
+
         ArrayList<Object> cartInfo = httpHander.getList(mapJson, "cartInfo");
         for (int i = 0; i < cartInfo.size(); i++) {
             Map<String, Object> mapArray = (Map<String, Object>) cartInfo.get(i);
@@ -435,19 +468,18 @@ public class GoodsBuyActivity extends BaseActivity {
     }
 
     private String getCouponPrice() {
-        String couponPrice = "0";
-        for (CouponInfo info : listCoupon) {
-            if (info.getId() == couponId) {
-                couponPrice = info.getCoupon_price();
-            }
+        if (couponIndex != -1) {
+            listUseCoupon.get(couponIndex).setCheck(true);
+            return listUseCoupon.get(couponIndex).getCoupon_price();
+        } else {
+            return "0";
         }
-        return couponPrice;
     }
 
 
     private void setData() {
         String couponPrice = "0";
-        if (listCoupon.size() == 0) {
+        if (listUseCoupon.size() == 0) {
             coupon.setText("暂无可用优惠劵");
         } else {
             couponPrice = getCouponPrice();
@@ -461,13 +493,20 @@ public class GoodsBuyActivity extends BaseActivity {
             price = totalPrice - Double.parseDouble(couponPrice);
         }
 
-        if (price >= 99) {
+        if (intentFlag == ConfigVariate.flagGrouponIntent || intentFlag == ConfigVariate.flagSalesIntent) {
+            payPrice = price;
             goodsbuyactivity_waychoose.setText("快递免邮");
-            goodsbuyactivity_allmoney.setText("¥ " + price);
         } else {
-            goodsbuyactivity_waychoose.setText("快递 ¥ 10");
-            goodsbuyactivity_allmoney.setText("¥ " + (price + storePostage));
+            if (price >= 99) {
+                payPrice = price;
+                goodsbuyactivity_waychoose.setText("快递免邮");
+            } else {
+                payPrice = price + storePostage;
+                goodsbuyactivity_waychoose.setText("快递 ¥" + storePostage);
+            }
         }
+
+        goodsbuyactivity_allmoney.setText("¥ " + DecimalUtils.format2Number(payPrice));
         totalCountView.setText("共" + totalCount + "件");
 
         goodsbuyactivity_submit.setEnabled(true);
@@ -488,13 +527,32 @@ public class GoodsBuyActivity extends BaseActivity {
             super.onSucceed(msg);
             switch (msg.arg1) {
                 case 1: //获取默认收货地址
-                    Map<String, Object> mapJson = jsonToMap(msg.obj.toString());
-                    if (mapJson == null || mapJson.size() == 0) {
-                        goodsbuyactivity_siteinfo.setVisibility(View.GONE);
-                        goodsbuyactivity_hintsite.setVisibility(View.VISIBLE);
-                        return;
-                    }
-                    setSite(mapJson);
+                    getDefaultSite(msg.obj.toString(), new OnHttpCallback<AddreInfo>() {
+                        @Override
+                        public void success(AddreInfo result) {
+                            if (result == null) {
+                                goodsbuyactivity_siteinfo.setVisibility(View.GONE);
+                                goodsbuyactivity_hintsite.setVisibility(View.VISIBLE);
+                            } else {
+                                goodsbuyactivity_siteinfo.setVisibility(View.VISIBLE);
+                                goodsbuyactivity_hintsite.setVisibility(View.GONE);
+                                siteInfo = result;
+
+                                //{"id":12,"real_name":"errrr88888","phone":"13222222222","province":"内蒙古自治区","city":"通辽市","district":"库伦旗","detail":"rrrrrr","is_default":1}
+                                //设置地址信息
+                                person_name.setText(siteInfo.getReal_name());
+                                person_phone.setText(siteInfo.getPhone());
+                                person_site.setText(siteInfo.getProvince() + siteInfo.getCity() + siteInfo.getDistrict()
+                                        + " " + siteInfo.getDetail());
+                            }
+                        }
+
+                        @Override
+                        public void error(int code, String msg) {
+                            goodsbuyactivity_siteinfo.setVisibility(View.GONE);
+                            goodsbuyactivity_hintsite.setVisibility(View.VISIBLE);
+                        }
+                    });
                     break;
                 case 2://创建订单
                     try {
@@ -524,7 +582,7 @@ public class GoodsBuyActivity extends BaseActivity {
                             boolean is_pass = (boolean) data.get("is_pass");
                             SharedPreferenceUtils.setPreference(GoodsBuyActivity.this, "PASSWORD", is_pass, "B");
                             if (is_pass) {
-                                showPwd();
+                                getCurrentBalance();
                             } else {
                                 setPwd();
                             }
@@ -535,6 +593,17 @@ public class GoodsBuyActivity extends BaseActivity {
                         tost(e.getMessage());
                     }
                     break;
+                case 5:
+                    Map<String, Object> map = jsonToMap(msg.obj.toString());
+                    if (map != null) {
+                        String money = getString(map, "now_money");
+                        if (Double.parseDouble(money) < payPrice) {
+                            tost("余额不足" + payPrice);
+                        } else {
+                            showPwd();
+                        }
+                    }
+                    break;
             }
         }
     };
@@ -543,7 +612,7 @@ public class GoodsBuyActivity extends BaseActivity {
      * 设置支付密码
      */
     private void setPwd() {
-        MyDialogTwoButton myDialogTwoButton = new MyDialogTwoButton(GoodsBuyActivity.this, "检测到您没有设置支付密码，是否继续继续购买？", new DialogOnClick() {
+        MyDialogTwoButton myDialogTwoButton = new MyDialogTwoButton(GoodsBuyActivity.this, "检测到您没有设置支付密码，是否继续购买？", new DialogOnClick() {
             @Override
             public void operate() {
                 IntentUtils.startIntent(GoodsBuyActivity.this, PaySettingActivity.class);
@@ -557,37 +626,8 @@ public class GoodsBuyActivity extends BaseActivity {
     }
 
 
-    /**
-     * 设置收货地址信息
-     *
-     * @param mapJson 默认地址信息
-     */
-    private void setSite(Map<String, Object> mapJson) {
-        goodsbuyactivity_siteinfo.setVisibility(View.VISIBLE);
-        goodsbuyactivity_hintsite.setVisibility(View.GONE);
-        if (siteInfo == null) {
-            siteInfo = new AddreInfo();
-        }
-
-        //{"id":12,"real_name":"errrr88888","phone":"13222222222","province":"内蒙古自治区","city":"通辽市","district":"库伦旗","detail":"rrrrrr","is_default":1}
-        siteInfo.setId((int) httpHander.getDouble(mapJson, "id"));
-        siteInfo.setName(httpHander.getString(mapJson, "real_name"));
-        siteInfo.setPhone(httpHander.getString(mapJson, "phone"));
-        siteInfo.setProvince(httpHander.getString(mapJson, "province"));
-        siteInfo.setCity(httpHander.getString(mapJson, "city"));
-        siteInfo.setCounty(httpHander.getString(mapJson, "district"));
-        siteInfo.setAddre(httpHander.getString(mapJson, "detail"));
-
-        //设置地址信息
-        person_name.setText(siteInfo.getName());
-        person_phone.setText(siteInfo.getPhone());
-        person_site.setText(siteInfo.getProvince() + siteInfo.getCity() + siteInfo.getCounty()
-                + " " + siteInfo.getAddre());
-    }
-
     //确认订单
     private void submitFromShopCar() {
-        Log.e("!!!!!!!!!!!!!!!", "!" + carId);
         String url = Netconfig.confirmOrder;
         Map<String, Object> map = new HashMap<>();
         map.put("cartId", carId);
@@ -595,23 +635,22 @@ public class GoodsBuyActivity extends BaseActivity {
         httpHander.okHttpMapPost(this, url, map, 2);
     }
 
+
+    //跳转支付界面并传入数据
     private void submit() {
         if (siteInfo == null) {
             tost("请选择收货地址！");
             return;
         }
-        intentPayData();
-    }
-
-
-    //跳转支付界面并传入数据
-    private void intentPayData() {
 
         if (orderKey.equals("")) {
             tost("确认订单失败，请重新提交！");
             return;
         }
+        payOrder();
+    }
 
+    private void payOrder() {
         if (TextUtils.equals(payType, Constants.YUE)) {
             checkYE();
         } else {
@@ -625,14 +664,15 @@ public class GoodsBuyActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("key", orderKey);
         map.put("addressId", siteInfo.getId());
-        map.put("couponId", couponId);
+        if (couponIndex != -1)
+            map.put("couponId", listUseCoupon.get(couponIndex).getId());
         map.put("mark", "");
         map.put("payType", payType);
         if (!TextUtils.isEmpty(pwd)) {
             map.put("payPass", MD5Util.getMD5String(pwd));
         }
         map.put("token", getInstance().getToken());
-        map.put("useIntegral", couponId != 0);
+        map.put("useIntegral", false);
         /**拼团产品id 普通商品为空或0
          * combination_id	T文本	是
          * 1
@@ -680,6 +720,7 @@ public class GoodsBuyActivity extends BaseActivity {
             }
 
         } else if (payType.equals(Constants.YUE)) {
+
             try {
                 Map<String, Object> map = new Gson().fromJson(json, HashMap.class);
                 if (map == null) {
@@ -700,7 +741,6 @@ public class GoodsBuyActivity extends BaseActivity {
                     tost(httpHander.getString(map, "msg"));
                     toOrderList(0);
                 }
-                finish();
 
             } catch (Exception e) {
                 tost(e.getMessage());
@@ -755,9 +795,14 @@ public class GoodsBuyActivity extends BaseActivity {
     };
 
     private void checkYE() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("token", application.getToken());
-        httpHander.okHttpMapPost(GoodsBuyActivity.this, Netconfig.checkYuE, map, 4);
+        boolean is_pass = (boolean) SharedPreferenceUtils.getPreference(GoodsBuyActivity.this, "PASSWORD", "B");
+        if (is_pass) {
+            getCurrentBalance();
+        } else {
+            Map<String, Object> map = new HashMap<>();
+            map.put("token", application.getToken());
+            httpHander.okHttpMapPost(GoodsBuyActivity.this, Netconfig.checkYuE, map, 4);
+        }
     }
 
 
@@ -767,8 +812,8 @@ public class GoodsBuyActivity extends BaseActivity {
         final PasswordEditText password_edit_text = passwordEditDialog.getPasswordEdit();
         passwordEditDialog.setPasswordClickListeners(new PasswordEditText.PasswordFullListener() {
             @Override
-            public void passwordFull(String password) {
-                commiteOrder(password);
+            public void passwordFull(String pwd) {
+                commiteOrder(pwd);
                 passwordEditDialog.dismiss();
             }
         });
@@ -786,12 +831,20 @@ public class GoodsBuyActivity extends BaseActivity {
 
     }
 
+    //获取个人中心信息
+    public void getCurrentBalance() {
+        String url = Netconfig.personalCenter;
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(ConfigHttpReqFields.sendToken, AppLibLication.getInstance().getToken());
+        httpHander.okHttpMapPost(this, url, map, 5);
+    }
 
     private void toOrderList(final int flag) {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
                 IntentUtils.startIntent(flag, GoodsBuyActivity.this, OrderListActivity.class);
+                finish();
             }
         };
         timer.schedule(task, 2500);

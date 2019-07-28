@@ -5,17 +5,14 @@
 
     <style name="AppTheme" parent="BaseTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/line</item>
+        <item name="colorPrimaryDark">@color/line</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowTitleBackgroundStyle">@style/mCustomWindowTitleBackground</item>
-    </style>
-
-    <style name="NoTitle" parent="android:Theme">
-        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="mCustomWindowTitleBackground" parent="android:Widget">
@@ -186,8 +183,8 @@
     <style name="timer_view">
         <item name="android:paddingStart">5dp</item>
         <item name="android:paddingEnd">5dp</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
     </style>
 
     <!--首页粗体字-->

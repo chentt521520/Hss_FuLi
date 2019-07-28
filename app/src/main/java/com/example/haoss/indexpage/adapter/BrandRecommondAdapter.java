@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.applibrary.entity.NavInfo;
 import com.example.applibrary.utils.ImageUtils;
 import com.example.haoss.R;
-import com.example.haoss.indexpage.entity.NavInfo;
 
 import java.util.List;
 

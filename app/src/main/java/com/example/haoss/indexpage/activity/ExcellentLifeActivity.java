@@ -13,11 +13,10 @@ import com.example.applibrary.custom.CustomerScrollView;
 import com.example.applibrary.custom.viewfragment.FragmentDataInfo;
 import com.example.applibrary.custom.viewfragment.FragmentView;
 import com.example.applibrary.custom.viewfragment.OnclickFragmentView;
+import com.example.applibrary.entity.NavInfo;
+import com.example.applibrary.entity.Recommond;
 import com.example.applibrary.httpUtils.HttpHander;
 import com.example.applibrary.utils.IntentUtils;
-import com.example.applibrary.utils.ViewUtils;
-import com.example.applibrary.widget.freshLoadView.RefreshLayout;
-import com.example.applibrary.widget.freshLoadView.RefreshListenerAdapter;
 import com.example.haoss.R;
 import com.example.haoss.base.BaseActivity;
 import com.example.haoss.goods.details.GoodsDetailsActivity;
@@ -25,8 +24,6 @@ import com.example.haoss.goods.goodslist.GoodsListActivity;
 import com.example.haoss.goods.search.GoodsSearchActivity;
 import com.example.haoss.indexpage.adapter.GridFavorAdapter;
 import com.example.haoss.indexpage.adapter.GridSortNavAdapter;
-import com.example.haoss.indexpage.entity.NavInfo;
-import com.example.haoss.indexpage.entity.Recommond;
 import com.example.haoss.views.MyGridView;
 
 import java.util.ArrayList;
@@ -38,9 +35,6 @@ import java.util.Map;
 public class ExcellentLifeActivity extends BaseActivity {
 
     FragmentView carousel;  //轮播
-    TextView action_search_ss;  //搜索
-    MyGridView gridNav, gridFavor;   //导航和推荐处
-
     ArrayList<FragmentDataInfo> listBanner; //轮播
     List<NavInfo> listNav;
     List<Recommond> listCommend;    //导航，推荐
@@ -48,7 +42,7 @@ public class ExcellentLifeActivity extends BaseActivity {
     GridFavorAdapter recommendAdapter;    //推荐适配器
     private String title;
     private int id;
-    //    private RefreshLayout refreshLayout;
+    //    private RefreshLayout reafreshLayout;
     private int page = 1;
 
     @Override
@@ -61,6 +55,7 @@ public class ExcellentLifeActivity extends BaseActivity {
     }
 
     private void initData() {
+        listNav = new ArrayList<>();
         listCommend = new ArrayList<>();
         Bundle bundle = getIntent().getExtras();
         title = bundle.getString("title");
@@ -78,15 +73,15 @@ public class ExcellentLifeActivity extends BaseActivity {
         this.getTitleView().setTitleText(title);
 
         CustomerScrollView scrollView = findViewById(R.id.scroll_view);
-        action_search_ss = findViewById(R.id.action_search_ss);
         carousel = findViewById(R.id.ui_bannar);
-        gridNav = findViewById(R.id.ui_grid_nav);
-        gridFavor = findViewById(R.id.ui_grid_favor);
+
+        MyGridView gridNav = findViewById(R.id.ui_grid_nav);
+        MyGridView gridFavor = findViewById(R.id.ui_grid_favor);
 
         TextView good_recommond_title = findViewById(R.id.ui_good_favor_title);
         good_recommond_title.setText("每日优选");
 
-        action_search_ss.setOnClickListener(onClickListener);
+        findViewById(R.id.action_search_ss).setOnClickListener(onClickListener);
         gridNav.setOnItemClickListener(onNavClickListener);
         gridFavor.setOnItemClickListener(onRecommendClickListener);
 
@@ -95,18 +90,6 @@ public class ExcellentLifeActivity extends BaseActivity {
 
         recommendAdapter = new GridFavorAdapter(this, listCommend);
         gridFavor.setAdapter(recommendAdapter);
-
-//        refreshLayout = findViewById(R.id.refresh_layout);
-//        refreshLayout.setEnableRefresh(false);
-//        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
-//
-//            @Override
-//            public void onLoadMore(RefreshLayout refreshLayout) {
-//                super.onLoadMore(refreshLayout);
-//                page++;
-//                getRecommond();
-//            }
-//        });
 
         scrollView.setOnScrollListener(new CustomerScrollView.OnScrollListener() {
             @Override
@@ -165,7 +148,6 @@ public class ExcellentLifeActivity extends BaseActivity {
 
         //装导航
         if (navList != null) {
-            listNav = new ArrayList<>();
             for (int i = 0; i < navList.size(); i++) {
                 Map<String, Object> navMap = (Map<String, Object>) navList.get(i);
                 int id = (int) Double.parseDouble(navMap.get("id") + "");
@@ -242,7 +224,6 @@ public class ExcellentLifeActivity extends BaseActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent(ExcellentLifeActivity.this, GoodsListActivity.class);
             intent.putExtra("searchType", listNav.get(position).getId());
-            intent.putExtra("searchName", listNav.get(position).getName());
             startActivity(intent);
         }
     };

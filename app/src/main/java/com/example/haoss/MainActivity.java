@@ -10,6 +10,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -38,8 +39,8 @@ import butterknife.ButterKnife;
 //首页界面
 public class MainActivity extends BaseActivity {
 
-    @BindView(R.id.linear_bar)
-    LinearLayout linearBar;
+    //    @BindView(R.id.linear_bar)
+//    LinearLayout linearBar;
     @BindView(R.id.guzhu_rb)
     RadioButton guzhuRb;
     @BindView(R.id.fuwushang_rb)
@@ -56,13 +57,16 @@ public class MainActivity extends BaseActivity {
     NoScrollViewPager mainVp;
     private List<Fragment> fraList = new ArrayList<>();
     private long exitTime = 0;
+    private int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        flag = getIntent().getIntExtra("flag", 0);
+
         ButterKnife.bind(this);
-        setZhuangTaiLan();
         fragmentList();
         setView();
         viewListener();
@@ -84,59 +88,6 @@ public class MainActivity extends BaseActivity {
     }
 
     /**
-     * 设置状态栏
-     */
-    private void setZhuangTaiLan() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //透明状态栏0
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            linearBar = findViewById(R.id.linear_bar);
-            linearBar.setVisibility(View.VISIBLE);
-            linearBar.setBackgroundColor(Color.parseColor("#ffffff"));
-            int statusHeight = LhtTool.getStatusBarHeight(this);
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linearBar.getLayoutParams();
-            params.height = statusHeight;
-            linearBar.setLayoutParams(params);
-        }
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(option);
-            //设置导航栏为透明
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//android6.0以后可以对状态栏文字颜色和图标进行修改
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }
-        if (Build.VERSION.SDK_INT >= 23) {
-            int REQUEST_CODE_CONTACT = 101;
-            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            //验证是否许可权限
-            for (String str : permissions) {
-                if (this.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
-                    //申请权限
-                    this.requestPermissions(permissions, REQUEST_CODE_CONTACT);
-                    return;
-                }
-            }
-        }
-        if (Build.VERSION.SDK_INT >= 23) {
-            int REQUEST_CODE_CONTACT = 102;
-            String[] permissions = {Manifest.permission.READ_PHONE_STATE};
-            //验证是否许可权限
-            for (String str : permissions) {
-                if (this.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
-                    //申请权限
-                    this.requestPermissions(permissions, REQUEST_CODE_CONTACT);
-                    return;
-                }
-            }
-        }
-    }
-
-    /**
      * 操作view
      */
     private void setView() {
@@ -151,9 +102,13 @@ public class MainActivity extends BaseActivity {
                 return fraList.size();
             }
         });
-        if (null != getIntent().getExtras() && getIntent().getExtras().equals("3")) {
-            mainVp.setCurrentItem(2);
-        }
+
+        guzhuRb.setChecked(flag == 0);
+        fuwushangRb.setChecked(flag == 1);
+        xiaoxiRb.setChecked(flag == 2);
+        wodeRb.setChecked(flag == 3);
+
+        mainVp.setCurrentItem(flag);
     }
 
     /**
@@ -181,28 +136,6 @@ public class MainActivity extends BaseActivity {
 
                 }
                 mainVp.setCurrentItem(x);
-                if (x == 3) {
-                    // linear_bar.setBackgroundColor(Color.parseColor("#D27AA0"));
-                    if (linearBar != null) {
-                        linearBar.setVisibility(View.VISIBLE);
-                        linearBar.setBackgroundColor(Color.parseColor("#ffffff"));
-                    }
-                } else if (x == 2) {
-                    if (linearBar != null) {
-                        linearBar.setVisibility(View.VISIBLE);
-                        linearBar.setBackgroundColor(Color.parseColor("#ffffff"));
-                    }
-                } else if (x == 0) {
-                    if (linearBar != null) {
-                        linearBar.setVisibility(View.VISIBLE);
-                        linearBar.setBackgroundColor(Color.parseColor("#ffffff"));
-                    }
-                } else {
-                    if (linearBar != null) {
-                        linearBar.setVisibility(View.VISIBLE);
-                        linearBar.setBackgroundColor(Color.parseColor("#ffffff"));
-                    }
-                }
             }
         });
     }

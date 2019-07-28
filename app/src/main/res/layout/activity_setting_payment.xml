@@ -20,9 +20,11 @@
         <TextView
             android:id="@+id/paysettingactivity_setpaypas"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:drawableEnd="@mipmap/more_image"
             android:gravity="center_vertical"
+            android:paddingTop="@dimen/width15"
+            android:paddingBottom="@dimen/width15"
             android:text="设置支付密码"
             android:textColor="@color/blackColor0f"
             android:textSize="12sp" />
@@ -36,15 +38,14 @@
         android:id="@+id/paysettingactivity_paysetpass"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="25dp"
         android:visibility="gone">
 
         <TextView
             android:id="@+id/paysettingactivity_paysetpass_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:layout_marginTop="25dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="设置六位纯数字密码" />
 
@@ -54,104 +55,103 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/paysettingactivity_paysetpass_hint"
-            android:gravity="center"
             android:orientation="horizontal">
-            <!--1-->
-            <TextView
-                android:id="@+id/paysettingactivity_paysetpass_one"
-                android:layout_width="50dp"
+
+            <LinearLayout
+                android:id="@+id/paysettingactivity_paysetpass_view"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:background="@drawable/bk_hui_03"
-                android:gravity="center"
-                android:inputType="textPassword"
-                android:maxLength="1"
-                android:text=""
-                android:textSize="15sp" />
-            <!--2-->
-            <TextView
-                android:id="@+id/paysettingactivity_paysetpass_two"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_toEndOf="@+id/paysettingactivity_paysetpass_one"
-                android:background="@drawable/bk_hui_03"
-                android:gravity="center"
-                android:inputType="textPassword"
-                android:maxLength="1"
-                android:text=""
-                android:textSize="15sp" />
-            <!--3-->
-            <TextView
-                android:id="@+id/paysettingactivity_paysetpass_three"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_toEndOf="@+id/paysettingactivity_paysetpass_two"
-                android:background="@drawable/bk_hui_03"
-                android:gravity="center"
-                android:inputType="textPassword"
-                android:maxLength="1"
-                android:text=""
-                android:textSize="15sp" />
-            <!--4-->
-            <TextView
-                android:id="@+id/paysettingactivity_paysetpass_four"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_toEndOf="@+id/paysettingactivity_paysetpass_three"
-                android:background="@drawable/bk_hui_03"
-                android:gravity="center"
-                android:inputType="textPassword"
-                android:maxLength="1"
-                android:text=""
-                android:textSize="15sp" />
-            <!--5-->
-            <TextView
-                android:id="@+id/paysettingactivity_paysetpass_five"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_toEndOf="@+id/paysettingactivity_paysetpass_four"
-                android:background="@drawable/bk_hui_03"
-                android:gravity="center"
-                android:inputType="textPassword"
-                android:maxLength="1"
-                android:text=""
-                android:textSize="15sp" />
-            <!--6-->
-            <TextView
-                android:id="@+id/paysettingactivity_paysetpass_six"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_toEndOf="@+id/paysettingactivity_paysetpass_five"
-                android:background="@drawable/bk_hui_03"
-                android:gravity="center"
-                android:inputType="textPassword"
-                android:maxLength="1"
-                android:text=""
-                android:textSize="15sp" />
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal">
+                <!--1-->
+                <TextView
+                    android:id="@+id/paysettingactivity_paysetpass_one"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="3dp"
+                    android:background="@drawable/bk_hui_03"
+                    android:gravity="center"
+                    android:inputType="textPassword"
+                    android:maxLength="1"
+                    android:text=""
+                    android:textSize="20sp" />
+                <!--2-->
+                <TextView
+                    android:id="@+id/paysettingactivity_paysetpass_two"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="3dp"
+                    android:background="@drawable/bk_hui_03"
+                    android:gravity="center"
+                    android:inputType="textPassword"
+                    android:maxLength="1"
+                    android:text=""
+                    android:textSize="20sp" />
+                <!--3-->
+                <TextView
+                    android:id="@+id/paysettingactivity_paysetpass_three"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="3dp"
+                    android:background="@drawable/bk_hui_03"
+                    android:gravity="center"
+                    android:inputType="textPassword"
+                    android:maxLength="1"
+                    android:text=""
+                    android:textSize="20sp" />
+                <!--4-->
+                <TextView
+                    android:id="@+id/paysettingactivity_paysetpass_four"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="3dp"
+                    android:background="@drawable/bk_hui_03"
+                    android:gravity="center"
+                    android:inputType="textPassword"
+                    android:maxLength="1"
+                    android:text=""
+                    android:textSize="20sp" />
+                <!--5-->
+                <TextView
+                    android:id="@+id/paysettingactivity_paysetpass_five"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="3dp"
+                    android:background="@drawable/bk_hui_03"
+                    android:gravity="center"
+                    android:inputType="textPassword"
+                    android:maxLength="1"
+                    android:text=""
+                    android:textSize="20sp" />
+                <!--6-->
+                <TextView
+                    android:id="@+id/paysettingactivity_paysetpass_six"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bk_hui_03"
+                    android:gravity="center"
+                    android:inputType="textPassword"
+                    android:maxLength="1"
+                    android:text=""
+                    android:textSize="20sp" />
+            </LinearLayout>
+
 
             <!--支付密码设置输入-->
             <EditText
                 android:id="@+id/paysettingactivity_paysetpass_input"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_alignStart="@+id/paysettingactivity_paysetpass_one"
-                android:layout_alignTop="@+id/paysettingactivity_paysetpass_one"
+                android:layout_alignStart="@+id/paysettingactivity_paysetpass_view"
+                android:layout_alignTop="@+id/paysettingactivity_paysetpass_view"
                 android:background="#00000000"
                 android:digits="1234567890"
+                android:inputType="number"
                 android:maxLength="6"
+                android:paddingStart="@dimen/width25"
+                android:paddingEnd="@dimen/width25"
                 android:textColor="#00000000"
-                android:textSize="1sp" />
+                android:textSize="0sp" />
         </RelativeLayout>
 
         <!--确定按钮-->
@@ -163,8 +163,8 @@
             android:layout_marginTop="60dp"
             android:background="@drawable/bg_red_02"
             android:gravity="center"
-            android:paddingBottom="10dp"
             android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:text="确定"
             android:textColor="@color/whiteColor"
             android:textSize="15sp" />
@@ -190,8 +190,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
             android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp"
             android:scaleType="fitCenter"
             android:src="@mipmap/password_updata_ok" />
 

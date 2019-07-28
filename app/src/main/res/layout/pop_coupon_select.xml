@@ -5,18 +5,33 @@
     android:background="#f0f0f0"
     android:orientation="vertical">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="@color/whiteColor"
         android:paddingStart="@dimen/width15"
-        android:paddingTop="@dimen/margin10"
-        android:paddingEnd="@dimen/width15"
-        android:paddingBottom="@dimen/margin10"
-        android:text="优惠券"
-        android:textColor="#4d4d4d"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+        android:paddingEnd="@dimen/width15">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@color/whiteColor"
+            android:text="优惠券"
+            android:textColor="#4d4d4d"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:src="@drawable/goods_close" />
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,4 +85,14 @@
         android:layout_height="350dp"
         android:divider="@null"
         android:scrollbars="none" />
+
+    <TextView
+        android:id="@+id/btn_ok"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#c22222"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/whiteColor"
+        android:textSize="14sp" />
 </LinearLayout>

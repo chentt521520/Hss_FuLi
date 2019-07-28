@@ -17,13 +17,14 @@ import android.widget.TextView;
 
 import com.example.applibrary.base.ConfigVariate;
 import com.example.applibrary.base.Netconfig;
+import com.example.applibrary.entity.GrouponGoodInfo;
 import com.example.applibrary.httpUtils.HttpHander;
 import com.example.applibrary.utils.DensityUtil;
 import com.example.applibrary.utils.ImageUtils;
+import com.example.applibrary.utils.SharedPreferenceUtils;
 import com.example.applibrary.widget.WordWrapView;
 import com.example.haoss.R;
 import com.example.haoss.base.AppLibLication;
-import com.example.haoss.indexpage.tourdiy.entity.GrouponGoodInfo;
 import com.example.haoss.pay.GoodsBuyActivity;
 import com.example.haoss.pay.GoodsBuyInfo;
 import com.google.gson.Gson;
@@ -71,7 +72,7 @@ public class DialogGoodsPay extends Dialog {
         this.context = context;
         this.storeInfo = storeInfo;
         this.flag = flag;
-        if (flag == 0) {
+        if (flag == ConfigVariate.flagIntent) {//正常购买
             this.productAttr = productAttr;
             if (productAttr != null && productAttr.size() > 0) {
                 this.textViews = new TextView[productAttr.size()];
@@ -134,7 +135,7 @@ public class DialogGoodsPay extends Dialog {
     public void setRefresh(GrouponGoodInfo storeInfo, Map<String, Object> productAttr, int flag) {
         this.storeInfo = storeInfo;
         this.flag = flag;
-        if (flag == 0) {
+        if (flag == ConfigVariate.flagIntent) {
             this.productAttr = productAttr;
             if (productAttr != null && productAttr.size() > 0) {
                 this.textViews = new TextView[productAttr.size()];
@@ -193,8 +194,8 @@ public class DialogGoodsPay extends Dialog {
     }
 
     private void drawSKU() {
+
         if (mapKey.isEmpty()) {
-            setViewData();
             return;
         }
         goodTypeList1.removeAllViews();
@@ -231,13 +232,9 @@ public class DialogGoodsPay extends Dialog {
 
     //设置View数据
     private void setViewData() {
-        Log.e("~~~~~~~~~", "mapValue: " + mapValue);
-        Log.e("~~~~~~~~~", "selectType: " + selectType);
         GoodsBuyInfo info = mapValue.get(selectType);
         ImageUtils.imageLoad(context, storeInfo.getImage(), dialog_goods_image, 0, 0);
         dialog_goods_name.setText(storeInfo.getTitle());
-
-        Log.e("~~~~~~~~~", selectType + ": " + info.getId() + "," + info.getImage() + "" + info.getPrice() + "," + info.getStock());
 
         dialog_goods_price.setText("¥ " + info.getPrice());
         repertory = info.getStock();
@@ -245,6 +242,11 @@ public class DialogGoodsPay extends Dialog {
         if (repertory == 0) {
             dialog_goods_jian.setTextColor(Color.parseColor("#999999"));
             dialog_goods_jia.setTextColor(Color.parseColor("#999999"));
+            dialog_goods_jian.setEnabled(false);
+            dialog_goods_jia.setEnabled(false);
+        } else {
+            dialog_goods_jian.setEnabled(true);
+            dialog_goods_jia.setEnabled(true);
         }
     }
 
@@ -263,16 +265,13 @@ public class DialogGoodsPay extends Dialog {
                 }
             }
         } else {
-            number--;
-            if (number == 0 || number == 1) {
-                //商品不能再减了；
+            if (number > 1) {
+                dialog_goods_jian.setTextColor(Color.parseColor("#4d4d4d"));
+                number--;
+            } else {
                 dialog_goods_jian.setTextColor(Color.parseColor("#999999"));
                 number = 1;
-            } else {
-                dialog_goods_jian.setTextColor(Color.parseColor("#4d4d4d"));
             }
-            if (repertory - number == 1) //数量低于库存
-                dialog_goods_jia.setTextColor(Color.parseColor("#999999"));
         }
         dialog_goods_number.setText(number + "");
     }
@@ -280,15 +279,29 @@ public class DialogGoodsPay extends Dialog {
 
     //立即购买
     private void goBuy() {
+//        if (storeInfo.get().getStore_type() == 0) {//国内
+//            payOrder();
+//        } else {
+//            int isRealName = (int) SharedPreferenceUtils.getPreference(activity, ConfigVariate.isRealName, "I");
+//            if (isRealName == 1) {//已认证
+        payOrder();
+//            } else {
+//                setAuth();
+//            }
+//        }
+
+    }
+
+    private void payOrder() {
         GoodsBuyInfo goodInfo = mapValue.get(selectType);
 
         String url = Netconfig.confirmForm;
         HashMap<String, Object> map = new HashMap<>();
 
-        map.put("cartNum", number);
+        map.put("cartNum", dialog_goods_number.getText().toString());
         map.put("uniqueId", goodInfo.getUniqueId());
         map.put("token", AppLibLication.getInstance().getToken());
-        if (flag == 0) {//单独购买，正常商品
+        if (flag == ConfigVariate.flagIntent) {//单独购买，正常商品
             map.put("productId", goodInfo.getProduct_id());
         } else {//拼团购买
             map.put("productId", goodInfo.getId());
@@ -311,7 +324,7 @@ public class DialogGoodsPay extends Dialog {
                             Map data = getMap(ret, "data");
                             String cartId = httpHander.getString(data, "cartId");
                             Intent intent = new Intent(context, GoodsBuyActivity.class);
-                            intent.putExtra("flag", ConfigVariate.flagGrouponIntent);
+                            intent.putExtra("flag", flag);
                             intent.putExtra("cartId", cartId);
                             intent.putExtra("pinkId", activity.getPinkId());
                             context.startActivity(intent);

@@ -3,6 +3,8 @@ package com.example.haoss.indexpage.activity;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +15,8 @@ import com.example.applibrary.custom.MyListView;
 import com.example.applibrary.custom.viewfragment.FragmentDataInfo;
 import com.example.applibrary.custom.viewfragment.FragmentView;
 import com.example.applibrary.custom.viewfragment.OnclickFragmentView;
+import com.example.applibrary.entity.NavInfo;
+import com.example.applibrary.entity.Recommond;
 import com.example.applibrary.httpUtils.HttpHander;
 import com.example.applibrary.utils.IntentUtils;
 import com.example.haoss.R;
@@ -21,9 +25,6 @@ import com.example.haoss.goods.details.GoodsDetailsActivity;
 import com.example.haoss.goods.search.GoodsSearchActivity;
 import com.example.haoss.indexpage.adapter.ListViewGiftCardAdapter;
 import com.example.haoss.indexpage.adapter.FestivalGiftBagAdapter;
-import com.example.haoss.indexpage.entity.NavInfo;
-import com.example.haoss.util.ListViewUtils;
-import com.example.haoss.views.MyGridView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,19 +34,14 @@ import java.util.Map;
 //年节礼包
 public class FestivalGiftActivity extends BaseActivity {
 
-    TextView action_title_text; //标题
-    TextView action_search_ss;  //搜索
-
     FragmentView carousel;  //轮播
-    MyGridView giftPackageGridView; //生日汇-每日优选控件
-    MyListView giftCardListView; //生日汇-每日优选控件
 
     FestivalGiftBagAdapter giftPackageAdapter;    //生日汇-优选数据适配器
     ListViewGiftCardAdapter giftCardAdapter;    //生日汇-优选数据适配器
 
     ArrayList<FragmentDataInfo> listBanner = new ArrayList<>(); //轮播
-    List<NavInfo> giftPackageList = new ArrayList<>();  //生日汇-优选数据
-    List<NavInfo> giftCardList; //8选项
+    List<Recommond> giftPackageList = new ArrayList<>();  //生日汇-优选数据
+    List<NavInfo> giftCardList = new ArrayList<>(); //8选项
     private String title;
     private int id;
 
@@ -71,16 +67,29 @@ public class FestivalGiftActivity extends BaseActivity {
     private void init() {
         this.getTitleView().setTitleText(title);
 
-        action_search_ss = findViewById(R.id.action_search_ss);
+        carousel = findViewById(R.id.ui_bannar);
+        findViewById(R.id.ui_grid_nav).setVisibility(View.GONE);
+        ((TextView) findViewById(R.id.ui_brand_recommad_title)).setText("节日礼包");
 
-        giftPackageGridView = findViewById(R.id.festival_gift_package_list);
-        giftCardListView = findViewById(R.id.festival_gift_card_list);
+        MyListView giftCardListView = findViewById(R.id.festival_gift_card_list);
 
-        carousel = findViewById(R.id.festival_gift_bannar);
+        RecyclerView gridBrandRecommad = findViewById(R.id.ui_grid_brand_recommad);
 
-        action_search_ss.setOnClickListener(onClickListener);
-        giftPackageGridView.setOnItemClickListener(onGiftPackageClickListener);
+        //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
+        layoutmanager.setOrientation(0);
+        //设置RecyclerView 布局
+        gridBrandRecommad.setLayoutManager(layoutmanager);
+
+        giftPackageAdapter = new FestivalGiftBagAdapter(this, giftPackageList);
+        gridBrandRecommad.setAdapter(giftPackageAdapter);
+
+        giftCardAdapter = new ListViewGiftCardAdapter(FestivalGiftActivity.this, giftCardList);
+        giftCardListView.setAdapter(giftCardAdapter);
+
+        findViewById(R.id.action_search_ss).setOnClickListener(onClickListener);
         giftCardListView.setOnItemClickListener(onGiftCardClickListener);
+        giftPackageAdapter.setOnViewClickListener(onItemListener);
 
         String url = Netconfig.indexNav + Netconfig.headers;
         HashMap<String, Object> map = new HashMap<>();
@@ -130,21 +139,17 @@ public class FestivalGiftActivity extends BaseActivity {
             for (int i = 0; i < navList.size(); i++) {
                 Map<String, Object> navMap = (Map<String, Object>) navList.get(i);
                 int id = (int) Double.parseDouble(navMap.get("id") + "");
-                String name = navMap.get("store_name") + "";
+                String store_name = navMap.get("store_name") + "";
                 String image = navMap.get("image") + "";
                 String price = navMap.get("price") + "";
-                NavInfo info = new NavInfo();
+                Recommond info = new Recommond();
                 info.setId(id);
-                info.setName(name);
-                info.setImageUrl(image);
-                info.setMoney(price);
+                info.setStore_name(store_name);
+                info.setImage(image);
+                info.setPrice(price);
                 giftPackageList.add(info);
             }
-            if (giftPackageAdapter == null) {
-                giftPackageAdapter = new FestivalGiftBagAdapter(this, giftPackageList);
-                giftPackageGridView.setAdapter(giftPackageAdapter);
-            } else
-                giftPackageAdapter.notifyDataSetChanged();
+            giftPackageAdapter.freshList(giftPackageList);
         }
 
         //装推荐
@@ -163,7 +168,7 @@ public class FestivalGiftActivity extends BaseActivity {
                 info.setMoney(price);
                 giftCardList.add(info);
             }
-            setGridViewData();
+            giftCardAdapter.refresh(giftCardList);
         }
     }
 
@@ -175,18 +180,6 @@ public class FestivalGiftActivity extends BaseActivity {
                 //轮播图点击操作
             }
         });
-    }
-
-
-    private void setGridViewData() {
-        if (giftCardAdapter == null) {
-            giftCardAdapter = new ListViewGiftCardAdapter(FestivalGiftActivity.this, giftCardList);
-            giftCardListView.setAdapter(giftCardAdapter);
-        } else {
-            giftCardAdapter.notifyDataSetChanged();
-        }
-
-        ListViewUtils.setListViewHeightBasedOnChildren(giftCardListView);
     }
 
 
@@ -205,14 +198,15 @@ public class FestivalGiftActivity extends BaseActivity {
         }
     };
 
-    //推荐监听（每日优选）
-    AdapterView.OnItemClickListener onGiftPackageClickListener = new AdapterView.OnItemClickListener() {
+    FestivalGiftBagAdapter.OnItemClickListener onItemListener = new FestivalGiftBagAdapter.OnItemClickListener() {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        public void onItemClickListener(int position) {
             IntentUtils.startIntent(giftPackageList.get(position).getId(), FestivalGiftActivity.this, GoodsDetailsActivity.class);
         }
     };
-    //推荐监听（每日优选）
+    ;
+
+    //节日礼卡
     AdapterView.OnItemClickListener onGiftCardClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

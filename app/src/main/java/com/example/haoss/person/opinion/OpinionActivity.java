@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.haoss.R;
-import com.example.haoss.base.BaseBackStatusBarActivity;
+import com.example.haoss.base.BaseActivity;
 import com.example.haoss.person.other.PlusImageActivity;
 import com.example.haoss.person.adpter.GridViewAdapter;
 import com.example.haoss.person.other.MainConstant;
@@ -35,7 +35,7 @@ import butterknife.OnClick;
  * blog: "好蔬食"
  * 意见反馈
  */
-public class OpinionActivity extends BaseBackStatusBarActivity {
+public class OpinionActivity extends BaseActivity {
     //输入信息
     @BindView(R.id.xq_content)
     EditText xqContent;
@@ -55,10 +55,10 @@ public class OpinionActivity extends BaseBackStatusBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_opinion_page);
+        setTitleContentView(R.layout.activity_opinion_page);
         ButterKnife.bind(this);
         mContext = this;
-        title.setText("意见反馈");
+        getTitleView().setTitleText("意见反馈");
         initGridView();
 
     }

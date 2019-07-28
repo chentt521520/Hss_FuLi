@@ -15,14 +15,18 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.haoss.base.AppLibLication;
+import com.example.applibrary.base.ConfigHttpReqFields;
 import com.example.applibrary.base.Netconfig;
+import com.example.applibrary.entity.LoginInfo;
 import com.example.applibrary.httpUtils.HttpHander;
 import com.example.applibrary.utils.IntentUtils;
 import com.example.applibrary.utils.ObjectMapperUtils;
 import com.example.applibrary.utils.TextViewUtils;
+import com.example.haoss.MainActivity;
 import com.example.haoss.R;
+import com.example.haoss.base.AppLibLication;
 import com.example.haoss.base.BaseActivity;
+import com.example.haoss.base.Constants;
 import com.example.haoss.pay.aliapi.PayAliPay;
 import com.example.haoss.pay.wxapi.PayWeChar;
 
@@ -39,25 +43,27 @@ public class WalletActivity extends BaseActivity {
     float orgPrice = 0;    //充值金额
     int choosePay = 0;  //0：未选择，1：微信支付，2：支付宝支付
     TextView salePrice1, realPrice1, salePrice2, realPrice2, salePrice3, realPrice3;
-    String money = "0";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitleContentView(R.layout.activity_wallet);
         registerReceiver(mReceiver, new IntentFilter(IntentUtils.pay));
-        initData();
         init();
-    }
-
-    private void initData() {
-        money = getIntent().getStringExtra(IntentUtils.intentActivityString);
+        getCurrentBalance();
     }
 
     private void init() {
         this.getTitleView().setTitleText("我的钱包");
+        this.getTitleView().setLeftOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initTab();
+            }
+        });
+
         walletactivity_money = findViewById(R.id.walletactivity_money);
-        walletactivity_money.setText(money);
         walletactivity_topup100 = findViewById(R.id.walletactivity_topup100);
         walletactivity_topup300 = findViewById(R.id.walletactivity_topup300);
         walletactivity_topup500 = findViewById(R.id.walletactivity_topup500);
@@ -80,12 +86,13 @@ public class WalletActivity extends BaseActivity {
         walletactivity_wechat.setOnClickListener(onClickListener);
         walletactivity_alipay.setOnClickListener(onClickListener);
 
+        walletactivity_money.setText("0");
         salePrice1.setText("100");
-        realPrice1.setText((100 * 0.98f) + "");
+        realPrice1.setText("售价" + (100 * 0.98f) + "元");
         salePrice2.setText("300");
-        realPrice2.setText((300 * 0.95f) + "");
+        realPrice2.setText("售价" + (300 * 0.95f) + "元");
         salePrice3.setText("500");
-        realPrice3.setText((500 * 0.95f) + "");
+        realPrice3.setText("售价" + (500 * 0.95f) + "元");
 
         walletactivity_other.addTextChangedListener(new TextWatcher() {
             @Override
@@ -100,9 +107,22 @@ public class WalletActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                orgPrice = Float.parseFloat(s.toString());
+                if (s.toString().length() > 0) {
+                    orgPrice = Float.parseFloat(s.toString());
+                } else {
+                    orgPrice = 0f;
+                }
             }
         });
+    }
+
+
+    //获取个人中心信息
+    private void getCurrentBalance() {
+        String url = Netconfig.personalCenter;
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(ConfigHttpReqFields.sendToken, AppLibLication.getInstance().getToken());
+        httpHander.okHttpMapPost(this, url, map, 1);
     }
 
     //点击事件
@@ -111,7 +131,7 @@ public class WalletActivity extends BaseActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.walletactivity_record:  //充值记录
-                    tost("充值记录");
+                    IntentUtils.startIntent(WalletActivity.this, ConsumeRecordActivity.class);
                     break;
                 case R.id.walletactivity_submit:  //立即支付
                     goPay();
@@ -201,13 +221,13 @@ public class WalletActivity extends BaseActivity {
     //支付宝支付
     private void zfbPay() {
         tost("支付宝支付 " + getMoney() + " 元");
-        pay("ali");
+        pay(Constants.ALI);
     }
 
     //微信支付
     private void wxPay() {
         tost("微信支付 " + getMoney() + " 元");
-        pay("weixin");
+        pay(Constants.WEIXIN);
     }
 
     //payType == weixin：微信 ==ali：支付宝
@@ -217,29 +237,44 @@ public class WalletActivity extends BaseActivity {
         map.put("price", orgPrice);
         map.put("token", AppLibLication.getInstance().getToken());
         map.put("payType", payType);
-        httpHander.okHttpMapPost(this, url, map, 1);
+        httpHander.okHttpMapPost(this, url, map, 2);
     }
 
     HttpHander httpHander = new HttpHander() {
         @Override
         public void onSucceed(Message msg) {
             super.onSucceed(msg);
-            Map<String, Object> map = ObjectMapperUtils.getUtils().jsonToMap(msg.obj.toString());
-            if (map != null) {
-                if (ObjectMapperUtils.getUtils().mapToInt(map, "code") != 200) {
-                    tost(map.get("msg") + "");
-                    return;
-                }
-                //1：微信支付，2：支付宝支付
-                if (choosePay == 1) {
-                    Map<String, Object> mapWX = (Map<String, Object>) map.get("data");
-                    if (mapWX != null)
-                        wxGetOrder(mapWX);
-                    else
-                        tost("请求失败，重新尝试");
-                } else
-                    aliGetOrder(map.get("data") + "");
+            switch (msg.arg1) {
+                case 1:
+                    Map<String, Object> map1 = jsonToMap(msg.obj.toString());
+                    if (map1 != null) {//nickname、avatar、now_money、integral、status、level、like、couponCount
+                        LoginInfo userInfo = new LoginInfo();
+                        String money = getString(map1, "now_money");
+                        if (!TextUtils.isEmpty(money)) {
+                            walletactivity_money.setText(money);
+                        }
+                    }
+                    break;
+                case 2:
+                    Map<String, Object> map = ObjectMapperUtils.getUtils().jsonToMap(msg.obj.toString());
+                    if (map != null) {
+                        if (ObjectMapperUtils.getUtils().mapToInt(map, "code") != 200) {
+                            tost(map.get("msg") + "");
+                            return;
+                        }
+                        //1：微信支付，2：支付宝支付
+                        if (choosePay == 1) {
+                            Map<String, Object> mapWX = (Map<String, Object>) map.get("data");
+                            if (mapWX != null)
+                                wxGetOrder(mapWX);
+                            else
+                                tost("请求失败，重新尝试");
+                        } else
+                            aliGetOrder(map.get("data") + "");
+                    }
+                    break;
             }
+
         }
     };
 
@@ -275,9 +310,7 @@ public class WalletActivity extends BaseActivity {
             }
             if (action.equals(IntentUtils.pay)) {//微信广播
                 if (TextUtils.equals(status, "0")) {
-                    //充值成功
-                    double currMoney = Double.parseDouble(money) + orgPrice;
-                    walletactivity_money.setText(currMoney + "");
+                    getCurrentBalance();
                     tost("支付成功");
                 } else {
                     if (TextUtils.equals(status, "-1")) {
@@ -290,6 +323,20 @@ public class WalletActivity extends BaseActivity {
         }
     };
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        initTab();
+    }
+
+    private void initTab() {
+        Intent intent = new Intent();
+        intent.setClass(WalletActivity.this, MainActivity.class);
+        intent.putExtra("flag", 3);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 
     @Override
     protected void onDestroy() {

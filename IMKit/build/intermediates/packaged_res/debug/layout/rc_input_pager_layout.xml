@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:gravity="center_vertical"
     android:background="#ffffff"
@@ -15,7 +14,7 @@
         android:layout_gravity="center"
         android:overScrollMode="never"
         android:scrollbarSize="0dp"
-        android:scrollbars="none"/>
+        android:scrollbars="none" />
 
     <LinearLayout
         android:id="@+id/rc_indicator"

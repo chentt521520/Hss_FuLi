@@ -14,6 +14,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.applibrary.dialog.MyDialogTwoButton;
+import com.example.applibrary.dialog.interfac.DialogOnClick;
+import com.example.applibrary.entity.GoodsDetailsInfo;
+import com.example.applibrary.entity.StoreInfo;
+import com.example.applibrary.utils.IntentUtils;
+import com.example.applibrary.utils.SharedPreferenceUtils;
 import com.example.haoss.base.AppLibLication;
 import com.example.applibrary.base.ConfigVariate;
 import com.example.applibrary.base.Netconfig;
@@ -22,9 +28,10 @@ import com.example.applibrary.utils.DensityUtil;
 import com.example.applibrary.utils.ImageUtils;
 import com.example.applibrary.widget.WordWrapView;
 import com.example.haoss.R;
-import com.example.haoss.goods.details.entity.StoreInfo;
 import com.example.haoss.pay.GoodsBuyActivity;
 import com.example.haoss.pay.GoodsBuyInfo;
+import com.example.haoss.person.AuthenticationActivity;
+import com.example.haoss.person.setting.systemsetting.PaySettingActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -48,7 +55,7 @@ public class DialogGoodsPayOrAddCar extends Dialog {
     }
 
     private Context context;
-    private StoreInfo storeInfo;  //商品数据
+    private GoodsDetailsInfo detailsInfo;  //商品数据
     private LinearLayout dialog_goodspayoraddcar_type;    //图片
     private ImageView dialog_goodspayoraddcar_image;    //图片
     private TextView dialog_goodspayoraddcar_name, dialog_goodspayoraddcar_number,
@@ -63,11 +70,11 @@ public class DialogGoodsPayOrAddCar extends Dialog {
     private String selectType = "def";
     private int flag = 0;
 
-    public DialogGoodsPayOrAddCar(Context context, StoreInfo storeInfo, int flag) {
+    public DialogGoodsPayOrAddCar(Context context, GoodsDetailsInfo storeInfo, int flag) {
         super(context, com.example.applibrary.R.style.BottomDialog);
         this.activity = (GoodsDetailsActivity) context;
         this.context = context;
-        this.storeInfo = storeInfo;
+        this.detailsInfo = storeInfo;
         this.flag = flag;
         if (storeInfo.getProductValue() != null && storeInfo.getProductValue().size() > 0) {
             this.textViews = new TextView[storeInfo.getProductValue().size()];
@@ -90,6 +97,7 @@ public class DialogGoodsPayOrAddCar extends Dialog {
         dialog_goodspayoraddcar_jian = findViewById(R.id.dialog_goodspayoraddcar_jian);
         dialog_goodspayoraddcar_jia = findViewById(R.id.dialog_goodspayoraddcar_jia);
         dialog_goodspayoraddcar_type = findViewById(R.id.dialog_goodspayoraddcar_type);
+        dialog_goodspayoraddcar_number.setText("1");
 
         findViewById(R.id.dialog_goodspayoraddcar_close).setOnClickListener(onClickListener);
         dialog_goodspayoraddcar_jian.setOnClickListener(onClickListener);
@@ -125,8 +133,9 @@ public class DialogGoodsPayOrAddCar extends Dialog {
 
 
     //刷新数据
-    public void setRefresh(StoreInfo storeInfo) {
-        this.storeInfo = storeInfo;
+    public void setRefresh(GoodsDetailsInfo storeInfo) {
+        this.detailsInfo = storeInfo;
+        dialog_goodspayoraddcar_number.setText("1");
         drawSKU();
     }
 
@@ -159,7 +168,8 @@ public class DialogGoodsPayOrAddCar extends Dialog {
     private void setData() {
         mapKey = new ArrayList<>();
         map.clear();
-        Map<String, Object> productValue = storeInfo.getProductValue();
+        StoreInfo storeInfo = detailsInfo.getStoreInfo();
+        Map<String, Object> productValue = detailsInfo.getProductValue();
         //没有商品属性
         if (productValue == null || productValue.size() == 0) {
             dialog_goodspayoraddcar_type.setVisibility(View.GONE);
@@ -200,9 +210,9 @@ public class DialogGoodsPayOrAddCar extends Dialog {
     private void setSelect(int position) {
         for (int i = 0; i < textViews.length; i++) {
             if (i == position) {
-                textViews[i].setBackground(context.getResources().getDrawable(R.drawable.bg_red02));
+                textViews[i].setBackground(context.getResources().getDrawable(R.drawable.bk_corner_red_20));
             } else {
-                textViews[i].setBackground(context.getResources().getDrawable(R.drawable.bk_hui_04));
+                textViews[i].setBackground(context.getResources().getDrawable(R.drawable.bk_corner_grey_20));
             }
         }
     }
@@ -210,14 +220,19 @@ public class DialogGoodsPayOrAddCar extends Dialog {
     //设置View数据
     private void setViewData() {
         GoodsBuyInfo info = map.get(selectType);
-        ImageUtils.imageLoad(context, storeInfo.getImage(), dialog_goodspayoraddcar_image, 0, 0);
-        dialog_goodspayoraddcar_name.setText(storeInfo.getStore_name());
+        ImageUtils.imageLoad(context, detailsInfo.getStoreInfo().getImage(), dialog_goodspayoraddcar_image, 0, 0);
+        dialog_goodspayoraddcar_name.setText(detailsInfo.getStoreInfo().getStore_name());
         dialog_goodspayoraddcar_money.setText("¥ " + info.getPrice());
         repertory = info.getStock();
         dialog_goodspayoraddcar_repertory.setText("库存数量：" + repertory + "");
         if (repertory == 0) {
             dialog_goodspayoraddcar_jian.setTextColor(Color.parseColor("#999999"));
             dialog_goodspayoraddcar_jia.setTextColor(Color.parseColor("#999999"));
+            dialog_goodspayoraddcar_jian.setEnabled(false);
+            dialog_goodspayoraddcar_jia.setEnabled(false);
+        } else {
+            dialog_goodspayoraddcar_jian.setEnabled(true);
+            dialog_goodspayoraddcar_jia.setEnabled(true);
         }
     }
 
@@ -236,16 +251,13 @@ public class DialogGoodsPayOrAddCar extends Dialog {
                 }
             }
         } else {
-            number--;
-            if (number == 0 || number == 1) {
-                //商品不能再减了；
+            if (number > 1) {
+                dialog_goodspayoraddcar_jian.setTextColor(Color.parseColor("#4d4d4d"));
+                number--;
+            } else {
                 dialog_goodspayoraddcar_jian.setTextColor(Color.parseColor("#999999"));
                 number = 1;
-            } else {
-                dialog_goodspayoraddcar_jian.setTextColor(Color.parseColor("#4d4d4d"));
             }
-            if (repertory - number == 1) //数量低于库存
-                dialog_goodspayoraddcar_jia.setTextColor(Color.parseColor("#999999"));
         }
         dialog_goodspayoraddcar_number.setText(number + "");
     }
@@ -270,6 +282,37 @@ public class DialogGoodsPayOrAddCar extends Dialog {
 
     //立即购买
     private void goBuy() {
+
+        if (detailsInfo.getStoreInfo().getStore_type() == 0) {//国内
+            payOrder();
+        } else {
+            int isRealName = (int) SharedPreferenceUtils.getPreference(activity, ConfigVariate.isRealName, "I");
+            if (isRealName == 1) {//已认证
+                payOrder();
+            } else {
+                setAuth();
+            }
+        }
+    }
+
+    /**
+     * 认证提示框
+     */
+    private void setAuth() {
+        MyDialogTwoButton myDialogTwoButton = new MyDialogTwoButton(activity, "您所购买的商品需要实名认证，是否继续购买？", "去认证", "", new DialogOnClick() {
+            @Override
+            public void operate() {
+                IntentUtils.startIntent(activity, AuthenticationActivity.class);
+            }
+
+            @Override
+            public void cancel() {
+            }
+        });
+        myDialogTwoButton.show();
+    }
+
+    private void payOrder() {
         GoodsBuyInfo goodInfo = map.get(selectType);
 
         String url = Netconfig.confirmForm;

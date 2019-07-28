@@ -8,7 +8,6 @@
         android:id="@+id/ui_brand_recommad_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:background="@color/whiteColor"
         android:padding="10dp"
         android:text="品牌推荐"

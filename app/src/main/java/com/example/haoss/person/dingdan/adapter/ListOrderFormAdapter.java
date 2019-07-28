@@ -2,29 +2,27 @@ package com.example.haoss.person.dingdan.adapter;
 
 import android.content.Context;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.applibrary.entity.ShoppingCartInfo;
+import com.example.applibrary.resp.RespOrderList;
 import com.example.applibrary.utils.ImageUtils;
 import com.example.haoss.R;
-import com.example.haoss.person.dingdan.entity.OrderListInfo;
-import com.example.haoss.shopcat.entity.ShoppingCartInfo;
 
 import java.util.List;
 
 public class ListOrderFormAdapter extends BaseAdapter {
 
     private Context context;
-    private List<OrderListInfo> list;   //订单商品数据
+    private List<RespOrderList.OrderList> list;   //订单商品数据
 
-    public ListOrderFormAdapter(Context context, List<OrderListInfo> list) {
+    public ListOrderFormAdapter(Context context, List<RespOrderList.OrderList> list) {
         this.context = context;
         this.list = list;
     }
@@ -64,9 +62,10 @@ public class ListOrderFormAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        OrderListInfo info = list.get(position);
+        RespOrderList.OrderList info = list.get(position);
 
         holder.goodContainer.removeAllViews();
+
         for (ShoppingCartInfo cartInfo : info.getCartInfo()) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_list_order_good, null);
 
@@ -76,29 +75,35 @@ public class ListOrderFormAdapter extends BaseAdapter {
             TextView suk = view.findViewById(R.id.item_orderformshopping_specification);
             TextView number = view.findViewById(R.id.item_orderformshopping_number);
             name.setText(cartInfo.getProductInfo().getStore_name());
-            suk.setText(cartInfo.getProductInfo().getGoodsType().getSuk());
+            if (cartInfo.getProductInfo().getAttrInfo() == null) {//无规格
+                suk.setText("");
+                money.setText("¥ " + cartInfo.getProductInfo().getPrice());
+                ImageUtils.imageLoad(context, cartInfo.getProductInfo().getImage(), image, 0, 0);
+            } else {//有规格
+                suk.setText(cartInfo.getProductInfo().getAttrInfo().getSuk());
+                money.setText("¥ " + cartInfo.getProductInfo().getAttrInfo().getPrice());
+                ImageUtils.imageLoad(context, cartInfo.getProductInfo().getAttrInfo().getImage(), image, 0, 0);
+            }
             number.setText("x " + cartInfo.getCart_num());
-            money.setText("¥ " + cartInfo.getProductInfo().getGoodsType().getPrice());
-            ImageUtils.imageLoad(context, cartInfo.getProductInfo().getGoodsType().getImage(), image, 0, 0);
             holder.goodContainer.addView(view);
         }
 
         //0 待付款 1 待发货 2 待收货 4 已完成
-        switch (info.get_status().get_type()) {
+        switch (info.getStatu().getType()) {
             case 0:
                 holder.item_left_btn.setText("取消订单");
                 holder.item_right_btn.setText("付款");
-                holder.time.setText(info.get_add_time());
+                holder.time.setText(info.getAdd_time());
                 break;
             case 1:
                 holder.item_left_btn.setText("查看物流");
                 holder.item_right_btn.setText("催单");
-                holder.time.setText(info.get_pay_time());
+                holder.time.setText(info.getPay_time());
                 break;
             case 2:
                 holder.item_left_btn.setText("查看物流");
                 holder.item_right_btn.setText("确认收货");
-                holder.time.setText(info.get_pay_time());
+                holder.time.setText(info.getPay_time());
                 break;
             case 3:
                 holder.item_left_btn.setText("删除订单");
@@ -106,7 +111,7 @@ public class ListOrderFormAdapter extends BaseAdapter {
             case 4:
                 holder.item_left_btn.setText("删除订单");
                 holder.item_right_btn.setText("已评价");
-                holder.time.setText(info.get_pay_time());
+                holder.time.setText(info.getPay_time());
                 break;
             default:
                 holder.item_left_btn.setVisibility(View.INVISIBLE);
@@ -115,7 +120,7 @@ public class ListOrderFormAdapter extends BaseAdapter {
         }
 
 
-        holder.hint.setText(info.get_status().get_title());
+        holder.hint.setText(info.getStatu().getTitle());
 
         String price = "合计：¥" + "<font color = \"#c22222\">" + info.getPay_price() + "</font>";
         holder.allMoney.setText(Html.fromHtml(price));
@@ -147,7 +152,7 @@ public class ListOrderFormAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void refresh(List<OrderListInfo> orderList) {
+    public void refresh(List<RespOrderList.OrderList> orderList) {
         this.list = orderList;
         notifyDataSetChanged();
     }

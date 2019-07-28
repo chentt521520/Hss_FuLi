@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.haoss.R;
@@ -27,7 +29,7 @@ public class AlcssifyInfoAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if(list!=null)
+        if (list != null)
             return list.size();
         return 0;
     }
@@ -45,26 +47,34 @@ public class AlcssifyInfoAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         Info info;
-        if(view == null) {
+        if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.item_textview_a, null);
             info = new Info();
+            info.item = view.findViewById(R.id.item_good_classfy);
             info.item_textviewa = view.findViewById(R.id.item_textviewa);
+            info.view_indicator = view.findViewById(R.id.view_indicator);
             view.setTag(info);
         }
         info = (Info) view.getTag();
         info.item_textviewa.setText(list.get(position).getName());
-        info.item_textviewa.setTextColor(Color.parseColor("#0f0f0f"));
-        if(chooseIndex == position) //选中
-            info.item_textviewa.setTextColor(Color.parseColor("#C22222"));
+        if (chooseIndex == position) {
+            info.item_textviewa.getPaint().setFakeBoldText(true);
+            info.view_indicator.setVisibility(View.VISIBLE);
+        } else {
+            info.item_textviewa.getPaint().setFakeBoldText(false);
+            info.view_indicator.setVisibility(View.GONE);
+        }
         return view;
     }
 
     //设置选中的下标
-    public void setChoose(int index){
+    public void setChoose(int index) {
         chooseIndex = index;
     }
 
-    class Info{
+    class Info {
+        RelativeLayout item;
+        View view_indicator;
         TextView item_textviewa;
     }
 }

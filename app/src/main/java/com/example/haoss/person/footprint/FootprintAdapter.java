@@ -6,14 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.applibrary.resp.RespFootPrints;
 import com.example.applibrary.utils.ImageUtils;
-import com.example.applibrary.utils.IntentUtils;
 import com.example.haoss.R;
-import com.example.haoss.goods.details.GoodsDetailsActivity;
 
 import java.util.List;
 
@@ -21,17 +19,17 @@ import java.util.List;
 public class FootprintAdapter extends BaseAdapter {
 
     private Context context;
-    private List<FootprintInfo> list;
+    private List<RespFootPrints.FootPrints> list;
     private boolean flag;
 
-    public FootprintAdapter(Context context, List<FootprintInfo> list, boolean flag) {
+    public FootprintAdapter(Context context, List<RespFootPrints.FootPrints> list, boolean flag) {
         this.context = context;
         this.list = list;
         this.flag = flag;
     }
 
     //刷新
-    public void setRefresh(List<FootprintInfo> list, boolean flag) {
+    public void setRefresh(List<RespFootPrints.FootPrints> list, boolean flag) {
         this.list = list;
         this.flag = flag;
         notifyDataSetChanged();
@@ -68,7 +66,7 @@ public class FootprintAdapter extends BaseAdapter {
             view.setTag(info);
         }
         info = (Info) view.getTag();
-        final FootprintInfo footprintIfo = list.get(position);
+        final RespFootPrints.FootPrints footprintIfo = list.get(position);
         if (flag) {//浏览状态
             info.footprint_shoppingchecked.setVisibility(View.GONE);
         } else {//编辑状态

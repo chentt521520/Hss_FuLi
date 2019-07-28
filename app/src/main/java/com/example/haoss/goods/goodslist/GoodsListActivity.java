@@ -15,17 +15,22 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.applibrary.base.ConfigHttpReqFields;
 import com.example.applibrary.base.Netconfig;
+import com.example.applibrary.entity.GoodList;
 import com.example.applibrary.httpUtils.HttpHander;
+import com.example.applibrary.httpUtils.OnHttpCallback;
+import com.example.applibrary.resp.RespGoodSortList;
 import com.example.applibrary.utils.IntentUtils;
+import com.example.applibrary.utils.SharedPreferenceUtils;
 import com.example.applibrary.widget.freshLoadView.RefreshLayout;
 import com.example.applibrary.widget.freshLoadView.RefreshListenerAdapter;
 import com.example.haoss.R;
 import com.example.haoss.base.BaseActivity;
 import com.example.haoss.base.Constants;
 import com.example.haoss.goods.details.GoodsDetailsActivity;
+import com.example.haoss.goods.search.GoodsSearchActivity;
 import com.example.haoss.goods.search.GoodsSearchAdapter;
-import com.example.haoss.goods.search.GoodsSearchInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,8 +40,6 @@ import java.util.Map;
 //商品列表显示
 public class GoodsListActivity extends BaseActivity {
 
-    EditText goodslistactivity_input;   //搜索框
-    ImageView goodslistactivity_go;  //搜索按钮
     TextView goodslistactivity_hint;    //提示
     LinearLayout goodslistactivity_selectionbar;    //选择框
     LinearLayout goodslistactivity_synthesize, goodslistactivity_sales, goodslistactivity_price;  //综合按钮、销量按钮、价格按钮、筛选按钮
@@ -45,12 +48,11 @@ public class GoodsListActivity extends BaseActivity {
     ListView listView;    //商品列表
     private RefreshLayout refreshLayout;
 
-    List<GoodsSearchInfo> listGoods; //商品数据
+    List<GoodList> listGoods; //商品数据
     GoodsSearchAdapter goodsSearchAdapter;  //商品促销适配器
     int searchType = -1;  //商品类型标记(分类ID)
     String searchText = "";  //要搜索的内容
     private int page = 1;
-    private int status = 0;//是否为刷新
     private String priceOrder = "";//asc正序；desc倒序
     private String saleOrder = "";
 
@@ -62,16 +64,11 @@ public class GoodsListActivity extends BaseActivity {
 
         listGoods = new ArrayList<>();
         searchType = getIntent().getIntExtra("searchType", -1);
-        searchText = getIntent().getStringExtra("searchName");
-        if (TextUtils.isEmpty(searchText)) {
-            searchText = "";
-        }
-        goSearch();
+
+        goodList();//初始化列表
     }
 
     private void init() {
-        goodslistactivity_input = findViewById(R.id.goodslistactivity_input);
-        goodslistactivity_go = findViewById(R.id.goodslistactivity_go);
         goodslistactivity_hint = findViewById(R.id.goodslistactivity_hint);
         goodslistactivity_selectionbar = findViewById(R.id.goodslistactivity_selectionbar);
         goodslistactivity_synthesize = findViewById(R.id.goodslistactivity_synthesize);
@@ -86,8 +83,8 @@ public class GoodsListActivity extends BaseActivity {
         refreshLayout = findViewById(R.id.refresh_layout);
         listView = findViewById(R.id.list_view);
 
+        findViewById(R.id.ui_good_list_search).setOnClickListener(onClickListener);
         findViewById(R.id.page_back).setOnClickListener(onClickListener);
-        goodslistactivity_go.setOnClickListener(onClickListener);
         goodslistactivity_synthesize.setOnClickListener(onClickListener);
         goodslistactivity_sales.setOnClickListener(onClickListener);
         goodslistactivity_price.setOnClickListener(onClickListener);
@@ -102,28 +99,29 @@ public class GoodsListActivity extends BaseActivity {
             public void onRefresh(RefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 page = 1;
-                status = 0;
-                goSearch();
+                goodList();//刷新列表
             }
 
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
                 page++;
-                status = 1;
-                goSearch();
+                goodList();//上拉加载
             }
         });
-
-        showAndHide(0);
-        setEdtext();
     }
 
-    //flag==0,全部隐藏，==1：显示提示，==2：显示数据
+    //flag==0,全部隐藏，==1：显示提示，==2：搜索有数据
     private void showAndHide(int flag) {
-        goodslistactivity_hint.setVisibility(flag == 1 ? View.VISIBLE : View.GONE);
-        goodslistactivity_selectionbar.setVisibility(flag == 2 ? View.VISIBLE : View.GONE);
-        listView.setVisibility(flag == 2 ? View.VISIBLE : View.GONE);
+        if (flag == 0) {//无数据
+            goodslistactivity_hint.setVisibility(View.VISIBLE);
+            goodslistactivity_selectionbar.setVisibility(View.GONE);
+            listView.setVisibility(View.GONE);
+        } else if (flag == 1) {//商品列表 有数据
+            goodslistactivity_hint.setVisibility(View.GONE);
+            goodslistactivity_selectionbar.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.VISIBLE);
+        }
     }
 
     //点击事件
@@ -133,50 +131,28 @@ public class GoodsListActivity extends BaseActivity {
             switch (v.getId()) {
                 case R.id.page_back:
                     finish();
-                    break;
-                case R.id.goodslistactivity_go:
-                    searchText = goodslistactivity_input.getText().toString();
-                    if (TextUtils.isEmpty(searchText)) {
-                        goodslistactivity_go.setEnabled(false);
-                    } else {
-                        goodslistactivity_go.setEnabled(true);
-                        goSearch();
-                    }
-                    break;
+                    return;
+                case R.id.ui_good_list_search:
+                    IntentUtils.startIntent(GoodsListActivity.this, GoodsSearchActivity.class);
+                    return;
                 case R.id.goodslistactivity_synthesize:
                     priceOrder = "";
                     saleOrder = "";
-                    page = 1;
-                    goSearch();
                     textUp(1);
                     break;
                 case R.id.goodslistactivity_sales:
-                    if (TextUtils.equals(saleOrder, Constants.ASC)) {
-                        saleOrder = Constants.DESC;
-                    } else if (TextUtils.equals(saleOrder, Constants.DESC)) {
-                        saleOrder = Constants.ASC;
-                    } else {
-                        saleOrder = Constants.DESC;
-                    }
-                    priceOrder = "";
-                    page = 1;
-                    goSearch();
+                    saleOrder = changeOrder(saleOrder);
                     textUp(2);
+                    priceOrder = "";
                     break;
                 case R.id.goodslistactivity_price:
-                    if (TextUtils.equals(priceOrder, Constants.ASC)) {
-                        priceOrder = Constants.DESC;
-                    } else if (TextUtils.equals(priceOrder, Constants.DESC)) {
-                        priceOrder = Constants.ASC;
-                    } else {
-                        priceOrder = Constants.DESC;
-                    }
                     saleOrder = "";
-                    page = 1;
-                    goSearch();
+                    priceOrder = changeOrder(priceOrder);
                     textUp(3);
                     break;
             }
+            page = 1;
+            goodList();//按类型排序
         }
     };
 
@@ -188,33 +164,11 @@ public class GoodsListActivity extends BaseActivity {
         }
     };
 
-    //设置编辑框
-    private void setEdtext() {
-        goodslistactivity_input.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-    }
-
-
-    //开始搜索
-    private void goSearch() {
+    //按类型获取商品列表
+    private void goodList() {
         String url = Netconfig.categoryList;
         Map<String, Object> map = new HashMap<>();
         map.put("sid", searchType);
-        map.put("keyword", searchText);
         map.put("page", page);
         map.put("limit", 20);
         map.put("salesOrder", saleOrder);
@@ -226,49 +180,40 @@ public class GoodsListActivity extends BaseActivity {
         @Override
         public void onSucceed(Message msg) {
             super.onSucceed(msg);
-            analysisJson(msg.obj.toString());
+            getGoodList(msg.obj.toString(), new OnHttpCallback<RespGoodSortList.GoodSort>() {
+                @Override
+                public void success(RespGoodSortList.GoodSort result) {
+                    refreshLayout.finishRefreshing();
+                    refreshLayout.finishLoadmore();
+                    if (page == 1) {
+                        listGoods.clear();
+                    }
+                    listGoods.addAll(result.getList());
+                    if (listGoods == null || listGoods.isEmpty()) {
+                        showAndHide(0);
+                    } else {
+                        showAndHide(1);
+                        goodsSearchAdapter.setRefresh(listGoods);
+                    }
+                }
+
+                @Override
+                public void error(int code, String msg) {
+                    refreshLayout.finishRefreshing();
+                    refreshLayout.finishLoadmore();
+                    tost(code + "," + msg);
+                }
+            });
         }
     };
 
-    //解析
-    private void analysisJson(String json) {
-        refreshLayout.finishRefreshing();
-        refreshLayout.finishLoadmore();
-        //解析
-        Map<String, Object> map1 = httpHander.jsonToMap(json);
-        if (map1 == null) {
-            return;
-        }
-        ArrayList<Object> list = httpHander.getList(map1, "list");
-        if (status == 0) {
-            if (list == null || list.size() == 0) {
-                showAndHide(1);
-            } else {
-                showAndHide(2);
-            }
-            listGoods.clear();
-        }
-
-        for (int i = 0; i < list.size(); i++) {
-            Map<String, Object> map = (Map<String, Object>) list.get(i);
-            Map<String, String> mapString = httpHander.getStringMap(map, "store_name", "image", "cate_id");
-            Map<String, Double> mapDouble = httpHander.getDoubleMap(map, "price", "vip_price");
-            Map<String, Integer> mapInteger = httpHander.getIntegerMap(map, "id", "stock", "sales", "store_type");
-            GoodsSearchInfo goodsSearchInfo = new GoodsSearchInfo();
-            goodsSearchInfo.setImage(mapString.get("image"));
-            goodsSearchInfo.setName(mapString.get("store_name"));
-            goodsSearchInfo.setCateId(mapString.get("cate_id"));
-            goodsSearchInfo.setSaies(mapInteger.get("sales"));
-            goodsSearchInfo.setId(mapInteger.get("id"));
-            goodsSearchInfo.setStock(mapInteger.get("stock"));
-            goodsSearchInfo.setPrice(mapDouble.get("price"));
-            goodsSearchInfo.setVipPrice(mapDouble.get("vip_price"));
-            goodsSearchInfo.setStore_type(mapInteger.get("store_type"));
-            listGoods.add(goodsSearchInfo);
-        }
-        goodsSearchAdapter.setRefresh(listGoods);
-        if (page == 1) {
-            listView.setSelection(0);
+    private String changeOrder(String order) {
+        if (TextUtils.equals(order, Constants.ASC)) {
+            return Constants.DESC;
+        } else if (TextUtils.equals(order, Constants.DESC)) {
+            return Constants.ASC;
+        } else {
+            return Constants.DESC;
         }
     }
 

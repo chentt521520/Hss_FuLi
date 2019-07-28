@@ -45,7 +45,7 @@ public class GuideFragment extends BaseFragment {
             LinearLayout fragment_guide_linear = bannerView.findViewById(R.id.fragment_guide_linear);
             TextView fragment_guide_text = bannerView.findViewById(R.id.fragment_guide_text);
             fragment_guide_image.setImageResource(imageId);
-            if (index == 3)
+            if (index == 2)
                 fragment_guide_linear.setVisibility(View.VISIBLE);
             fragment_guide_text.setOnClickListener(new View.OnClickListener() {
                 @Override

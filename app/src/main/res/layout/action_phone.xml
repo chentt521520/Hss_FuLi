@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <TextView
         android:id="@+id/action_phone_hint"
         android:layout_width="match_parent"
@@ -10,7 +9,6 @@
         android:text="为了确保您的账户安全，请设置支付密码！"
         android:textSize="9sp"
         android:textColor="@color/baseRedColor" />
-
     <TextView
         android:id="@+id/action_phone_line"
         android:layout_width="match_parent"
@@ -18,7 +16,6 @@
         android:layout_below="@id/action_phone_hint"
         android:layout_marginTop="10dp"
         android:background="@color/huiColorf0" />
-
     <TextView
         android:id="@+id/action_phone_86"
         android:layout_width="wrap_content"
@@ -41,14 +38,13 @@
         android:layout_alignBottom="@id/action_phone_86"
         android:layout_toRightOf="@id/action_phone_86"
         android:layout_marginLeft="10dp"
-        android:background="@color/whiteColor"
+        android:background="@null"
         android:hint="请输入绑定手机号码"
         android:textSize="12sp"
         android:textColor="@color/huiColor80"
         android:paddingTop="5dp"
         android:maxLength="11"
         android:digits="1234567890" />
-
     <TextView
         android:id="@+id/action_phone_line2"
         android:layout_width="match_parent"
@@ -66,7 +62,7 @@
         android:paddingRight="150dp"
         android:layout_marginTop="30dp"
         android:layout_below="@id/action_phone_line2"
-        android:background="@color/whiteColor"
+        android:background="@null"
         android:hint="请输入验证码"
         android:textSize="12sp"
         android:textColor="@color/huiColor80"

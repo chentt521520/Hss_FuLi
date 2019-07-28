@@ -22,6 +22,7 @@ public class ConfigVariate {
     public static final String nickname = "nickname";
     public static final String integral = "integral";//积分
     public static final String goldCoin = "goldcoin";//金币
+    public static final String isRealName = "isRealName";//金币
 
     //登录包名
     public static final String packLogin = "com.example.haoss.person.login.LoginActivity";
@@ -41,6 +42,8 @@ public class ConfigVariate {
     public static final int flagGoodsToPayIntent = 0x702;
     //购物车跳转到支付页面
     public static final int flagCarToPayIntent = 0x703;
+    //正常购买
+    public static final int flagIntent = 0x706;
     //平团详情
     public static final int flagGrouponIntent = 0x704;
     //特价

@@ -585,7 +585,7 @@
     <color name="rc_text_color_secondary">#999999</color>
     <color name="rc_text_color_tertiary">#d7d7d7</color>
     <color name="rc_text_voice">#737373</color>
-    <color name="rc_voice_cancel"> #CC933432</color>
+    <color name="rc_voice_cancel">#CC933432</color>
     <color name="rc_voice_color">#0195ff</color>
     <color name="rc_voice_color_left">#4385bf</color>
     <color name="rc_voice_color_right">#a2a2a2</color>
@@ -1221,7 +1221,7 @@
         <item name="android:layout_gravity">center_vertical</item>
     </style>
     <style name="rc_ac_file_manager_title">
-         <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_marginLeft">14sp</item>
         <item name="android:gravity">center_vertical</item>

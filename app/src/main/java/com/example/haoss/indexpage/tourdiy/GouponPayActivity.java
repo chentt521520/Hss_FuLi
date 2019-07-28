@@ -4,25 +4,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.example.applibrary.base.Netconfig;
+import com.example.applibrary.custom.CustomerScrollView;
+import com.example.applibrary.custom.MyListView;
+import com.example.applibrary.entity.GrouponListInfo;
 import com.example.applibrary.httpUtils.HttpHander;
+import com.example.applibrary.httpUtils.OnHttpCallback;
+import com.example.applibrary.resp.RespGrouponList;
+import com.example.applibrary.resp.RespOrderDetail;
 import com.example.applibrary.utils.IntentUtils;
-import com.example.applibrary.utils.ViewUtils;
-import com.example.applibrary.widget.freshLoadView.RefreshLayout;
-import com.example.applibrary.widget.freshLoadView.RefreshListenerAdapter;
 import com.example.haoss.R;
 import com.example.haoss.base.AppLibLication;
 import com.example.haoss.base.BaseActivity;
 import com.example.haoss.base.Constants;
 import com.example.haoss.indexpage.tourdiy.adapter.GrouponAdapter;
-import com.example.haoss.indexpage.tourdiy.entity.GrouponListInfo;
-import com.example.haoss.person.dingdan.entity.OrderDetailsInfo;
-import com.example.haoss.views.MyListView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -36,11 +35,9 @@ public class GouponPayActivity extends BaseActivity {
     private String orderId;
     private int page = 1;
     private int pinkId;
-    private RefreshLayout refreshLayout;
-    private GrouponAdapter adapter;
     private MyListView listview;
-    private List<GrouponListInfo> listData;
-    private OrderDetailsInfo orderDetailsInfo;
+    private GrouponAdapter adapter;
+    private List<RespGrouponList.GrouponList> listData;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +46,6 @@ public class GouponPayActivity extends BaseActivity {
 
         id = getIntent().getIntExtra("id", -1);
         orderId = getIntent().getStringExtra("orderId");
-
 
         initView();
         getGrouponList();
@@ -61,17 +57,7 @@ public class GouponPayActivity extends BaseActivity {
         this.getTitleView().setTitleText("支付成功");
 
         ((TextView) findViewById(R.id.order_form_number)).setText(orderId);
-        listview = findViewById(R.id.mylist_view);
-        refreshLayout = findViewById(R.id.refresh_layout);
-        refreshLayout.setEnableRefresh(false);
-        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
-
-            @Override
-            public void onLoadMore(RefreshLayout refreshLayout) {
-                super.onLoadMore(refreshLayout);
-                page++;
-            }
-        });
+        listview = findViewById(R.id.list_view);
 
         adapter = new GrouponAdapter(GouponPayActivity.this, listData);
         listview.setAdapter(adapter);
@@ -90,6 +76,14 @@ public class GouponPayActivity extends BaseActivity {
                 IntentUtils.startIntent(pinkId, GouponPayActivity.this, GrouponNoticeActivity.class);
             }
         });
+
+        ((CustomerScrollView) findViewById(R.id.scroll_view)).setOnScrollListener(new CustomerScrollView.OnScrollListener() {
+            @Override
+            public void loadMore() {
+                page++;
+                getGrouponList();
+            }
+        });
     }
 
     HttpHander httpHander = new HttpHander() {
@@ -100,8 +94,31 @@ public class GouponPayActivity extends BaseActivity {
                 case 1:
                     analysisJson(msg.obj.toString());
                     break;
-                case 2:
-                    handleOrder(msg.obj.toString());
+                case 2://获取订单详情
+                    getOrderDetail(msg.obj.toString(), new OnHttpCallback<RespOrderDetail.OrderDetail>() {
+                        @Override
+                        public void success(RespOrderDetail.OrderDetail result) {
+                            ((TextView) findViewById(R.id.order_form_number)).setText(orderId);
+                            ((TextView) findViewById(R.id.order_form_time)).setText(result.getPay_time());
+                            switch (result.getPay_type()) {
+                                case Constants.WEIXIN:
+                                    ((TextView) findViewById(R.id.order_form_pay_mode)).setText("微信");
+                                    break;
+                                case Constants.ALI:
+                                    ((TextView) findViewById(R.id.order_form_pay_mode)).setText("支付宝");
+                                    break;
+                                case Constants.YUE:
+                                    ((TextView) findViewById(R.id.order_form_pay_mode)).setText("余额");
+                                    break;
+                            }
+                            ((TextView) findViewById(R.id.order_form_price)).setText(result.getPay_price());
+                        }
+
+                        @Override
+                        public void error(int code, String msg) {
+
+                        }
+                    });
                     break;
                 case 3:
                     /**
@@ -132,57 +149,9 @@ public class GouponPayActivity extends BaseActivity {
         }
     };
 
-    private void handleOrder(String json) {
-        Map<String, Object> map = httpHander.jsonToMap(json);
-        if (map != null) {
-            orderDetailsInfo = new OrderDetailsInfo();
-            //用户
-            orderDetailsInfo.setId((int) httpHander.getDouble(map, "id"));
-            orderDetailsInfo.setUid((int) httpHander.getDouble(map, "uid"));
-            orderDetailsInfo.setReal_name(httpHander.getString(map, "real_name"));
-            orderDetailsInfo.setUser_phone(httpHander.getString(map, "user_phone"));
-            orderDetailsInfo.setUser_address(httpHander.getString(map, "user_address"));
-            //费用
-            orderDetailsInfo.setTotal_price(httpHander.getString(map, "total_price"));
-            orderDetailsInfo.setTotal_postage(httpHander.getString(map, "total_postage"));
-            orderDetailsInfo.setCoupon_price(httpHander.getString(map, "coupon_price"));
-            orderDetailsInfo.setDeduction_price(httpHander.getString(map, "deduction_price"));
-            orderDetailsInfo.setPay_price(httpHander.getString(map, "pay_price"));
-            //订单
-            orderDetailsInfo.setOrder_id(httpHander.getString(map, "order_id"));
-            orderDetailsInfo.setDelivery_id(httpHander.getString(map, "delivery_id"));
-//            orderDetailsInfo.set_add_time(httpHander.getString(map, "_add_time"));
-            orderDetailsInfo.set_pay_time(httpHander.getString(map, "_pay_time"));
-            orderDetailsInfo.setPay_type(httpHander.getString(map, "pay_type"));
-            setView();
-        } else {
-            tost("数据异常，请重查看详情！");
-            finish();
-        }
-    }
-
-    private void setView() {
-        ((TextView) findViewById(R.id.order_form_number)).setText(orderId);
-        ((TextView) findViewById(R.id.order_form_time)).setText(orderDetailsInfo.get_pay_time());
-        switch (orderDetailsInfo.getPay_type()) {
-            case Constants.WEIXIN:
-                ((TextView) findViewById(R.id.order_form_pay_mode)).setText("微信");
-                break;
-            case Constants.ALI:
-                ((TextView) findViewById(R.id.order_form_pay_mode)).setText("支付宝");
-                break;
-            case Constants.YUE:
-                ((TextView) findViewById(R.id.order_form_pay_mode)).setText("余额");
-                break;
-        }
-        ((TextView) findViewById(R.id.order_form_price)).setText(orderDetailsInfo.getPay_price());
-    }
-
     //解析数据
     private void analysisJson(String json) {
         ArrayList<Object> result = httpHander.jsonToList(json);
-
-        refreshLayout.finishLoadmore();
 
         if (result == null || result.isEmpty()) {
             return;
@@ -195,7 +164,7 @@ public class GouponPayActivity extends BaseActivity {
             String price = httpHander.getString(map, "price");
             String product_price = httpHander.getString(map, "product_price");
             Map<String, Integer> mapInteger = httpHander.getIntegerMap(map, "id");
-            GrouponListInfo tourdiy = new GrouponListInfo();
+            RespGrouponList.GrouponList tourdiy = new RespGrouponList.GrouponList();
             tourdiy.setId(mapInteger.get("id"));
             tourdiy.setPrice(price);
             tourdiy.setPeople(3);

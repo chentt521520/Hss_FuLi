@@ -10,6 +10,8 @@ import android.widget.ListView;
 
 import com.example.applibrary.base.Netconfig;
 import com.example.applibrary.httpUtils.HttpHander;
+import com.example.applibrary.httpUtils.OnHttpCallback;
+import com.example.applibrary.resp.RespTodaySales;
 import com.example.applibrary.utils.IntentUtils;
 import com.example.applibrary.widget.freshLoadView.RefreshLayout;
 import com.example.applibrary.widget.freshLoadView.RefreshListenerAdapter;
@@ -26,9 +28,9 @@ import java.util.Map;
 //今日特价界面
 public class NowSpecialOfferActivity extends BaseActivity {
 
-    ListView listView;  //数据控件
-    NowSpecialOfferAdapter adapter;  //列表适配器
-    List<NowSpecialOfferInfo> listNow = new ArrayList<>();  //特价数据
+    private ListView listView;  //数据控件
+    private NowSpecialOfferAdapter adapter;  //列表适配器
+    private List<RespTodaySales.TodaySales> listNow = new ArrayList<>();  //特价数据
     private RefreshLayout refreshLayout;
     private int page = 1;
 
@@ -92,46 +94,26 @@ public class NowSpecialOfferActivity extends BaseActivity {
         @Override
         public void onSucceed(Message msg) {
             super.onSucceed(msg);
-            analysisJson(msg.obj.toString());
+            getTodaySales(msg.obj.toString(), new OnHttpCallback<List<RespTodaySales.TodaySales>>() {
+                @Override
+                public void success(List<RespTodaySales.TodaySales> result) {
+                    refreshLayout.finishRefreshing();
+                    refreshLayout.finishLoadmore();
+                    listNow = result;
+                    if (adapter == null) {
+                        adapter = new NowSpecialOfferAdapter(NowSpecialOfferActivity.this, listNow);
+                        listView.setAdapter(adapter);
+                    } else
+                        adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void error(int code, String msg) {
+                    refreshLayout.finishRefreshing();
+                    refreshLayout.finishLoadmore();
+                }
+            });
         }
     };
-
-    private void analysisJson(String s) {
-        refreshLayout.finishRefreshing();
-        refreshLayout.finishLoadmore();
-
-        ArrayList<Object> arrayList = httpHander.jsonToList(s);
-
-        if (arrayList == null) {
-            return;
-        }
-        for (int i = 0; i < arrayList.size(); i++) {
-            Map<String, Object> map = (Map<String, Object>) arrayList.get(i);
-            String name = httpHander.getString(map, "title");
-            String imageUrl = httpHander.getString(map, "image");
-            String price = httpHander.getString(map, "price");
-            String ot_price = httpHander.getString(map, "ot_price");
-            Map<String, Integer> mapInteger = httpHander.getIntegerMap(map, "id", "product_id", "percent", "sales");
-            int id = mapInteger.get("id");
-            int product_id = mapInteger.get("product_id");
-            int percent = mapInteger.get("percent");
-            int sales = mapInteger.get("sales");
-            NowSpecialOfferInfo tourdiy = new NowSpecialOfferInfo();
-            tourdiy.setId(id);
-            tourdiy.setProduct_id(product_id);
-            tourdiy.setMoney(price);
-            tourdiy.setOriginalCost(ot_price);
-            tourdiy.setImage(imageUrl);
-            tourdiy.setName(name);
-            tourdiy.setPercent(percent);
-            tourdiy.setSales(sales);
-            listNow.add(tourdiy);
-        }
-        if (adapter == null) {
-            adapter = new NowSpecialOfferAdapter(this, listNow);
-            listView.setAdapter(adapter);
-        } else
-            adapter.notifyDataSetChanged();
-    }
 
 }

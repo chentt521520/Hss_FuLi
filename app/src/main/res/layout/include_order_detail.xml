@@ -21,6 +21,7 @@
         <View style="@style/ui_line" />
 
         <TextView
+            android:id="@+id/ui_order_number_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -34,7 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/ui_order_number_copy"
+            android:layout_marginStart="@dimen/margin10"
+            android:layout_toEndOf="@+id/ui_order_number_view"
             android:singleLine="true"
             android:textColor="@color/huiColor66"
             android:textSize="11sp" />
@@ -47,7 +49,6 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/margin10"
-            android:gravity="end"
             android:text="复制"
             android:textColor="@color/baseRedColor"
             android:textSize="11sp" />
@@ -62,6 +63,7 @@
         <View style="@style/ui_line" />
 
         <TextView
+            android:id="@+id/ui_order_deal_number_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -73,9 +75,9 @@
             android:id="@+id/ui_order_deal_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:gravity="end"
+            android:layout_marginStart="@dimen/margin10"
+            android:layout_toEndOf="@+id/ui_order_deal_number_view"
             android:textSize="11sp" />
 
     </RelativeLayout>
@@ -87,6 +89,7 @@
         <View style="@style/ui_line" />
 
         <TextView
+            android:id="@+id/ui_order_create_time_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -99,8 +102,9 @@
             android:id="@+id/ui_order_create_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin10"
+            android:layout_toEndOf="@+id/ui_order_create_time_view"
             android:gravity="end"
             android:textSize="11sp" />
     </RelativeLayout>
@@ -112,6 +116,7 @@
         <View style="@style/ui_line" />
 
         <TextView
+            android:id="@+id/ui_order_pay_time_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -123,8 +128,9 @@
             android:id="@+id/ui_order_pay_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin10"
+            android:layout_toEndOf="@+id/ui_order_pay_time_view"
             android:gravity="end"
             android:textSize="11sp" />
 
@@ -138,6 +144,7 @@
         <View style="@style/ui_line" />
 
         <TextView
+            android:id="@+id/ui_order_send_time_view1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -149,8 +156,9 @@
             android:id="@+id/ui_order_send_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin10"
+            android:layout_toEndOf="@+id/ui_order_send_time_view1"
             android:gravity="end"
             android:textSize="11sp" />
 

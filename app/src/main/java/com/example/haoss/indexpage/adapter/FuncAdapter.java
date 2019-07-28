@@ -9,9 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.applibrary.entity.IndexInfo;
 import com.example.haoss.R;
-import com.example.haoss.indexpage.entity.FuncInfo;
-import com.example.haoss.indexpage.entity.IndexInfo;
 
 import java.util.List;
 

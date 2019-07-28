@@ -5,15 +5,15 @@
     android:layout_height="match_parent">
 
     <!--<io.rong.photoview.PhotoView-->
-        <!--android:id="@+id/rc_picsel_photoView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
+    <!--android:id="@+id/rc_picsel_photoView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" />-->
 
     <io.rong.subscaleview.SubsamplingScaleImageView
         android:id="@+id/rc_photoView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true" />
 
     <ImageButton
         android:id="@+id/rc_play_video"

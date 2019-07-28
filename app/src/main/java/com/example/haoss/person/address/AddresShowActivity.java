@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ListView;
 
+import com.example.applibrary.entity.AddreInfo;
 import com.example.applibrary.widget.CustomTitleView;
 import com.example.applibrary.widget.freshLoadView.RefreshLayout;
 import com.example.applibrary.widget.freshLoadView.RefreshListenerAdapter;
@@ -20,9 +21,6 @@ import com.example.applibrary.httpUtils.HttpHander;
 import com.example.applibrary.utils.IntentUtils;
 import com.example.haoss.R;
 import com.example.haoss.base.BaseActivity;
-import com.example.haoss.person.address.activity.AddressEdit;
-import com.example.haoss.person.address.adpter.ListViewAddressAdapter;
-import com.example.haoss.person.address.entity.AddreInfo;
 import com.google.gson.Gson;
 
 /**
@@ -72,7 +70,7 @@ public class AddresShowActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (flag == 1) {
-                    delectAdress(listAddreInfo.get(index).getId());
+                    delectData();
                 } else {
                     Intent intent = new Intent();
                     AddreInfo addressInfo = listAddreInfo.get(index);
@@ -96,7 +94,6 @@ public class AddresShowActivity extends BaseActivity {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             //添加完地址后回调
             page = 1;
-            listAddreInfo.clear();
             getHttp();
         }
     }
@@ -112,7 +109,6 @@ public class AddresShowActivity extends BaseActivity {
             public void onRefresh(RefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 page = 1;
-                listAddreInfo.clear();
                 getHttp();
             }
 
@@ -126,7 +122,7 @@ public class AddresShowActivity extends BaseActivity {
         findViewById(R.id.address_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddresShowActivity.this, AddressEdit.class);
+                Intent intent = new Intent(AddresShowActivity.this, AddressEditActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("flag", 2);
                 intent.putExtras(bundle);
@@ -142,7 +138,7 @@ public class AddresShowActivity extends BaseActivity {
             public void onEditClick(int i) {
 
                 index = i;
-                Intent intent = new Intent(AddresShowActivity.this, AddressEdit.class);
+                Intent intent = new Intent(AddresShowActivity.this, AddressEditActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("addressInfo", listAddreInfo.get(i));
                 bundle.putInt("flag", 1);
@@ -168,39 +164,12 @@ public class AddresShowActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.action_title_add://删除选中地址
-                    delectData();
-                    break;
                 case R.id.address_add:    //添加新地址
-                    IntentUtils.startIntentForResult(2, mContext, AddressEdit.class);
+                    IntentUtils.startIntentForResult(2, mContext, AddressEditActivity.class);
                     break;
             }
         }
     };
-
-    //修改、添加
-    private void addAndUpdata(int flag, Intent data) {
-        AddreInfo info = (AddreInfo) data.getExtras().getSerializable(IntentUtils.intentActivityInfo);
-        if (info.isDefault()) {
-            for (AddreInfo inf : listAddreInfo) {
-                inf.setDefault(false);
-                inf.setChecked(false);
-            }
-            //默认时被选中
-            info.setChecked(true);
-        }
-        switch (flag) {
-            case 1: //修改
-                int xb = data.getIntExtra(IntentUtils.intentActivityInt, 0);
-                listAddreInfo.remove(xb);
-                listAddreInfo.add(xb, info);
-                break;
-            case 2: //添加
-                listAddreInfo.add(info);
-                break;
-        }
-        adapter.notifyDataSetChanged();
-    }
 
     //删除地址
     private void delectData() {
@@ -248,12 +217,13 @@ public class AddresShowActivity extends BaseActivity {
                     getData(msg.obj.toString());
                     break;
                 case 2: //删除
-
                     try {
                         Map<String, Object> map = new Gson().fromJson(msg.obj.toString(), HashMap.class);
                         if (map == null)
                             tost("解析出错");
                         if (getDouble(map, "code") == 200) {
+                            tost("已删除");
+                            page = 1;
                             getHttp();
                         } else {
                             tost(getString(map, "msg"));
@@ -271,7 +241,11 @@ public class AddresShowActivity extends BaseActivity {
         refreshLayout.finishRefreshing();
         refreshLayout.finishLoadmore();
         ArrayList<Object> list = httpHander.jsonToList(json);
+        if (page == 1) {
+            listAddreInfo.clear();
+        }
         if (list == null || list.isEmpty()) {
+            adapter.notifyDataSetChanged();
             return;
         }
 
@@ -287,12 +261,6 @@ public class AddresShowActivity extends BaseActivity {
             info.setAddre(httpHander.getString(map, "detail"));
             double isDefault = httpHander.getDouble(map, "is_default");
             info.setDefault(isDefault == 1);
-            if (info.isDefault()) {    //默认时被选中
-                info.setChecked(true);
-                index = i;
-            } else {
-                info.setChecked(false);
-            }
 
             listAddreInfo.add(info);
         }

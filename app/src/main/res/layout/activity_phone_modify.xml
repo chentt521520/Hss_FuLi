@@ -2,16 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="@dimen/height20">
     <!--更换手机号码-->
-
-    <RelativeLayout
-        android:id="@+id/paysettingactivity_acc"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="22dp">
-
-        <include layout="@layout/action_phone" />
-    </RelativeLayout>
+    <include layout="@layout/action_phone" />
 </LinearLayout>

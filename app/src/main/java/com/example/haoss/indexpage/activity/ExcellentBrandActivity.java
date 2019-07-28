@@ -9,14 +9,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.applibrary.base.Netconfig;
+import com.example.applibrary.entity.GoodInfo;
 import com.example.applibrary.httpUtils.HttpHander;
-import com.example.applibrary.utils.ViewUtils;
 import com.example.applibrary.widget.freshLoadView.RefreshLayout;
 import com.example.applibrary.widget.freshLoadView.RefreshListenerAdapter;
 import com.example.haoss.R;
 import com.example.haoss.base.BaseActivity;
 import com.example.haoss.indexpage.adapter.ListExceltBrandAdapter;
-import com.example.haoss.indexpage.entity.GoodInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;

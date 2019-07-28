@@ -55,9 +55,9 @@ public class GoodsPayActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitleContentView(R.layout.activity_payment);
-
-        registerReceiver(mReceiver, new IntentFilter(IntentUtils.pay));
         application = AppLibLication.getInstance();
+        registerReceiver(mReceiver, new IntentFilter(IntentUtils.pay));
+
         init();
         getIntentData();
     }
@@ -231,7 +231,7 @@ public class GoodsPayActivity extends BaseActivity {
 
             @Override
             public void cancel() {
-
+                toOrderList(0);
             }
         });
         myDialogTwoButton.show();
@@ -242,7 +242,6 @@ public class GoodsPayActivity extends BaseActivity {
         TimerTask task = new TimerTask() {
             public void run() {
                 IntentUtils.startIntent(flag, GoodsPayActivity.this, OrderListActivity.class);
-                finish();
             }
         };
         timer.schedule(task, 2500);

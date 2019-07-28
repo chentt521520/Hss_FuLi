@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         app:RCMinShortSideSize="120dp"
         app:RCMask="true"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@id/rc_msg"

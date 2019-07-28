@@ -55,7 +55,10 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <!-- 主界面页 -->
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,59 +66,154 @@
             </intent-filter>-->
         </activity>
         <!-- 注册 -->
-        <activity android:name=".person.login.RegisteredActivity" />
+        <activity
+            android:name=".person.login.RegisteredActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!-- 忘记密码 -->
-        <activity android:name=".person.login.BackPswActivity" />
+        <activity
+            android:name=".person.login.BackPswActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!-- 意见反馈 -->
-        <activity android:name=".person.opinion.OpinionActivity" />
+        <activity
+            android:name=".person.opinion.OpinionActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!-- 登录 -->
-        <activity android:name=".person.login.LoginActivity" />
+        <activity
+            android:name=".person.login.LoginActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!-- 收货地址 -->
-        <activity android:name=".person.address.AddresShowActivity" />
+        <activity
+            android:name=".person.address.AddresShowActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!-- 收货地址编辑 -->
-        <activity android:name=".person.address.activity.AddressEdit" />
-        <activity android:name=".person.other.PlusImageActivity" />
+        <activity
+            android:name=".person.address.AddressEditActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".person.other.PlusImageActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!-- 订单 -->
-        <activity android:name=".person.dingdan.OrderListActivity" />
+        <activity
+            android:name=".person.dingdan.OrderListActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--订单详情-->
-        <activity android:name=".person.dingdan.MyOrderDetails" />
+        <activity
+            android:name=".person.dingdan.MyOrderDetails"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!-- 生日汇 -->
         <!-- 优选生活 -->
-        <activity android:name=".indexpage.activity.ExcellentLifeActivity" />
+        <activity
+            android:name=".indexpage.activity.ExcellentLifeActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--健康生活-->
-        <activity android:name=".indexpage.activity.HealthLifeActivity" />
+        <activity
+            android:name=".indexpage.activity.HealthLifeActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--年节礼包-->
-        <activity android:name=".indexpage.activity.FestivalGiftActivity" />
+        <activity
+            android:name=".indexpage.activity.FestivalGiftActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--独立购物车界面-->
         <!--收藏界面-->
         <!--优惠劵界面-->
-        <activity android:name=".person.coupon.CouponActivity" />
+        <activity
+            android:name=".person.coupon.CouponActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--个人设置-->
-        <activity android:name=".person.setting.PersonalSettingActivity" />
+        <activity
+            android:name=".person.setting.PersonalSettingActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--系统设置-->
-        <activity android:name=".person.setting.SystemSettingActivity" />
+        <activity
+            android:name=".person.setting.SystemSettingActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--修改账号密码-->
-        <activity android:name=".person.setting.systemsetting.ChangePasswardActivity" />
+        <activity
+            android:name=".person.setting.systemsetting.ChangePasswardActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--支付设置-->
-        <activity android:name=".person.setting.systemsetting.PaySettingActivity" />
+        <activity
+            android:name=".person.setting.systemsetting.PaySettingActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--更换手机号码-->
-        <activity android:name=".person.setting.systemsetting.ChangePhoneActivity" />
+        <activity
+            android:name=".person.setting.systemsetting.ChangePhoneActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--足迹-->
-        <activity android:name=".person.footprint.FootprintActivity" />
+        <activity
+            android:name=".person.footprint.FootprintActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--积分/金币界面-->
-        <activity android:name=".person.integral.IntegralActivity" />
+        <activity
+            android:name=".person.integral.IntegralActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--我的钱包-->
-        <activity android:name=".person.wallet.WalletActivity" />
+        <activity
+            android:name=".person.wallet.WalletActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--售后服务-->
-        <activity android:name=".person.aftersale.AfterSaleActivity" />
+        <activity
+            android:name=".person.aftersale.AfterSaleActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--售后服务：申请售后-->
-        <activity android:name=".person.aftersale.activity.AfterSaleApplyForActivity" />
+        <activity
+            android:name=".person.aftersale.activity.AfterSaleApplyForActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--售后服务：详情界面-->
-        <activity android:name=".person.aftersale.activity.AfterSaleDetailsActivity" />
+        <activity
+            android:name=".person.aftersale.activity.AfterSaleDetailsActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
+        <!--购物卡兑换-->
+        <activity
+            android:name=".person.cardConvert.CardNumberConvertActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
+        <!--购物卡兑换结果-->
+        <activity
+            android:name=".person.cardConvert.CardConvertResultActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
+        <!--购物卡兑换记录-->
+        <activity
+            android:name=".person.cardConvert.CardConvertRecordActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
+        <!--购物卡兑换规则-->
+        <activity
+            android:name=".person.cardConvert.CardConvertRuleActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
+
         <!--微信支付-->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
-            android:exported="true">
+            android:configChanges="orientation|navigation"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <!--<intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -133,45 +231,123 @@
         </activity>
 
         <!--服务条款界面-->
-        <activity android:name=".person.other.TermsOfService" />
+        <activity
+            android:name=".person.other.TermsOfService"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--消息列表界面-->
-        <activity android:name=".person.msg.PersonMsgActivity" />
+        <activity
+            android:name=".person.msg.PersonMsgActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--待评价订单列表-->
         <!--评价发表界面-->
-        <activity android:name=".person.dingdan.EstimatePublishActivity" />
+        <activity
+            android:name=".shopcat.ShopCatActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".person.dingdan.EstimatePublishActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--领券中心界面-->
-        <activity android:name=".indexpage.getcoupon.GetCouponCentreActivity" />
+        <activity
+            android:name=".indexpage.getcoupon.CouponCentreActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--今日特价界面-->
-        <activity android:name=".indexpage.specialoffer.NowSpecialOfferActivity" />
+        <activity
+            android:name=".indexpage.specialoffer.NowSpecialOfferActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--拼团界面-->
-        <activity android:name=".indexpage.tourdiy.GrouponListActivity" />
+        <activity
+            android:name=".indexpage.tourdiy.GrouponListActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--拼团详情-->
-        <activity android:name=".indexpage.tourdiy.GrouponDetail" />
+        <activity
+            android:name=".indexpage.tourdiy.GrouponDetail"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--拼团结果-->
-        <activity android:name=".indexpage.tourdiy.GrouponNoticeActivity" />
+        <activity
+            android:name=".indexpage.tourdiy.GrouponNoticeActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--拼团完成-->
-        <activity android:name=".indexpage.tourdiy.GouponPayActivity" />
+        <activity
+            android:name=".indexpage.tourdiy.GouponPayActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--美妆界面-->
-        <activity android:name=".indexpage.activity.MakeUpActivity" />
+        <activity
+            android:name=".indexpage.activity.MakeUpActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--母婴用品-->
-        <activity android:name=".indexpage.activity.BabyProductsActivity" />
+        <activity
+            android:name=".indexpage.activity.BabyProductsActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
 
         <!--商品详情-->
-        <activity android:name=".goods.goodslist.GoodsListActivity" />
+        <activity
+            android:name=".goods.goodslist.GoodsListActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--商品搜索-->
-        <activity android:name=".goods.details.GoodsDetailsActivity" />
+        <activity
+            android:name=".goods.details.GoodsDetailsActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--商品列表显示(含搜索)-->
-        <activity android:name=".goods.search.GoodsSearchActivity" />
+        <activity
+            android:name=".goods.search.GoodsSearchActivity"
+            android:windowSoftInputMode="stateVisible"
+            android:screenOrientation="portrait" />
         <!--积分商城-->
-        <activity android:name=".integralshop.IntegralShopActivity" />
+        <activity
+            android:name=".integralshop.IntegralShopActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--商品购买-订单确认页面-->
-        <activity android:name=".pay.GoodsBuyActivity" />
+        <activity
+            android:name=".pay.GoodsBuyActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
         <!--商品支付界面-->
-        <activity android:name=".pay.GoodsPayActivity" />
+        <activity
+            android:name=".pay.GoodsPayActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".person.collect.CollectListActivity" />
-        <activity android:name=".indexpage.activity.ExcellentBrandActivity" />
-        <activity android:name=".goods.estimate.EstimateListActivity" />
+        <activity
+            android:name=".person.collect.CollectListActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".indexpage.activity.ExcellentBrandActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".goods.estimate.EstimateListActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".person.dingdan.ExpressActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
+        <!--消费记录-->
+        <activity
+            android:name=".person.wallet.ConsumeRecordActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
+        <!--实名认证-->
+        <activity
+            android:name=".person.AuthenticationActivity"
+            android:configChanges="orientation|navigation"
+            android:screenOrientation="portrait" />
 
         <!--&lt;!&ndash;微信支付&ndash;&gt;
         <activity

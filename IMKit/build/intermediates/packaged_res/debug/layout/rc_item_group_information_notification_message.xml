@@ -5,5 +5,5 @@
     style="@style/RCTheme.Notification"
     android:layout_width="wrap_content"
     android:layout_height="27dp"
-    android:layout_gravity="center_horizontal"/>
+    android:layout_gravity="center_horizontal" />
 

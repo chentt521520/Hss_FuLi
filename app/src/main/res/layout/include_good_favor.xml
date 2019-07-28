@@ -8,7 +8,6 @@
         android:id="@+id/ui_good_favor_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:background="@color/whiteColor"
         android:padding="10dp"
         android:text="为你推荐"

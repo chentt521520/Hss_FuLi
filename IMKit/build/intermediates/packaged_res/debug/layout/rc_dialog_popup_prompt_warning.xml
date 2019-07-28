@@ -40,7 +40,7 @@
             android:textSize="16sp"
             android:includeFontPadding="false"
             android:text="@string/rc_dialog_cancel"
-            android:textColor="@color/rc_popup_dialog_prompt_cancel_color"/>
+            android:textColor="@color/rc_popup_dialog_prompt_cancel_color" />
 
         <TextView
             android:id="@+id/popup_dialog_button_ok"

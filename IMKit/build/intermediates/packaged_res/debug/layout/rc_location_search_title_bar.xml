@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:background="#0195ff">
+
     <ImageView
         android:id="@+id/rc_iv_press_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/rc_ext_back"/>
+        android:src="@drawable/rc_ext_back" />
+
     <View
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         android:layout_width="1dp"
         android:layout_height="24dp"
-        android:background="#0083e0"
-        />
+        android:background="#0083e0" />
+
     <EditText
         android:id="@+id/rc_et_search"
         android:layout_width="0dp"
@@ -35,5 +36,5 @@
         android:imeOptions="actionSearch"
         android:inputType="textNoSuggestions"
         android:imeActionLabel=""
-        android:background="@drawable/rc_ext_bg_edit_text_white"/>
+        android:background="@drawable/rc_ext_bg_edit_text_white" />
 </LinearLayout>

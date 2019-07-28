@@ -7,7 +7,7 @@ import java.util.Map;
 //网络请求配置
 public class Netconfig {
     //地址
-//    public static final String httpHost = "http://47.92.212.114:3000/";
+//    public static final String httpHost = "http://demo.haoshusi.com/";
     public static final String httpHost = "http://api.haoshusi.com/";
 
     //子级地址
@@ -188,6 +188,8 @@ public class Netconfig {
     public static final String integralShopOrder = subHost + "user/createIntegralOrder" + endSite;
     //积分商城获取默认地址
     public static final String integralShopDefault = subHost + "user/user_default_address_1560407597894" + endSite;
+    public static final String exchangeCard = subHost + "user/exchangeCard" + endSite;
+    public static final String cardOrderList = subHost + "user/cardOrderList" + endSite;
 
     //拼团列表
     public static final String pinTuanList = subHost + "pink/get_combination_list" + endSite;
@@ -210,6 +212,8 @@ public class Netconfig {
     public static final String checkYuE = subHost + "user/checkPayPss" + endSite;
     public static final String payPassCode = subHost + "user/payPassCode" + endSite;
     public static final String addPayPass = subHost + "user/addPayPass" + endSite;
+    public static final String express = subHost + "user/express" + endSite;
+    public static final String Authentic = subHost + "user/realName" + endSite;
 
     public static final String PIC_URL = "http://qiniu.haoshusi.com/";
     public static final String PIC_PATH = "Android/";

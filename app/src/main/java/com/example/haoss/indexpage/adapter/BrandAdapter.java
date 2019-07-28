@@ -8,9 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.applibrary.entity.BannerInfo;
 import com.example.applibrary.utils.DensityUtil;
 import com.example.haoss.R;
-import com.example.haoss.indexpage.entity.BannerInfo;
 
 import java.util.List;
 

@@ -14,7 +14,6 @@
         android:layout_marginStart="10dip"
         android:layout_marginEnd="10dip"
         android:layout_centerHorizontal="true" />
-
     <TextView
         android:id="@+id/progress_percent"
         android:layout_width="wrap_content"
@@ -25,7 +24,6 @@
         android:layout_alignParentLeft="true"
         android:textColor="@color/colorhit"
         android:layout_below="@id/progress" />
-
     <TextView
         android:id="@+id/progress_number"
         android:layout_width="wrap_content"

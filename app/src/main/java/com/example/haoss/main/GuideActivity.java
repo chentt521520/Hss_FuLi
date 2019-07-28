@@ -7,12 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.example.applibrary.entity.BannerInfo;
 import com.example.applibrary.utils.IntentUtils;
 import com.example.haoss.MainActivity;
 import com.example.haoss.R;
 import com.example.haoss.base.BaseActivity;
 import com.example.haoss.indexpage.adapter.CarouselAdapter;
-import com.example.haoss.indexpage.entity.BannerInfo;
 import com.example.applibrary.utils.SharedPreferenceUtils;
 
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class GuideActivity extends BaseActivity {
 
     //引导轮播图加载
     private void carousel() {
-        int[] images = {R.drawable.guide_one, R.drawable.guide_two, R.drawable.guide_three, R.drawable.guide_four};
+        int[] images = {R.drawable.guide1, R.drawable.guide2, R.drawable.guide3};
         for (int i = 0; i < images.length; i++) {
             BannerInfo bannerInfo = new BannerInfo();
             bannerInfo.setId(images[i]);

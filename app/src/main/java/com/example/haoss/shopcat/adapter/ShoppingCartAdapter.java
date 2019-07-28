@@ -11,14 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.applibrary.entity.ProductInfo;
+import com.example.applibrary.entity.ShoppingCartInfo;
+import com.example.applibrary.utils.DecimalUtils;
 import com.example.haoss.base.AppLibLication;
 import com.example.applibrary.base.Netconfig;
 import com.example.applibrary.httpUtils.HttpHander;
 import com.example.haoss.R;
-import com.example.haoss.goods.details.entity.StoreInfo;
-import com.example.haoss.shopcat.entity.ShoppingCartInfo;
-
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +35,15 @@ public class ShoppingCartAdapter extends BaseAdapter {
     private int chooseNumber;   //选中个数
     private Timer timer;    //修改定时器，每2秒修改一次
     private Map<Integer, Integer> mapNumber = new HashMap<>();   //存放数量和对应购物车id
+
+
+    public boolean isAllChecked() {
+        return isAllChecked;
+    }
+
+    public void setAllChecked(boolean allChecked) {
+        isAllChecked = allChecked;
+    }
 
     public ShoppingCartAdapter(Context context, List<ShoppingCartInfo> list, ImageView allchecked,
                                TextView allMoney, TextView goPay) {
@@ -81,14 +89,14 @@ public class ShoppingCartAdapter extends BaseAdapter {
         }
         info = (Info) view.getTag();
         ShoppingCartInfo shoppingCartInfo = list.get(position);
-        StoreInfo productInfo = shoppingCartInfo.getProductInfo();
+        ProductInfo productInfo = shoppingCartInfo.getProductInfo();
         String image;
         String price;
         String suk = "";
-        if (productInfo.getGoodsType() != null) {
-            image = productInfo.getGoodsType().getImage();
-            price = productInfo.getGoodsType().getPrice();
-            suk = productInfo.getGoodsType().getSuk();
+        if (productInfo.getAttrInfo() != null) {
+            image = productInfo.getAttrInfo().getImage();
+            price = productInfo.getAttrInfo().getPrice();
+            suk = productInfo.getAttrInfo().getSuk();
         } else {
             image = productInfo.getImage();
             price = productInfo.getPrice();
@@ -198,16 +206,14 @@ public class ShoppingCartAdapter extends BaseAdapter {
         double money = 0;
         for (ShoppingCartInfo info : list) {
             if (info.isCheck()) {
-                if (info.getProductInfo().getGoodsType() != null) {
-                    money += info.getCart_num() * Double.parseDouble(info.getProductInfo().getGoodsType().getPrice());
+                if (info.getProductInfo().getAttrInfo() != null) {
+                    money += info.getCart_num() * Double.parseDouble(info.getProductInfo().getAttrInfo().getPrice());
                 } else {
                     money += info.getCart_num() * Double.parseDouble(info.getProductInfo().getPrice());
                 }
             }
         }
-        BigDecimal b = new BigDecimal(money);
-        double num = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        allMoney.setText("¥ " + num);
+        allMoney.setText("¥ " + DecimalUtils.format2Number(money));
         if (money > 0)
             goPay.setBackgroundResource(R.drawable.bg_red_01);
         else

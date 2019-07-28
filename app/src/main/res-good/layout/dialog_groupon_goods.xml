@@ -16,9 +16,7 @@
             android:id="@+id/dialog_goods_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/bg_corner_border_grey"
-            android:padding="2dp"
+            android:layout_marginEnd="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/big_image01" />
 
@@ -27,7 +25,7 @@
             android:id="@+id/dialog_close"
             android:layout_width="31dp"
             android:layout_height="31dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:padding="9dp"
             android:scaleType="fitCenter"
             android:src="@drawable/goods_close" />
@@ -131,11 +129,12 @@
             android:textStyle="bold" />
 
         <!--数量-->
-        <TextView
+        <EditText
             android:id="@+id/dialog_goods_number"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@null"
             android:gravity="center"
             android:text="1"
             android:textColor="@color/blackColor0f"

@@ -25,15 +25,15 @@
 
     <TextView
         android:id="@+id/gv_num"
-        android:layout_width="13dp"
+        android:layout_width="wrap_content"
         android:layout_height="13dp"
         android:layout_above="@+id/gv_iv"
         android:layout_marginStart="-10dp"
         android:layout_marginBottom="-20dp"
         android:layout_toEndOf="@+id/gv_iv"
-        android:background="@mipmap/red_dot"
+        android:background="@mipmap/msg_red_dot"
         android:gravity="center"
-        android:text="1111"
+        android:text="11111111"
         android:textColor="#ffffff"
         android:textSize="8sp" />
 

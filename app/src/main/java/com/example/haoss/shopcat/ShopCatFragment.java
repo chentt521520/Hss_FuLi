@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.applibrary.entity.AttrInfo;
+import com.example.applibrary.entity.ProductInfo;
+import com.example.applibrary.entity.ShoppingCartInfo;
+import com.example.applibrary.entity.StoreInfo;
+import com.example.applibrary.httpUtils.OkHttpRequest;
+import com.example.applibrary.httpUtils.OnHttpCallback;
+import com.example.applibrary.resp.RespGoodDetail;
+import com.example.applibrary.utils.SharedPreferenceUtils;
 import com.example.haoss.base.AppLibLication;
 import com.example.applibrary.base.BaseFragment;
 import com.example.applibrary.base.ConfigHttpReqFields;
@@ -30,12 +39,10 @@ import com.example.applibrary.httpUtils.HttpHander;
 import com.example.applibrary.utils.IntentUtils;
 import com.example.haoss.R;
 import com.example.haoss.goods.details.GoodsDetailsActivity;
-import com.example.haoss.goods.details.entity.GoodsType;
-import com.example.haoss.goods.details.entity.StoreInfo;
 import com.example.haoss.pay.GoodsBuyActivity;
+import com.example.haoss.person.AuthenticationActivity;
 import com.example.haoss.person.login.LoginActivity;
 import com.example.haoss.shopcat.adapter.ShoppingCartAdapter;
-import com.example.haoss.shopcat.entity.ShoppingCartInfo;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -72,6 +79,7 @@ public class ShopCatFragment extends BaseFragment {
     //未登录控件
     TextView three_fragment_login;  //登录按钮
     AppLibLication application;
+    private int index;
 
     public ShopCatFragment() {
     }
@@ -103,6 +111,9 @@ public class ShopCatFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         addListInfo();
+        if (shoppingCartAdapter != null) {
+            shoppingCartAdapter.defaultState();
+        }
     }
 
     @Override
@@ -125,9 +136,10 @@ public class ShopCatFragment extends BaseFragment {
         try {
             if (getUserVisibleHint()) {//界面可见时
                 addListInfo();
+                if (shoppingCartAdapter != null) {
+                    shoppingCartAdapter.defaultState();
+                }
             }
-            if (three_fragment_allchecked != null)
-                three_fragment_allchecked.setImageResource(R.mipmap.checked_false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -260,11 +272,20 @@ public class ShopCatFragment extends BaseFragment {
                 tost("请选择商品！");
             return;
         }
-        //支付
         if (flag == 3) {
-            goBuy();
+            int isRealName = (int) SharedPreferenceUtils.getPreference(getContext(), ConfigVariate.isRealName, "I");
+            if (isRealName == 1) {//已认证
+                goBuy();
+            } else {
+                getGoodType();
+            }
             return;
         }
+        //支付
+//        if (flag == 3) {
+//            goBuy();
+//            return;
+//        }
         //删除和收藏
         if (flag == 1)
             text = text.replace("**", listQueryShopping.size() + "");
@@ -324,7 +345,7 @@ public class ShopCatFragment extends BaseFragment {
             super.onSucceed(msg);
             switch (msg.arg1) {
                 case 1: //列表获取
-                    Map<String, Object> map = jsonToMap(msg.obj.toString());
+                    final Map<String, Object> map = jsonToMap(msg.obj.toString());
                     if (map != null)
                         analysisData(map);
                     break;
@@ -345,6 +366,30 @@ public class ShopCatFragment extends BaseFragment {
                     } catch (Exception e) {
                         tost(e.getMessage());
                     }
+                    break;
+                case 5:
+                    getGoodDetails(msg.obj.toString(), new OnHttpCallback<RespGoodDetail.DetailsInfo>() {
+                        @Override
+                        public void success(RespGoodDetail.DetailsInfo result) {
+                            if (result.getStoreInfo().getStore_type() != 0) {//需要认证
+                                setAuth();
+                                return;
+                            } else {//不需要，继续搜索
+                                if (index == listQueryShopping.size() - 1) {//全部搜索完，直接支付
+                                    goBuy();
+                                } else {
+                                    index++;
+                                    getGoodType();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void error(int code, String msg) {
+                            tost(code + "," + msg);
+                        }
+                    });
+
                     break;
             }
         }
@@ -400,9 +445,8 @@ public class ShopCatFragment extends BaseFragment {
                         int id = (int) httpHander.getDouble(mapProductInfo, "id");
                         Map<String, String> mapString = httpHander.getStringMap(mapProductInfo, "image", "price", "store_name");
 
-                        StoreInfo storeInfo = new StoreInfo();
+                        ProductInfo storeInfo = new ProductInfo();
                         storeInfo.setId(id);
-                        storeInfo.setProduct_id(id);
                         storeInfo.setImage(mapString.get("image"));
                         storeInfo.setStore_name(mapString.get("store_name"));
                         storeInfo.setPrice(mapString.get("price"));
@@ -424,18 +468,18 @@ public class ShopCatFragment extends BaseFragment {
                              * 					"cost": "0.00"
                              */
 
-                            GoodsType productAttr = new GoodsType();
+                            AttrInfo productAttr = new AttrInfo();
                             productAttr.setImage(image);
                             productAttr.setPrice(price);
                             productAttr.setSuk(suk);
 
-                            storeInfo.setGoodsType(productAttr);
+                            storeInfo.setAttrInfo(productAttr);
                         } else {
-                            GoodsType productAttr = new GoodsType();
+                            AttrInfo productAttr = new AttrInfo();
                             productAttr.setImage(mapString.get("image"));
                             productAttr.setPrice(mapString.get("price"));
 
-                            storeInfo.setGoodsType(productAttr);
+                            storeInfo.setAttrInfo(productAttr);
                         }
                         info.setProductInfo(storeInfo);
                         listShoppingCartInfo.add(info);
@@ -536,6 +580,7 @@ public class ShopCatFragment extends BaseFragment {
 //        }
     }
 
+
     private String getCartId() {
         String ids = "";
         for (ShoppingCartInfo info : listQueryShopping) {
@@ -545,5 +590,41 @@ public class ShopCatFragment extends BaseFragment {
             return ids.substring(0, ids.length() - 1);
         }
         return ids;
+    }
+
+    private void getGoodType() {
+
+        String url;
+        int goodsId;
+        ShoppingCartInfo info = listQueryShopping.get(index);
+        int seckill_id = info.getSeckill_id();
+        if (seckill_id == 0) {//正常商品
+            url = Netconfig.commodityDetails;
+            goodsId = info.getProductInfo().getId();
+        } else {
+            url = Netconfig.seckillShopDetails;
+            goodsId = info.getSeckill_id();
+        }
+        final Map<String, Object> map = new HashMap<>();
+        map.put("id", goodsId);
+        map.put("token", application.getToken());
+        httpHander.okHttpMapPost(getContext(), url, map, 5);
+    }
+
+    /**
+     * 认证提示框
+     */
+    private void setAuth() {
+        MyDialogTwoButton myDialogTwoButton = new MyDialogTwoButton(getContext(), "您所购买的商品需要实名认证，是否继续购买？", "去认证", "", new DialogOnClick() {
+            @Override
+            public void operate() {
+                IntentUtils.startIntent(getContext(), AuthenticationActivity.class);
+            }
+
+            @Override
+            public void cancel() {
+            }
+        });
+        myDialogTwoButton.show();
     }
 }

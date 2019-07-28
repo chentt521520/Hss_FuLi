@@ -8,10 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.applibrary.entity.Recommond;
 import com.example.applibrary.utils.ImageUtils;
 import com.example.haoss.R;
-import com.example.haoss.indexpage.entity.NavInfo;
-import com.example.haoss.indexpage.entity.Recommond;
 
 import java.util.List;
 

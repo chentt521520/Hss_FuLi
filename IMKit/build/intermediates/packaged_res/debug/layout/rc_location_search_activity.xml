@@ -30,7 +30,7 @@
             android:dividerHeight="1dp"
             android:scrollbars="none"
             android:background="@android:color/white"
-            android:divider="@color/rc_map_list_divider_color"/>
+            android:divider="@color/rc_map_list_divider_color" />
 
         <TextView
             android:id="@+id/rc_tv_search_no_results"

@@ -3,7 +3,7 @@ package com.example.applibrary.httpUtils;
 import java.util.List;
 import java.util.Map;
 
-public class RespList<T> {
+public class RespList {
 
     /**
      * {
@@ -21,7 +21,7 @@ public class RespList<T> {
      */
     private int code;
     private String msg;
-    private T data;
+    private List data;
     //    private Map<String,List<T>> data;
     private int count;
 
@@ -41,11 +41,11 @@ public class RespList<T> {
         this.msg = msg;
     }
 
-    public T getData() {
+    public List getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(List data) {
         this.data = data;
     }
 

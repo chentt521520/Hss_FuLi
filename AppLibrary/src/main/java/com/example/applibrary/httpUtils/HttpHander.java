@@ -14,6 +14,22 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.applibrary.base.Netconfig;
 import com.example.applibrary.custom.ToastUtils;
+import com.example.applibrary.entity.AddreInfo;
+import com.example.applibrary.entity.GoodList;
+import com.example.applibrary.resp.Resp;
+import com.example.applibrary.resp.RespCoupon;
+import com.example.applibrary.resp.RespDefaultSite;
+import com.example.applibrary.resp.RespFootPrints;
+import com.example.applibrary.resp.RespGoodDetail;
+import com.example.applibrary.resp.RespGoodList;
+import com.example.applibrary.resp.RespGoodSortList;
+import com.example.applibrary.resp.RespGrouponList;
+import com.example.applibrary.resp.RespGrouponResult;
+import com.example.applibrary.resp.RespLogin;
+import com.example.applibrary.resp.RespOrderDetail;
+import com.example.applibrary.resp.RespOrderList;
+import com.example.applibrary.resp.RespShopCart;
+import com.example.applibrary.resp.RespTodaySales;
 import com.example.applibrary.utils.NumberUtils;
 import com.example.applibrary.utils.ObjectMapperUtils;
 import com.example.applibrary.utils.StringUtils;
@@ -873,10 +889,294 @@ public class HttpHander extends Handler {
         return ObjectMapperUtils.getUtils().jsonToMap(json);
     }
 
-    //用Mapper解析到list
-    public ArrayList<Object> jsonToListMapper(String json) {
-        return ObjectMapperUtils.getUtils().jsonToList(json);
+
+    /**
+     * 领券中心
+     */
+    public void getListResult(String json, OnHttpCallback<List> callback) {
+        try {
+            RespList result = JSONObject.parseObject(json, RespList.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(result.getData());
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
     }
 
+    /**
+     * 领券中心
+     */
+    public void getCoupon(String json, OnHttpCallback<List<RespCoupon.Coupon>> callback) {
+        try {
+            RespCoupon result = JSONObject.parseObject(json, RespCoupon.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(result.getData());
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
+
+    /**
+     * 领券中心
+     */
+    public void getTodaySales(String json, OnHttpCallback<List<RespTodaySales.TodaySales>> callback) {
+        try {
+            RespTodaySales result = JSONObject.parseObject(json, RespTodaySales.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(result.getData());
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
+
+    /**
+     * 搜索列表
+     */
+    public void searchGoodList(String json, OnHttpCallback<List<GoodList>> callback) {
+        try {
+            RespGoodList result = JSONObject.parseObject(json, RespGoodList.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(result.getData());
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
+
+    /**
+     * 搜索列表
+     */
+    public void getGoodList(String json, OnHttpCallback<RespGoodSortList.GoodSort> callback) {
+        try {
+            RespGoodSortList result = JSONObject.parseObject(json, RespGoodSortList.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(result.getData());
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
+
+    /**
+     * 拼团列表
+     */
+    public void getGrouponList(String json, OnHttpCallback<List<RespGrouponList.GrouponList>> callback) {
+        try {
+            RespGrouponList result = JSONObject.parseObject(json, RespGrouponList.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(result.getData());
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
+
+    /**
+     * 查看拼团详请
+     */
+    public void getGrouponResult(String json, OnHttpCallback<RespGrouponResult.GrouponResult> callback) {
+        json = delHTMLTag(json);
+        try {
+            RespGrouponResult result = JSONObject.parseObject(json, RespGrouponResult.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(result.getData());
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
+
+    /**
+     * 拼团列表
+     */
+    public void getShopCart(String json, OnHttpCallback<RespShopCart.ShopCart> callback) {
+        try {
+            RespShopCart result = JSONObject.parseObject(json, RespShopCart.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(result.getData());
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
+
+    /**
+     * 订单列表
+     */
+    public void getOrderList(String json, OnHttpCallback<List<RespOrderList.OrderList>> callback) {
+        try {
+            RespOrderList result = JSONObject.parseObject(json, RespOrderList.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(result.getData());
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
+
+    /**
+     * 订单详情
+     */
+    public void getOrderDetail(String json, OnHttpCallback<RespOrderDetail.OrderDetail> callback) {
+        try {
+            RespOrderDetail result = JSONObject.parseObject(json, RespOrderDetail.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(result.getData());
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
+
+    /**
+     * 订单列表
+     */
+    public void getFootPrints(String json, OnHttpCallback<List<RespFootPrints.FootPrints>> callback) {
+        try {
+            RespFootPrints result = JSONObject.parseObject(json, RespFootPrints.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(result.getData());
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
+
+    /**
+     * 返回结果只有成功和失败
+     */
+    public void getResultStatus(String json, OnHttpCallback<Resp> callback) {
+        try {
+            Resp result = JSONObject.parseObject(json, Resp.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(null);
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
+
+    /**
+     * 登录
+     */
+    public void getLogin(String json, OnHttpCallback<RespLogin.LoginInfo> callback) {
+        try {
+            RespLogin result = JSONObject.parseObject(json, RespLogin.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(result.getData());
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
+
+    /**
+     * 返回结果只有成功和失败
+     */
+    public void getGoodDetail(String json, OnHttpCallback<RespGoodDetail.DetailsInfo> callback) {
+        try {
+            RespGoodDetail result = JSONObject.parseObject(json, RespGoodDetail.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(null);
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
+
+    /**
+     * 返回结果只有成功和失败
+     */
+    public void getDefaultSite(String json, OnHttpCallback<AddreInfo> callback) {
+        try {
+            RespDefaultSite result = JSONObject.parseObject(json, RespDefaultSite.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(result.getData());
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
+
+    /**
+     * 返回结果只有成功和失败
+     */
+    public void getGoodDetails(String json, OnHttpCallback<RespGoodDetail.DetailsInfo> callback) {
+        try {
+            RespGoodDetail result = JSONObject.parseObject(json, RespGoodDetail.class);
+            if (result == null) {
+                callback.error(10001, "解析出错");
+            } else if (result.getCode() == 200) {
+                callback.success(result.getData());
+            } else {
+                callback.error(result.getCode(), TextUtils.isEmpty(result.getMsg()) ? "获取失败" : result.getMsg());
+            }
+        } catch (Exception e) {
+            callback.error(10001, e.getMessage());
+        }
+    }
 }
 

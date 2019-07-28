@@ -9,13 +9,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.applibrary.base.Netconfig;
+import com.example.applibrary.entity.GrouponListInfo;
 import com.example.applibrary.httpUtils.HttpHander;
+import com.example.applibrary.httpUtils.OnHttpCallback;
+import com.example.applibrary.resp.RespGrouponList;
 import com.example.applibrary.widget.freshLoadView.RefreshLayout;
 import com.example.applibrary.widget.freshLoadView.RefreshListenerAdapter;
 import com.example.haoss.R;
 import com.example.haoss.base.BaseActivity;
 import com.example.haoss.indexpage.tourdiy.adapter.GrouponAdapter;
-import com.example.haoss.indexpage.tourdiy.entity.GrouponListInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +28,7 @@ import java.util.Map;
 public class GrouponListActivity extends BaseActivity {
 
     ListView tourdiyactivity_listview;  //数据列表控件
-    private List<GrouponListInfo> listData;
+    private List<RespGrouponList.GrouponList> listData;
     private GrouponAdapter adapter;
     private int page = 1;
     private RefreshLayout refreshLayout;
@@ -83,7 +85,6 @@ public class GrouponListActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
     }
 
 
@@ -91,37 +92,26 @@ public class GrouponListActivity extends BaseActivity {
         @Override
         public void onSucceed(Message msg) {
             super.onSucceed(msg);
-            analysisJson(msg.obj.toString());
+            getGrouponList(msg.obj.toString(), new OnHttpCallback<List<RespGrouponList.GrouponList>>() {
+                @Override
+                public void success(List<RespGrouponList.GrouponList> result) {
+                    refreshLayout.finishRefreshing();
+                    refreshLayout.finishLoadmore();
+
+                    if (page == 1) {
+                        listData.clear();
+                    }
+                    listData.addAll(result);
+                    adapter.freshList(listData);
+                }
+
+                @Override
+                public void error(int code, String msg) {
+                    refreshLayout.finishRefreshing();
+                    refreshLayout.finishLoadmore();
+                    tost(code + "," + msg);
+                }
+            });
         }
     };
-
-    //解析数据
-    private void analysisJson(String json) {
-        refreshLayout.finishRefreshing();
-        refreshLayout.finishLoadmore();
-
-        ArrayList<Object> result = httpHander.jsonToList(json);
-
-        if (result == null || result.isEmpty()) {
-            return;
-        }
-
-        for (int i = 0; i < result.size(); i++) {
-            Map<String, Object> map = (Map<String, Object>) result.get(i);
-            String name = httpHander.getString(map, "title");
-            String imageUrl = httpHander.getString(map, "image");
-            String price = httpHander.getString(map, "price");
-            String product_price = httpHander.getString(map, "product_price");
-            Map<String, Integer> mapInteger = httpHander.getIntegerMap(map, "id");
-            GrouponListInfo tourdiy = new GrouponListInfo();
-            tourdiy.setId(mapInteger.get("id"));
-            tourdiy.setPrice(price);
-            tourdiy.setPeople(3);
-            tourdiy.setImage(imageUrl);
-            tourdiy.setTitle(name);
-            tourdiy.setProduct_price(product_price);
-            listData.add(tourdiy);
-        }
-        adapter.freshList(listData);
-    }
 }

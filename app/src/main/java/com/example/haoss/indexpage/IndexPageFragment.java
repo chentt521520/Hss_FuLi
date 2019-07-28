@@ -2,7 +2,6 @@ package com.example.haoss.indexpage;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +22,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.applibrary.custom.CustomerScrollView;
+import com.example.applibrary.entity.BannerInfo;
+import com.example.applibrary.entity.IndexInfo;
+import com.example.applibrary.entity.Recommond;
 import com.example.haoss.base.AppLibLication;
 import com.example.applibrary.base.BaseFragment;
 import com.example.applibrary.base.ConfigHttpReqFields;
@@ -33,8 +35,6 @@ import com.example.applibrary.dialog.interfac.DialogOnClick;
 import com.example.applibrary.httpUtils.HttpHander;
 import com.example.applibrary.utils.ImageUtils;
 import com.example.applibrary.utils.IntentUtils;
-import com.example.applibrary.widget.freshLoadView.RefreshLayout;
-import com.example.applibrary.widget.freshLoadView.RefreshListenerAdapter;
 import com.example.haoss.R;
 import com.example.haoss.goods.details.GoodsDetailsActivity;
 import com.example.haoss.goods.goodslist.GoodsListActivity;
@@ -49,18 +49,14 @@ import com.example.haoss.indexpage.adapter.BrandAdapter;
 import com.example.haoss.indexpage.adapter.CarouselAdapter;
 import com.example.haoss.indexpage.adapter.FuncAdapter;
 import com.example.haoss.indexpage.adapter.GridFavorAdapter;
-import com.example.haoss.indexpage.entity.BannerInfo;
-import com.example.haoss.indexpage.entity.IndexInfo;
-import com.example.haoss.indexpage.entity.Recommond;
 import com.example.haoss.indexpage.fragment.BannerFragment;
-import com.example.haoss.indexpage.getcoupon.GetCouponCentreActivity;
+import com.example.haoss.indexpage.getcoupon.CouponCentreActivity;
 import com.example.haoss.indexpage.specialoffer.NowSpecialOfferActivity;
 import com.example.haoss.indexpage.tourdiy.GrouponListActivity;
 import com.example.haoss.person.msg.PersonMsgActivity;
 import com.example.haoss.views.MyGridView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,7 +84,6 @@ public class IndexPageFragment extends BaseFragment {
     private RadioGroup fistpage_dot;    //小点
     private ImageView fistpage_dapai_image; //大牌图片
     private MyGridView fistpage_func, fistpage_sift, fistpage_like;   //5选项、品牌精品、喜欢
-//    private RefreshLayout refreshLayout;
 
     ImageView fistpage_hdjx_limage, fistpage_hdjx_rimage; //精选活动大图、今日特价、拼团图片
     GifImageView fistpage_hdjx_bigimage;
@@ -500,7 +495,7 @@ public class IndexPageFragment extends BaseFragment {
                 case R.id.fistpage_hdjx_bigimage:  //活动精选大图(优惠劵)
                     if (login())
                         return;
-                    IntentUtils.startIntent(mContext, GetCouponCentreActivity.class);
+                    IntentUtils.startIntent(mContext, CouponCentreActivity.class);
                     break;
                 //今日特价与拼团功能未登录也可使用
                 case R.id.fistpage_hdjx_snapup:  //今日特价，立即疯抢按钮

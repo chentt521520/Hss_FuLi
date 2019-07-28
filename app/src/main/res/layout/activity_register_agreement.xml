@@ -25,7 +25,8 @@
         android:layout_gravity="center"
         android:layout_weight="0"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/layout_termsofservice_no"
@@ -33,10 +34,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/height50"
             android:background="@drawable/bk_hui_01"
-            android:paddingBottom="5dp"
             android:paddingLeft="15dp"
-            android:paddingRight="15dp"
             android:paddingTop="5dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="5dp"
             android:text="拒绝"
             android:textColor="@color/blackColor24"
             android:textSize="14sp" />
@@ -46,10 +47,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bk_red_01"
-            android:paddingBottom="5dp"
             android:paddingLeft="15dp"
-            android:paddingRight="15dp"
             android:paddingTop="5dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="5dp"
             android:text="同意"
             android:textColor="@color/baseRedColor"
             android:textSize="14sp" />

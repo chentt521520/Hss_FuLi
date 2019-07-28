@@ -1,69 +1,120 @@
 package com.example.haoss.indexpage.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.applibrary.entity.Recommond;
 import com.example.applibrary.utils.ImageUtils;
 import com.example.haoss.R;
-import com.example.haoss.indexpage.entity.NavInfo;
 
 import java.util.List;
 
 //年节礼包钜惠礼包适配器
-public class FestivalGiftBagAdapter extends BaseAdapter {
+public class FestivalGiftBagAdapter extends RecyclerView.Adapter<FestivalGiftBagAdapter.MyViewHolder> {
 
+
+    /*
+     * 另一种实现监听事件的实现方式采用接口回调的方式
+     * */
+    public interface OnItemClickListener {
+        public void onItemClickListener(int position);
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnViewClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    /*
+     *
+     * 属性一般俩一个是数据源
+     * 另一个是上下问对象
+     *
+     * */
     private Context context;
-    private List<NavInfo> list;    //数据
+    private List<Recommond> strings;
 
-    public FestivalGiftBagAdapter(Context context, List<NavInfo> list) {
+    /*
+     *
+     * 构造方法初始化数据
+     *
+     * */
+    public FestivalGiftBagAdapter(Context context, List<Recommond> strings) {
         this.context = context;
-        this.list = list;
+        this.strings = strings;
     }
 
-    @Override
-    public int getCount() {
-        if (list != null)
-            return list.size();
-        return 0;
+    public void freshList(List<Recommond> strings) {
+        this.strings = strings;
+        notifyDataSetChanged();
     }
 
+    /*
+     * 创建viewHolder
+     * 这个主要作用就是找到item布局
+     * 把布局里面有用的控件与Viewholder进行关联
+     * */
     @Override
-    public Object getItem(int position) {
-        return list.get(position);
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_gift_car_item, parent, false);
+        return new MyViewHolder(view);
     }
 
+    /*
+     * 绑定viewholder
+     * 主要是数据源与viewHolder的绑定
+     * 这里可以实现监听事件
+     * */
     @Override
-    public long getItemId(int position) {
-        return position;
+    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
+        ImageUtils.imageLoad(context, strings.get(i).getImage(), myViewHolder.image);
+        myViewHolder.descript.setText(strings.get(i).getStore_name());
+        myViewHolder.price.setText(strings.get(i).getPrice());
+        /*
+         * 接口回调方式实现监听事件
+         * */
+        myViewHolder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClickListener(i);
+                }
+            }
+        });
     }
 
+    /*
+     * 获取数据源条数
+     * */
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
-        Info info;
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_gift_car_item, null);
-            info = new Info();
-            info.good_icon = view.findViewById(R.id.item_gift_package_icon);
-            info.good_name = view.findViewById(R.id.item_gift_package_descript);
-            info.good_price = view.findViewById(R.id.item_gift_package_price);
-            view.setTag(info);
+    public int getItemCount() {
+        return strings == null ? 0 : strings.size();
+    }
+
+    /*
+     * viewholder与布局中的控件关联
+     * view代表一个item
+     * */
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        ImageView image;
+        TextView descript;
+        TextView price;
+        View view;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            view = itemView;
+            image = itemView.findViewById(R.id.item_gift_package_icon);
+            descript = itemView.findViewById(R.id.item_gift_package_descript);
+            price = itemView.findViewById(R.id.item_gift_package_price);
+
         }
-        info = (Info) view.getTag();
-        NavInfo birhtDayInfo = list.get(position);
-        ImageUtils.imageLoad(context, birhtDayInfo.getImageUrl(), info.good_icon);
-        info.good_name.setText(birhtDayInfo.getName());
-        info.good_price.setText("¥ " + birhtDayInfo.getMoney() + " ");
-        return view;
-    }
-
-    class Info {
-        ImageView good_icon;    //图片
-        TextView good_name;  //名称
-        TextView good_price;  //金额
     }
 }

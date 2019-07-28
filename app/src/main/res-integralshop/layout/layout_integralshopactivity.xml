@@ -13,11 +13,9 @@
         android:background="@drawable/integralshop_bg"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="44dp">
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
@@ -47,7 +45,6 @@
                 android:src="@drawable/integralshop_timg"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp" />
-
             <TextView
                 android:id="@+id/integralshop_kyjf"
                 android:layout_width="wrap_content"

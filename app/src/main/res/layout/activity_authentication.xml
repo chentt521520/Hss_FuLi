@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View style="@style/ui_line" />
+
+    <LinearLayout
+        style="@style/padding_left_right_15"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/whiteColor"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text="姓名："
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/ui_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="请输入真实姓名"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <View style="@style/ui_line" />
+
+    <LinearLayout
+        style="@style/padding_left_right_15"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/whiteColor"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text="身份证号："
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/ui_user_identy_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="请输入身份证号码（将加密处理）"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <View style="@style/ui_line" />
+
+    <LinearLayout
+        style="@style/padding_left_right_15"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/whiteColor"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text="手机号："
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/ui_user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="请输入有效手机号"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/base_padding_border"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin10"
+        android:background="@color/whiteColor"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="身份证照片"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin10"
+            android:text="请上传原始比例的身份证正反面，请勿裁剪涂改，保证身份证信息清晰显示，否则无法通过审核"
+            android:textColor="#666666"
+            android:textSize="11sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/identity_card_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin10"
+                android:layout_weight="1"
+                android:src="@mipmap/identity_card_top" />
+
+            <ImageView
+                android:id="@+id/identity_card_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin10"
+                android:layout_weight="1"
+                android:src="@mipmap/identity_card_bottom" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

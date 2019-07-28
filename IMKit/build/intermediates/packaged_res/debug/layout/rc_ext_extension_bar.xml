@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="@dimen/rc_extension_bar_min_height">
@@ -30,14 +29,14 @@
                 android:layout_marginRight="6dp"
                 android:scaleType="center"
                 android:src="@drawable/rc_menu_text"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <View
                 android:id="@+id/rc_switch_divider"
                 android:layout_width="1px"
                 android:layout_height="48dp"
                 android:background="@color/rc_divider_line"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/rc_voice_toggle"
@@ -46,7 +45,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
-                android:src="@drawable/rc_voice_toggle_selector"/>
+                android:src="@drawable/rc_voice_toggle_selector" />
         </LinearLayout>
 
         <!-- 文本，表情输入容器，通过控制“语音”，容器中填充不同的内容 -->
@@ -57,7 +56,7 @@
             android:layout_weight="1"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical" />
 
         <!-- 扩展栏 “+号” 布局-->
         <LinearLayout
@@ -72,7 +71,7 @@
                 android:id="@+id/rc_plugin_toggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/rc_plugin_toggle_selector"/>
+                android:src="@drawable/rc_plugin_toggle_selector" />
         </LinearLayout>
     </LinearLayout>
 
@@ -81,5 +80,5 @@
         android:layout_width="match_parent"
         android:layout_height="2px"
         android:layout_alignParentTop="true"
-        android:background="@color/rc_divider_color"/>
+        android:background="@color/rc_divider_color" />
 </RelativeLayout>

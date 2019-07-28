@@ -24,16 +24,17 @@ public class ShareWeChar extends Dialog {
 
     IWXAPI iwxapi;  //api
     Context context;
-    String title, details, url;    //商品名/详情/链接
+    String title, details, url, image;    //商品名/详情/链接
 
     public ShareWeChar(Context context) {
         super(context);
     }
 
-    public ShareWeChar(Context context, String title, String details, String url) {
+    public ShareWeChar(Context context, String title, String image, String details, String url) {
         super(context, R.style.ActionSheetDialogStyle2);
         this.context = context;
         this.title = title;
+        this.image = image;
         this.details = details;
         this.url = url;
         iwxapi = WXAPIFactory.createWXAPI(context, ConfigVariate.weChatAppID, false);
@@ -41,8 +42,9 @@ public class ShareWeChar extends Dialog {
     }
 
     //刷新
-    public void setUpData(String title, String details, String url) {
+    public void setUpData(String title, String image, String details, String url) {
         this.title = title;
+        this.image = image;
         this.details = details;
         this.url = url;
     }

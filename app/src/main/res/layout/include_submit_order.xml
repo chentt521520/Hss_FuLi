@@ -149,7 +149,7 @@
                 android:layout_weight="1"
                 android:gravity="end|center"
                 android:text="@string/null_text"
-                android:textColor="@color/blackColor0f"
+                android:textColor="#c22222"
                 android:textSize="12sp" />
 
             <ImageView

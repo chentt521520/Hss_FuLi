@@ -13,20 +13,17 @@ import android.widget.TextView;
 
 import com.example.applibrary.base.Netconfig;
 import com.example.applibrary.httpUtils.HttpHander;
+import com.example.applibrary.httpUtils.OnHttpCallback;
+import com.example.applibrary.resp.RespGrouponResult;
+import com.example.applibrary.utils.DateTimeUtils;
 import com.example.applibrary.utils.DensityUtil;
 import com.example.applibrary.utils.ImageUtils;
 import com.example.applibrary.utils.IntentUtils;
-import com.example.applibrary.utils.ViewUtils;
 import com.example.haoss.R;
 import com.example.haoss.base.AppLibLication;
 import com.example.haoss.base.BaseActivity;
-import com.example.haoss.indexpage.tourdiy.entity.GrouponGoodInfo;
-import com.example.haoss.indexpage.tourdiy.entity.GrouponResult;
-import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -38,7 +35,13 @@ public class GrouponNoticeActivity extends BaseActivity {
     private TextView goodName;
     private TextView goodPrice;
     private TextView goodOtPrice;
-    private GrouponResult grouponGood;
+    private TextView hour_1;
+    private TextView hour_2;
+    private TextView minute_1;
+    private TextView minute_2;
+    private TextView second_1;
+    private TextView second_2;
+    private RespGrouponResult.GrouponResult grouponGood;
     private LinearLayout grouponTeamContainer;
 
     @Override
@@ -60,23 +63,39 @@ public class GrouponNoticeActivity extends BaseActivity {
         goodPrice = findViewById(R.id.groupon_good_price);
         goodOtPrice = findViewById(R.id.single_buy_price);
         remainCount = findViewById(R.id.group_remaining_people);
+        grouponTeamContainer = findViewById(R.id.group_remaining_people_container);
+        //付款成功，等待拼团
+        findViewById(R.id.groupon_waitting).setVisibility(View.GONE);
+        hour_1 = findViewById(R.id.timer_view_hour_1);
+        hour_2 = findViewById(R.id.timer_view_hour_2);
+        minute_1 = findViewById(R.id.timer_view_minute_1);
+        minute_2 = findViewById(R.id.timer_view_minute_2);
+        second_1 = findViewById(R.id.timer_view_second_1);
+        second_2 = findViewById(R.id.timer_view_second_2);
 
-        grouponTeamContainer = findViewById(R.id.groupon_team_container);
-        findViewById(R.id.btn_invite_partner).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                IntentUtils.startIntent(GrouponNoticeActivity.this, GrouponListActivity.class);
-            }
-        });
+        //付款成功，拼团
+        findViewById(R.id.groupon_result_view).setVisibility(View.VISIBLE);
+
+        findViewById(R.id.btn_groupon_more).setOnClickListener(listener);
+        findViewById(R.id.btn_invite_partner).setOnClickListener(listener);
+
+
     }
+
+    private View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            IntentUtils.startIntent(GrouponNoticeActivity.this, GrouponListActivity.class);
+        }
+    };
 
     //立即购买
     private void initData() {
 
         String url = Netconfig.kaiTuanActivity;
-        HashMap<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
 
-        map.put("id", pinkId);
+        map.put("id", pinkId + "");
         map.put("token", AppLibLication.getInstance().getToken());
         httpHander.okHttpMapPost(this, url, map, 1);
     }
@@ -89,119 +108,58 @@ public class GrouponNoticeActivity extends BaseActivity {
             switch (msg.arg1) {
                 case 1:
                     Log.e("~~~~~~~~~~~", msg.obj.toString());
-                    try {
-                        Map ret = new Gson().fromJson(msg.obj.toString(), HashMap.class);
-                        if (ret != null && getDouble(ret, "code") == 200) {
-                            handleJson(getMap(ret, "data"));
-                        } else {
-                            tost(getString(ret, "msg"));
+
+                    getGrouponResult(msg.obj.toString(), new OnHttpCallback<RespGrouponResult.GrouponResult>() {
+                        @Override
+                        public void success(RespGrouponResult.GrouponResult result) {
+                            grouponGood = result;
+                            setView();
                         }
-                    } catch (Exception e) {
-                        tost(e.getMessage());
-                    }
+
+                        @Override
+                        public void error(int code, String msg) {
+                            tost(code + msg);
+                        }
+                    });
                     break;
             }
         }
     };
 
-    private void handleJson(Map<String, Object> data) {
-
-        if (data != null) {
-            grouponGood = new GrouponResult();
-
-            //是否拼团成功
-            Map<String, Integer> integerMap = httpHander.getIntegerMap(data, "pinkBool", "is_ok", "userBool", "count");
-
-            grouponGood.setPinkBool(integerMap.get("pinkBool"));
-            grouponGood.setIs_ok(integerMap.get("is_ok"));
-            grouponGood.setUserBool(integerMap.get("userBool"));
-            grouponGood.setCount(integerMap.get("count"));
-            grouponGood.setCurrent_pink_order(httpHander.getString(data, "current_pink_order"));
-
-            Map<String, Object> store_combination = httpHander.getMap(data, "store_combination");
-            GrouponGoodInfo goodInfo = new GrouponGoodInfo();
-
-            Map<String, Integer> integerMap1 = httpHander.getIntegerMap(store_combination, "id", "product_id", "people", "combination_id");
-
-            goodInfo.setId(integerMap1.get("id"));
-            goodInfo.setProduct_id(integerMap1.get("product_id"));
-            goodInfo.setCombination_id(integerMap1.get("combination_id"));
-            goodInfo.setPeople(integerMap1.get("people"));
-            goodInfo.setImage(httpHander.getString(store_combination, "image"));
-            goodInfo.setTitle(httpHander.getString(store_combination, "title"));
-            goodInfo.setPrice(httpHander.getString(store_combination, "price"));
-            goodInfo.setProduct_price(httpHander.getString(store_combination, "product_price"));
-
-            grouponGood.setStore_combination(goodInfo);
-
-            ArrayList<Object> pinkAll = httpHander.getList(data, "pinkAll");
-            List<GrouponResult.UserBean> pinkList = new ArrayList<>();
-            for (int i = 0; i < pinkAll.size(); i++) {
-                Map<String, Object> pinkMap = (Map<String, Object>) pinkAll.get(i);
-                String image = httpHander.getString(pinkMap, "avatar");
-                int id = (int) httpHander.getDouble(pinkMap, "k_id");
-                GrouponResult.UserBean bean = new GrouponResult.UserBean(id, image);
-                pinkList.add(bean);
-            }
-            grouponGood.setPinkAll(pinkList);
-
-            setView();
-        }
-
-        /*       *
-         * "pinkBool": false,
-         *     "is_ok": 0,
-         *     "userBool": 1,
-         *     "store_combination": {
-         *       "id": 30,
-         *       "product_id": 749,
-         *       "mer_id": 0,
-         *       "image": "http://py.haoshusi.com/python/8092c66a5a20f05085f4d245ebe78a893751.jpg",
-         *       "title": "澳洲爱他美Aptamil金装婴幼儿配方奶粉3段 900g 1-2岁适用（澳爱）",
-         *       "people": 3,
-         *       "info": "爱他美",
-         *       "price": "169.00",
-         *       "sort": 0,
-         *       "sales": 2111,
-         *       "stock": 787,
-         *       "add_time": "1563255118",
-         *       "is_host": 1,
-         *       "is_show": 1,
-         *       "is_del": 0,
-         *       "is_postage": 1,
-         *       "postage": "10.00",
-         *       "start_time": 1561910400,
-         *       "stop_time": 1567180800,
-         *       "cost": 0,
-         *       "browse": 0,
-         *       "unit_name": "",
-         *       "product_price": "171.00",
-         *       "combination_id": 30
-         *     },
-         *     "pinkAll": [
-         *       {
-         *         "avatar": "http://py.haoshusi.com/avatar/761a4d1eb8fddcc8d2f74b12d0d62215.jpg",
-         *         "k_id": 0
-         *       }
-         *     ],
-         *     "count": 2,
-         *     "current_pink_order": "wx2019071711512010002"
-         */
-
-    }
-
     private void setView() {
+        Log.e("~~~~~~~~~", "size:" + grouponGood.getPinkAll().size());
         ImageUtils.imageLoad(GrouponNoticeActivity.this, grouponGood.getStore_combination().getImage(), goodImage);
         goodName.setText(grouponGood.getStore_combination().getTitle());
         goodPrice.setText(grouponGood.getStore_combination().getPrice());
         goodOtPrice.setText(grouponGood.getStore_combination().getProduct_price());
         goodOtPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        int num = grouponGood.getStore_combination().getPeople() - grouponGood.getPinkAll().size();
+//        int num = grouponGood.getStore_combination().getPeople() - grouponGood.getPinkAll().size();
         remainCount.setText("还差" + grouponGood.getCount() + "人拼团成功，剩余时间");
 
+        long currentTime = System.currentTimeMillis() / 1000;
+        long remainTime = grouponGood.getStore_combination().getStop_time() - currentTime;
+        Log.e("~~~~~~~~~", "startTime：" + DateTimeUtils.timeStampToDate(grouponGood.getStore_combination().getStart_time() * 1000L));
+        Log.e("~~~~~~~~~", "stoptime：" + DateTimeUtils.timeStampToDate(grouponGood.getStore_combination().getStop_time() * 1000L));
+        Log.e("~~~~~~~~~", "currentTime：" + currentTime);
+        Log.e("~~~~~~~~~", "people：" + grouponGood.getStore_combination().getPeople());
+
+        String timeStr = DateTimeUtils.timeStampToDate(grouponGood.getStore_combination().getStop_time() * 1000L);
+
+        String[] split = timeStr.substring(11, timeStr.length()).split(":");
+        Log.e("~~~~~~~~~", "timeStr：" + timeStr.substring(11, timeStr.length()));
+        hour_1.setText(split[0].substring(0, 1));
+        hour_2.setText(split[0].substring(1, 2));
+        minute_1.setText(split[1].substring(0, 1));
+        minute_2.setText(split[1].substring(1, 2));
+        second_1.setText(split[2].substring(0, 1));
+        second_2.setText(split[2].substring(1, 2));
+
         grouponTeamContainer.removeAllViews();
+        if (grouponGood.getPinkAll() == null) {
+            return;
+        }
         int size = grouponGood.getPinkAll().size();
-        for (int i = 0; i < grouponGood.getStore_combination().getPeople(); i++) {
+        for (int i = 0; i < 3; i++) {
             ImageView image = new ImageView(GrouponNoticeActivity.this);
             int width = DensityUtil.dip2px(GrouponNoticeActivity.this, 60);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, width);

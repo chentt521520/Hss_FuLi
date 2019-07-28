@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="48dp">
@@ -17,18 +16,18 @@
             android:layout_width="53dp"
             android:layout_height="wrap_content"
             android:scaleType="center"
-            android:src="@drawable/rc_menu_keyboard"/>
+            android:src="@drawable/rc_menu_keyboard" />
 
         <View
             android:id="@+id/rc_switch_divider"
             android:layout_width="1px"
             android:layout_height="48dp"
-            android:background="@color/rc_divider_line"/>
+            android:background="@color/rc_divider_line" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2px"
         android:layout_alignParentTop="true"
-        android:background="@color/rc_divider_color"/>
+        android:background="@color/rc_divider_color" />
 </RelativeLayout>

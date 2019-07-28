@@ -9,8 +9,6 @@
         android:id="@+id/item_goodsbuyadapter_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/bg_corner_border_grey"
-        android:padding="1dp"
         android:scaleType="centerCrop"
         android:src="@drawable/image_load_lose" />
     <!--名称-->

@@ -10,9 +10,9 @@
         android:id="@+id/person_my_money_pg"
         android:layout_width="match_parent"
         android:layout_height="38dp"
+        android:drawableStart="@mipmap/person_my_money_img"
         android:drawableEnd="@mipmap/more_image"
         android:drawablePadding="@dimen/margin10"
-        android:drawableStart="@mipmap/person_my_money_img"
         android:gravity="center_vertical"
         android:text="我的钱包"
         android:textColor="@color/text_black"
@@ -24,9 +24,9 @@
         android:id="@+id/person_my_shouhuo_address"
         android:layout_width="match_parent"
         android:layout_height="38dp"
+        android:drawableStart="@mipmap/person_shouhuo_addr"
         android:drawableEnd="@mipmap/more_image"
         android:drawablePadding="@dimen/margin10"
-        android:drawableStart="@mipmap/person_shouhuo_addr"
         android:gravity="center_vertical"
         android:text="收货地址"
         android:textColor="@color/text_black"
@@ -35,14 +35,43 @@
     <View style="@style/ui_line" />
 
     <TextView
+        android:id="@+id/person_my_card_convert"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:drawableStart="@mipmap/icon_card_convert"
+        android:drawableEnd="@mipmap/more_image"
+        android:drawablePadding="@dimen/margin10"
+        android:gravity="center_vertical"
+        android:text="礼卡兑换"
+        android:textColor="@color/text_black"
+        android:textSize="14sp"
+        android:visibility="visible" />
+
+    <View style="@style/ui_line" />
+
+    <TextView
         android:id="@+id/person_my_shouhuo_myservice"
         android:layout_width="match_parent"
         android:layout_height="38dp"
+        android:drawableStart="@mipmap/service"
         android:drawableEnd="@mipmap/more_image"
         android:drawablePadding="@dimen/margin10"
-        android:drawableStart="@mipmap/my_service"
         android:gravity="center_vertical"
         android:text="我的客服"
+        android:textColor="@color/text_black"
+        android:textSize="14sp" />
+
+    <View style="@style/ui_line" />
+
+    <TextView
+        android:id="@+id/person_indenty"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:drawableStart="@mipmap/icon_authentication"
+        android:drawableEnd="@mipmap/more_image"
+        android:drawablePadding="@dimen/margin10"
+        android:gravity="center_vertical"
+        android:text="实名认证"
         android:textColor="@color/text_black"
         android:textSize="14sp" />
 
@@ -52,38 +81,37 @@
         android:id="@+id/person_my_fuwu_tiaok"
         android:layout_width="match_parent"
         android:layout_height="38dp"
+        android:drawableStart="@mipmap/person_fuw_tiaok"
         android:drawableEnd="@mipmap/more_image"
         android:drawablePadding="@dimen/margin10"
-        android:drawableStart="@mipmap/person_fuw_tiaok"
         android:gravity="center_vertical"
         android:text="服务条款"
         android:textColor="@color/text_black"
         android:textSize="14sp" />
 
-    <View style="@style/ui_line" />
 
     <TextView
         android:id="@+id/person_my_yijian_fankui"
         android:layout_width="match_parent"
         android:layout_height="38dp"
+        android:drawableStart="@mipmap/feedback"
         android:drawableEnd="@mipmap/more_image"
         android:drawablePadding="@dimen/margin10"
-        android:drawableStart="@mipmap/feedback"
         android:gravity="center_vertical"
         android:text="意见反馈"
         android:textColor="@color/text_black"
         android:textSize="14sp"
         android:visibility="gone" />
 
-    <View style="@style/ui_line" />
+    <!--<View style="@style/ui_line" />-->
 
     <TextView
         android:id="@+id/person_my_shouhuo_integralshop"
         android:layout_width="match_parent"
         android:layout_height="38dp"
+        android:drawableStart="@mipmap/feedback"
         android:drawableEnd="@mipmap/more_image"
         android:drawablePadding="@dimen/margin10"
-        android:drawableStart="@mipmap/feedback"
         android:gravity="center_vertical"
         android:text="积分商城"
         android:textColor="@color/text_black"

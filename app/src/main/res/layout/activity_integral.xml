@@ -5,9 +5,6 @@
     android:orientation="vertical">
     <!--积分/金币-->
 
-    <!--标题-->
-    <include layout="@layout/action_title" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -20,7 +17,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="10dp">
             <!--积分信息-->

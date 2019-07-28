@@ -16,27 +16,26 @@ import com.example.haoss.base.BaseActivity;
 //修改账号密码
 public class ChangePasswardActivity extends BaseActivity {
 
-    EditText changepasswardactivity_oldpassword, changepasswardactivity_newpassword;    //旧密码、新密码
-    ImageView changepasswardactivity_oldpasswordsh, changepasswardactivity_newpasswordsh; //显示隐藏按钮
+    EditText oldpassword, newpassword;    //旧密码、新密码
+    ImageView oldpasswordsh, newpasswordsh; //显示隐藏按钮
     boolean isNewShow, isOldShow;    //新旧密码算法显示
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_password_modify);
+        setTitleContentView(R.layout.activity_password_modify);
         init();
     }
 
     private void init() {
         this.getTitleView().setTitleText("修改账号密码");
-        ViewUtils.setTextView(this, R.id.action_title_text, "");  //标题
-        changepasswardactivity_oldpassword = findViewById(R.id.changepasswardactivity_oldpassword);
-        changepasswardactivity_newpassword = findViewById(R.id.changepasswardactivity_newpassword);
+        oldpassword = findViewById(R.id.changepasswardactivity_oldpassword);
+        newpassword = findViewById(R.id.changepasswardactivity_newpassword);
 
-        changepasswardactivity_oldpasswordsh = findViewById(R.id.changepasswardactivity_oldpasswordsh);
-        changepasswardactivity_oldpasswordsh.setOnClickListener(onClickListener);    //显示旧密码
-        changepasswardactivity_newpasswordsh = findViewById(R.id.changepasswardactivity_newpasswordsh);
-        changepasswardactivity_newpasswordsh.setOnClickListener(onClickListener);    //显示新密码
+        oldpasswordsh = findViewById(R.id.changepasswardactivity_oldpasswordsh);
+        oldpasswordsh.setOnClickListener(onClickListener);    //显示旧密码
+        newpasswordsh = findViewById(R.id.changepasswardactivity_newpasswordsh);
+        newpasswordsh.setOnClickListener(onClickListener);    //显示新密码
         findViewById(R.id.changepasswardactivity_sure).setOnClickListener(onClickListener); //确定
     }
 
@@ -50,17 +49,17 @@ public class ChangePasswardActivity extends BaseActivity {
                         isOldShow = false;
                     else
                         isOldShow = true;
-                    showAndHidePassword(isOldShow, changepasswardactivity_oldpassword, changepasswardactivity_oldpasswordsh);
+                    showAndHidePassword(isOldShow, oldpassword, oldpasswordsh);
                     break;
                 case R.id.changepasswardactivity_newpasswordsh: //显示新密码
                     if (isNewShow)
                         isNewShow = false;
                     else
                         isNewShow = true;
-                    showAndHidePassword(isNewShow, changepasswardactivity_newpassword, changepasswardactivity_newpasswordsh);
+                    showAndHidePassword(isNewShow, newpassword, newpasswordsh);
                     break;
                 case R.id.changepasswardactivity_sure:  //确定
-                    String psw = changepasswardactivity_newpassword.getText().toString();   //密码
+                    String psw = newpassword.getText().toString();   //密码
                     psw = MD5Util.getMD5String(psw);
                     tost("确定按钮");
                     break;

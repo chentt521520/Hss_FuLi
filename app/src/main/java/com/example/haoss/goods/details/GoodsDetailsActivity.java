@@ -8,16 +8,21 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.applibrary.entity.GoodsDetailsInfo;
+import com.example.applibrary.entity.GoodsMold;
+import com.example.applibrary.entity.ProductAttr;
+import com.example.applibrary.entity.ReplyInfo;
+import com.example.applibrary.entity.StoreInfo;
+import com.example.applibrary.utils.ImageUtils;
 import com.example.applibrary.widget.CustomTitleView;
 import com.example.haoss.base.AppLibLication;
 import com.example.applibrary.base.ConfigHttpReqFields;
 import com.example.applibrary.base.ConfigVariate;
 import com.example.applibrary.base.Netconfig;
-import com.example.applibrary.custom.MyListView;
 import com.example.applibrary.custom.viewfragment.FragmentDataInfo;
 import com.example.applibrary.custom.viewfragment.FragmentView;
 import com.example.applibrary.custom.viewfragment.OnclickFragmentView;
@@ -28,13 +33,9 @@ import com.example.applibrary.dialog.sharedialog.ShareWeChar;
 import com.example.applibrary.httpUtils.HttpHander;
 import com.example.applibrary.utils.IntentUtils;
 import com.example.applibrary.utils.TextViewUtils;
-import com.example.applibrary.utils.ViewUtils;
 import com.example.haoss.R;
 import com.example.haoss.base.BaseActivity;
 import com.example.haoss.conversation.ServerOnlineActivity;
-import com.example.haoss.goods.details.entity.GoodsMold;
-import com.example.haoss.goods.details.entity.ProductAttr;
-import com.example.haoss.goods.details.entity.StoreInfo;
 import com.example.haoss.goods.estimate.EstimateListActivity;
 import com.example.haoss.person.login.LoginActivity;
 import com.google.gson.Gson;
@@ -56,7 +57,8 @@ public class GoodsDetailsActivity extends BaseActivity {
     TextView goodsdetailsactivity_originalprice, goodsdetailsactivity_intro;    //元区间价格、商品简单说明(商品名称)
     TextView goodsdetailsactivity_shipmentsland, goodsdetailsactivity_newbag, goodsdetailsactivity_juan;    //发货地、新人礼包、领劵
     TextView goodsdetailsactivity_content, goodsdetailsactivity_exempt, goodsdetailsactivity_loss;  //净含量、免运费、说明
-    TextView good_estimate_num, good_favorable_rate, estmate_item;   //评价数量、满意度
+    TextView good_estimate_num, good_favorable_rate, user_name, estmate_content;   //评价数量、满意度
+    ImageView userHead;
     RelativeLayout good_estimate_layout;   //评价列表
 
     RelativeLayout action_button_kefu, action_button_collect, action_button_car;  //客服、收藏、购物车
@@ -67,7 +69,7 @@ public class GoodsDetailsActivity extends BaseActivity {
     DialogGoodsPayOrAddCar dialogGoodsPayOrAddCar;  //购买和加入购物车对话框
     ShareWeChar shareWeChar;    //分享对话框
     private AppLibLication application;
-    private StoreInfo storeInfo;
+    private GoodsDetailsInfo detailsInfo;
     private int flag;
 
 
@@ -81,7 +83,7 @@ public class GoodsDetailsActivity extends BaseActivity {
     }
 
     private void initTitle() {
-        CustomTitleView titleView = new CustomTitleView(this);
+        CustomTitleView titleView = this.getTitleView();
         titleView.setTitleText("商品详情");
         titleView.setRightImage(R.drawable.goods_share);
         titleView.setRightImageOnClickListener(new View.OnClickListener() {
@@ -91,11 +93,11 @@ public class GoodsDetailsActivity extends BaseActivity {
                     return;
                 }
                 if (shareWeChar == null) {
-                    shareWeChar = new ShareWeChar(GoodsDetailsActivity.this, storeInfo.getStore_name(),
-                            storeInfo.getStore_info(), storeInfo.getDetails_url());
+                    shareWeChar = new ShareWeChar(GoodsDetailsActivity.this, detailsInfo.getStoreInfo().getStore_name(),
+                            detailsInfo.getStoreInfo().getImage(), detailsInfo.getStoreInfo().getStore_info(), detailsInfo.getDetails_url());
                 } else {
-                    shareWeChar.setUpData(storeInfo.getStore_name(),
-                            storeInfo.getStore_info(), storeInfo.getDetails_url());
+                    shareWeChar.setUpData(detailsInfo.getStoreInfo().getStore_name(),
+                            detailsInfo.getStoreInfo().getImage(), detailsInfo.getStoreInfo().getStore_info(), detailsInfo.getDetails_url());
                 }
                 shareWeChar.show();
             }
@@ -138,7 +140,9 @@ public class GoodsDetailsActivity extends BaseActivity {
         good_estimate_num = findViewById(R.id.good_estimate_num);
         good_favorable_rate = findViewById(R.id.good_favorable_rate);
         good_estimate_layout = findViewById(R.id.good_estimate_layout);
-        estmate_item = findViewById(R.id.estmate_item);
+        estmate_content = findViewById(R.id.estmate_content);
+        userHead = findViewById(R.id.user_head);
+        user_name = findViewById(R.id.user_name);
 
         //下5操作按钮
         action_button_kefu = findViewById(R.id.action_button_kefu);
@@ -184,7 +188,6 @@ public class GoodsDetailsActivity extends BaseActivity {
         map.put("id", goodsId);
         map.put("token", application.getToken());
         httpHander.okHttpMapPost(GoodsDetailsActivity.this, url, map, 1);
-
     }
 
     @Override
@@ -263,26 +266,17 @@ public class GoodsDetailsActivity extends BaseActivity {
             action_button_add.setEnabled(true);
             action_button_pay.setEnabled(true);
 
-            storeInfo = new StoreInfo();
+            detailsInfo = new GoodsDetailsInfo();
+
             Map<String, Object> storeInfoMap = (Map<String, Object>) map.get("storeInfo");
-            ArrayList<Object> productAttrList = (ArrayList<Object>) map.get("productAttr");
-            Map<String, Object> productValue = httpHander.getMap(map, "productValue");
-            String details_url = httpHander.getString(map, "details_url");
-            storeInfo.setDetails_url(details_url);
-
-            Map<String, String> string = httpHander.getStringMap(map, "priceName", "reply", "details_url");
-            Map<String, Integer> intNum = httpHander.getIntegerMap(map, "replyCount", "replyChance", "mer_id");
-            storeInfo.setPriceName(string.get("priceName"));
-            storeInfo.setDetails_url(string.get("details_url"));
-            storeInfo.setReplyCount(intNum.get("replyCount"));
-//            storeInfo.setReplyCount(intNum.get("replyCount"));
-
             //storeInfo
             if (storeInfoMap != null) {
+                StoreInfo storeInfo = new StoreInfo();
+
                 Map<String, String> mapString = httpHander.getStringMap(storeInfoMap, "cate_id", "image", "store_info",
-                        "store_name", "unit_name", "postage", "ot_price", "price", "vip_price", "priceName");
+                        "store_name", "unit_name", "postage", "ot_price", "price", "vip_price", "priceName", "title");
                 Map<String, Integer> mapInteger = httpHander.getIntegerMap(storeInfoMap, "browse", "ficti", "give_integral",
-                        "sales", "stock", "sort", "id", "product_id", "is_seckill");
+                        "sales", "stock", "sort", "id", "product_id", "is_seckill", "store_type");
                 //轮播
                 ArrayList<Object> listImage = httpHander.getList(storeInfoMap, "slider_image");
                 ArrayList<Object> images = httpHander.getList(storeInfoMap, "images");
@@ -300,6 +294,7 @@ public class GoodsDetailsActivity extends BaseActivity {
                 storeInfo.setCate_id(mapString.get("cate_id"));
                 storeInfo.setImage(mapString.get("image"));
                 storeInfo.setStore_info(mapString.get("store_info"));
+                storeInfo.setTitle(mapString.get("title"));
                 storeInfo.setStore_name(mapString.get("store_name"));
                 storeInfo.setUnit_name(mapString.get("unit_name"));
                 storeInfo.setBrowse(mapInteger.get("browse"));
@@ -310,15 +305,34 @@ public class GoodsDetailsActivity extends BaseActivity {
                 storeInfo.setPostage(mapString.get("postage"));
                 storeInfo.setOt_price(mapString.get("ot_price"));
                 storeInfo.setPrice(mapString.get("price"));
-                storeInfo.setSort(mapInteger.get("sort"));
-                storeInfo.setVip_price(mapString.get("vip_price"));
                 storeInfo.setSlider_image(listImage);
                 storeInfo.setImages(images);
                 storeInfo.setUserCollect((Boolean) storeInfoMap.get("userCollect"));
-            }
+                storeInfo.setStore_type(mapInteger.get("store_type"));
 
-            List<ProductAttr> AttrList = new ArrayList<>();
+
+                listBanner.clear();
+                if (storeInfo.getSlider_image() != null && storeInfo.getSlider_image().size() > 0) {
+                    for (int i = 0; i < storeInfo.getSlider_image().size(); i++) {
+                        String imageUrl = storeInfo.getSlider_image().get(i) + "";
+                        FragmentDataInfo fragmentDataInfo = new FragmentDataInfo();
+                        fragmentDataInfo.setImageUrl(imageUrl);
+                        listBanner.add(fragmentDataInfo);
+                    }
+                } else if (storeInfo.getImages() != null && storeInfo.getImages().size() > 0) {
+                    for (int i = 0; i < storeInfo.getImages().size(); i++) {
+                        String imageUrl = storeInfo.getImages().get(i) + "";
+                        FragmentDataInfo fragmentDataInfo = new FragmentDataInfo();
+                        fragmentDataInfo.setImageUrl(imageUrl);
+                        listBanner.add(fragmentDataInfo);
+                    }
+                }
+
+                detailsInfo.setStoreInfo(storeInfo);
+            }
+            ArrayList<Object> productAttrList = (ArrayList<Object>) map.get("productAttr");
             //productAttr
+            List<ProductAttr> AttrList = new ArrayList<>();
             if (productAttrList != null) {
                 for (int i = 0; i < productAttrList.size(); i++) {
                     Map<String, Object> mapProductAttr = (Map<String, Object>) productAttrList.get(i);
@@ -330,26 +344,27 @@ public class GoodsDetailsActivity extends BaseActivity {
                     AttrList.add(productAttr);
                 }
             }
-            storeInfo.setProductAttr(AttrList);
-            storeInfo.setProductValue(productValue);
+            detailsInfo.setProductAttr(AttrList);
 
-            listBanner.clear();
-            if (storeInfo.getSlider_image() != null && storeInfo.getSlider_image().size() > 0) {
-                for (int i = 0; i < storeInfo.getSlider_image().size(); i++) {
-                    String imageUrl = storeInfo.getSlider_image().get(i) + "";
-                    FragmentDataInfo fragmentDataInfo = new FragmentDataInfo();
-                    fragmentDataInfo.setImageUrl(imageUrl);
-                    listBanner.add(fragmentDataInfo);
-                }
-            } else if (storeInfo.getImages() != null && storeInfo.getImages().size() > 0) {
-                for (int i = 0; i < storeInfo.getImages().size(); i++) {
-                    String imageUrl = storeInfo.getImages().get(i) + "";
-                    FragmentDataInfo fragmentDataInfo = new FragmentDataInfo();
-                    fragmentDataInfo.setImageUrl(imageUrl);
-                    listBanner.add(fragmentDataInfo);
-                }
+            Map<String, Object> productValue = httpHander.getMap(map, "productValue");
+            detailsInfo.setProductValue(productValue);
+
+            Map<String, String> string = httpHander.getStringMap(map, "priceName", "details_url", "replyChance");
+            Map<String, Integer> intNum = httpHander.getIntegerMap(map, "replyCount", "mer_id");
+//            detailsInfo.setMer_id();
+//            detailsInfo.setNotFreight();
+            detailsInfo.setDetails_url(string.get("details_url"));
+            detailsInfo.setPriceName(string.get("priceName"));
+            detailsInfo.setReplyCount(intNum.get("replyCount"));
+            detailsInfo.setReplyChance(string.get("replyChance"));
+
+            Map<String, Object> reply = (Map<String, Object>) map.get("reply");
+            if (reply != null) {
+                ReplyInfo replayInfo = new ReplyInfo(httpHander.getString(reply, "nickname"), httpHander.getString(reply, "avatar"), httpHander.getString(reply, "comment"));
+                detailsInfo.setReply(replayInfo);
+            } else {
+                detailsInfo.setReply(null);
             }
-
             setData();
         }
 
@@ -358,25 +373,31 @@ public class GoodsDetailsActivity extends BaseActivity {
     //设置数据
     private void setData() {
         setCarousel();
-        webView.loadUrl(storeInfo.getDetails_url());
-        String priceName = TextUtils.isEmpty(storeInfo.getPriceName()) ? storeInfo.getPrice() : storeInfo.getPriceName();
+        webView.loadUrl(detailsInfo.getDetails_url());
+        String priceName = TextUtils.isEmpty(detailsInfo.getPriceName()) ? detailsInfo.getStoreInfo().getPrice() : detailsInfo.getPriceName();
         goodsdetailsactivity_newmoney.setText("¥ " + priceName);
-        goodsdetailsactivity_originalprice.setText("¥ " + storeInfo.getOt_price());
-        goodsdetailsactivity_exempt.setText("¥ " + storeInfo.getPostage());
-        goodsdetailsactivity_monthlysales.setText("月销 " + storeInfo.getSales());
+        goodsdetailsactivity_originalprice.setText("¥ " + detailsInfo.getStoreInfo().getOt_price());
+        goodsdetailsactivity_exempt.setText("¥ " + detailsInfo.getStoreInfo().getPostage());
+        goodsdetailsactivity_monthlysales.setText("月销 " + detailsInfo.getStoreInfo().getFicti());
         if (flag == 1) {
-            goodsdetailsactivity_intro.setText(storeInfo.getTitle());
+            goodsdetailsactivity_intro.setText(detailsInfo.getStoreInfo().getTitle());
         } else {
-            goodsdetailsactivity_intro.setText(storeInfo.getStore_name());
+            goodsdetailsactivity_intro.setText(detailsInfo.getStoreInfo().getStore_name());
         }
-        isCollect = !storeInfo.isUserCollect();
+        isCollect = !detailsInfo.getStoreInfo().isUserCollect();
         collectUpdata();
-        if (storeInfo.getReplyCount() == 0) {
-            good_estimate_layout.setVisibility(View.GONE);
-            estmate_item.setText("暂无评价");
+        if (detailsInfo.getReply() == null) {
+            findViewById(R.id.no_estmate_item).setVisibility(View.VISIBLE);
+            findViewById(R.id.estmate_item).setVisibility(View.GONE);
+            ((TextView) findViewById(R.id.no_estmate_item)).setText("暂无评价");
         } else {
-            good_estimate_layout.setVisibility(View.VISIBLE);
-            good_estimate_num.setText("(" + storeInfo.getReplyCount() + ")");
+            findViewById(R.id.no_estmate_item).setVisibility(View.GONE);
+            findViewById(R.id.estmate_item).setVisibility(View.VISIBLE);
+            good_estimate_num.setText("(" + detailsInfo.getReplyCount() + ")");
+            good_favorable_rate.setText("满意度" + detailsInfo.getReplyChance() + "%");
+            user_name.setText(detailsInfo.getReply().getNickname());
+            ImageUtils.loadCirclePic(this, detailsInfo.getReply().getAvatar(), userHead);
+            estmate_content.setText(detailsInfo.getReply().getComment());
         }
     }
 
@@ -398,11 +419,11 @@ public class GoodsDetailsActivity extends BaseActivity {
 
             if (login())
                 return;
-            if (v.getId() == R.id.good_estimate_layout) {  //查看领券
+            if (v.getId() == R.id.good_estimate_layout) {  //查看评论列表
                 if (flag == 1) {
-                    IntentUtils.startIntent(storeInfo.getProduct_id(), GoodsDetailsActivity.this, EstimateListActivity.class);
+                    IntentUtils.startIntent(detailsInfo.getStoreInfo().getProduct_id(), GoodsDetailsActivity.this, EstimateListActivity.class);
                 } else {
-                    IntentUtils.startIntent(storeInfo.getId(), GoodsDetailsActivity.this, EstimateListActivity.class);
+                    IntentUtils.startIntent(detailsInfo.getStoreInfo().getId(), GoodsDetailsActivity.this, EstimateListActivity.class);
                 }
 
             } else if (v.getId() == R.id.goodsdetailsactivity_content) {//净含量
@@ -417,16 +438,7 @@ public class GoodsDetailsActivity extends BaseActivity {
             } else if (v.getId() == R.id.action_button_add || //加入购物车
                     v.getId() == R.id.action_button_pay) {   //立即购买
                 dialogPayAndCar();
-
             }
-        }
-    };
-
-    //评价列表监听
-    AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
         }
     };
 
@@ -482,11 +494,16 @@ public class GoodsDetailsActivity extends BaseActivity {
 
     //立即购买和加入购物车对话框
     private void dialogPayAndCar() {
-        if (dialogGoodsPayOrAddCar == null)
-            dialogGoodsPayOrAddCar = new DialogGoodsPayOrAddCar(this, storeInfo, flag);
-        else
-            dialogGoodsPayOrAddCar.setRefresh(storeInfo);
-        dialogGoodsPayOrAddCar.show();
+        if (detailsInfo != null) {
+            if (dialogGoodsPayOrAddCar == null)
+                dialogGoodsPayOrAddCar = new DialogGoodsPayOrAddCar(this, detailsInfo, flag);
+            else
+                dialogGoodsPayOrAddCar.setRefresh(detailsInfo);
+            dialogGoodsPayOrAddCar.show();
+        } else {
+            tost("未获取到商品信息");
+        }
+
     }
 
     //尺寸，颜色

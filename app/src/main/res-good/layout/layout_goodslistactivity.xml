@@ -5,8 +5,36 @@
     android:background="@color/whiteColor"
     android:orientation="vertical">
     <!--商品搜索-->
+    <LinearLayout
+        style="@style/base_padding_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <include layout="@layout/include_good_search" />
+        <ImageView
+            android:id="@+id/page_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/page_back" />
+
+        <TextView
+            android:id="@+id/ui_good_list_search"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginEnd="@dimen/height20"
+            android:layout_marginStart="@dimen/height20"
+            android:background="@drawable/bg_hui02"
+            android:drawablePadding="@dimen/height10"
+            android:drawableStart="@mipmap/search_image"
+            android:gravity="center_vertical"
+            android:hint="请输入要搜索的商品"
+            android:paddingStart="@dimen/height10"
+            android:singleLine="true"
+            android:textColor="@color/blackColor0f"
+            android:textSize="13sp" />
+
+    </LinearLayout>
 
     <View style="@style/ui_line" />
 
@@ -28,8 +56,8 @@
         android:id="@+id/goodslistactivity_selectionbar"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:layout_marginTop="1dp"
         android:layout_marginBottom="1dp"
+        android:layout_marginTop="1dp"
         android:background="@color/whiteColor"
         android:orientation="horizontal">
 

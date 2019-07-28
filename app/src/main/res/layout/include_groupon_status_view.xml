@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/width15"
     android:background="#ffffff"
     android:gravity="center_horizontal"
     android:orientation="vertical">
@@ -12,9 +13,15 @@
         android:layout_height="wrap_content"
         android:background="#ffffff"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        <include layout="@layout/include_timer_view" />
+        <LinearLayout
+            android:id="@+id/group_remaining_people_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#ffffff" />
 
         <TextView
             android:id="@+id/group_remaining_people"
@@ -26,11 +33,10 @@
             android:textColor="#0f0f0f"
             android:textSize="12sp" />
 
-        <LinearLayout
+        <include
             android:id="@+id/groupon_remaining_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" />
+            layout="@layout/include_timer_view" />
+
 
         <TextView
             android:id="@+id/btn_invite_partner"
@@ -60,7 +66,7 @@
         android:background="#ffffff"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/group_status"
@@ -80,7 +86,8 @@
             android:orientation="horizontal"
             android:text="耗时"
             android:textColor="#333333"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone" />
 
 
         <TextView

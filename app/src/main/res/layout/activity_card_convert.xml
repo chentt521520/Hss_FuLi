@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/ui_line"
+        style="@style/ui_line" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ui_line"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/width30"
+        android:text="@string/please_input_card_code"
+        android:textColor="#333333"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/ui_card_number_input"
+        android:layout_width="320dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/bk_squre_border_grey"
+        android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        android:gravity="center"
+        android:hint="点击输入兑换码"
+        android:maxLength="8"
+        android:textColor="#999999"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/ui_card_number_convert_btn"
+        android:layout_width="320dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/ui_card_number_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/btn_selector_red"
+        android:gravity="center"
+        android:text="兑换"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/ui_card_convert_rule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/height50"
+        android:layout_toStartOf="@+id/ui_vertical_line"
+        android:text="兑换规则"
+        android:textColor="#333333"
+        android:textSize="14sp" />
+
+    <View
+        android:id="@+id/ui_vertical_line"
+        android:layout_width="1dp"
+        android:layout_height="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="@dimen/width15"
+        android:layout_marginEnd="@dimen/width15"
+        android:layout_marginBottom="@dimen/height50"
+        android:background="#333333" />
+
+    <TextView
+        android:id="@+id/ui_card_convert_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/height50"
+        android:layout_toEndOf="@+id/ui_vertical_line"
+        android:text="兑换记录"
+        android:textColor="#333333"
+        android:textSize="14sp" />
+</RelativeLayout>

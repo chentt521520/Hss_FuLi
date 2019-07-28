@@ -3,6 +3,7 @@ package com.example.applibrary.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,11 +21,22 @@ public class MyDialogTwoButton extends Dialog {
     String text;    //消息内容
     DialogOnClick dialogOnClick;    //对话框操作监听
     TextView textView;  //消息内容
+    private String confirmText;
+    private String cancelText;
 
     public MyDialogTwoButton(Context context, String text, DialogOnClick dialogOnClick) {
         super(context, R.style.dialog);
         this.context = context;
         this.text = text;
+        this.dialogOnClick = dialogOnClick;
+    }
+
+    public MyDialogTwoButton(Context context, String text, String confirmText, String cancelText, DialogOnClick dialogOnClick) {
+        super(context, R.style.dialog);
+        this.context = context;
+        this.text = text;
+        this.confirmText = confirmText;
+        this.cancelText = cancelText;
         this.dialogOnClick = dialogOnClick;
     }
 
@@ -42,6 +54,12 @@ public class MyDialogTwoButton extends Dialog {
         TextView sureButton = findViewById(R.id.dialog_buttontwo_sure);
         TextView cancelButton = findViewById(R.id.dialog_buttontwo_cancel);
         setMsg(text);
+        if (!TextUtils.isEmpty(confirmText)) {
+            sureButton.setText(confirmText);
+        }
+        if (!TextUtils.isEmpty(cancelText)) {
+            cancelButton.setText(cancelText);
+        }
         sureButton.setOnClickListener(onClickListener);
         cancelButton.setOnClickListener(onClickListener);
     }

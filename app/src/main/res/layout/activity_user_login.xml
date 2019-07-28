@@ -102,12 +102,14 @@
         android:drawablePadding="10dp"
         android:drawableRight="@mipmap/login_line_3f"
         android:text="@string/fast_login"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp">
+        android:layout_marginBottom="50dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="wrap_content"

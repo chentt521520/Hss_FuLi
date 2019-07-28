@@ -8,9 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.applibrary.entity.NavInfo;
 import com.example.applibrary.utils.ImageUtils;
 import com.example.haoss.R;
-import com.example.haoss.indexpage.entity.NavInfo;
 
 import java.util.List;
 
@@ -21,6 +21,11 @@ public class ListViewGiftCardAdapter extends BaseAdapter {
     public ListViewGiftCardAdapter(Context context, List<NavInfo> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void refresh(List<NavInfo> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
     @Override

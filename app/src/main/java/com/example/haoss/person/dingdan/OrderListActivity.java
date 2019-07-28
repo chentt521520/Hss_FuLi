@@ -1,5 +1,6 @@
 package com.example.haoss.person.dingdan;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.applibrary.httpUtils.OnHttpCallback;
+import com.example.applibrary.resp.RespOrderList;
 import com.example.haoss.base.AppLibLication;
 import com.example.applibrary.base.Netconfig;
 import com.example.applibrary.httpUtils.HttpHander;
@@ -17,14 +20,9 @@ import com.example.applibrary.widget.freshLoadView.RefreshLayout;
 import com.example.applibrary.widget.freshLoadView.RefreshListenerAdapter;
 import com.example.haoss.R;
 import com.example.haoss.base.BaseActivity;
-import com.example.haoss.goods.details.entity.GoodsType;
-import com.example.haoss.goods.details.entity.StoreInfo;
 import com.example.haoss.helper.DialogHelp;
 import com.example.haoss.pay.GoodsPayActivity;
 import com.example.haoss.person.dingdan.adapter.ListOrderFormAdapter;
-import com.example.haoss.person.dingdan.entity.OrderListInfo;
-import com.example.haoss.person.dingdan.entity.OrderStatus;
-import com.example.haoss.shopcat.entity.ShoppingCartInfo;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -41,8 +39,8 @@ public class OrderListActivity extends BaseActivity {
     private ListOrderFormAdapter adapter;
     private int listIndex = -1;
 
-    private List<OrderListInfo> orderList;
-    private HashMap<String, List<OrderListInfo>> orderMap;
+    private List<RespOrderList.OrderList> orderList;
+    private HashMap<String, List<RespOrderList.OrderList>> orderMap;
     private int page = 1;
     int pos = 0;
 
@@ -146,6 +144,7 @@ public class OrderListActivity extends BaseActivity {
                     break;
             }
             setFragmentItem();
+            page = 1;
             getOrderList();
         }
     };
@@ -189,7 +188,7 @@ public class OrderListActivity extends BaseActivity {
                 String orderId = orderList.get(i).getOrder_id();
                 switch (listIndex) {
                     case -1:
-                        int statusOrder = orderList.get(i).get_status().get_type();
+                        int statusOrder = orderList.get(i).getStatu().getType();
                         if (statusOrder == 0) {//取消订单
                             handleOrder(Netconfig.orderCancel, orderId, 3);
                         } else if (statusOrder == 1 || statusOrder == 2) {//查看物流
@@ -221,9 +220,9 @@ public class OrderListActivity extends BaseActivity {
             public void setRightBtn(int i) {
                 pos = i;
                 String orderId = orderList.get(i).getOrder_id();
+                int statusOrder = orderList.get(i).getStatu().getType();
                 switch (listIndex) {
                     case -1:
-                        int statusOrder = orderList.get(i).get_status().get_type();
                         if (statusOrder == 0) {//待付款
                             toPayOrder();
                         } else if (statusOrder == 1) {//催单
@@ -231,9 +230,9 @@ public class OrderListActivity extends BaseActivity {
                         } else if (statusOrder == 2) {//确认收货
                             handleOrder(Netconfig.orderConfirmReceipt, orderId, 1);
                         } else if (statusOrder == 3) {//评价
-                            if (orderList.get(i).get_status().get_type() == 4) {
-                                toPrise();
-                            }
+
+                        } else if (statusOrder == 4) {
+                            toPrise();
                         }
                         break;
 
@@ -250,7 +249,7 @@ public class OrderListActivity extends BaseActivity {
                         break;
 
                     case 3://评价
-                        if (orderList.get(i).get_status().get_type() == 4) {
+                        if (statusOrder == 4) {
                             toPrise();
                         }
                         break;
@@ -268,7 +267,7 @@ public class OrderListActivity extends BaseActivity {
     }
 
     private void toPrise() {
-        String image = orderList.get(pos).getCartInfo().get(0).getProductInfo().getGoodsType().getImage();
+        String image = orderList.get(pos).getCartInfo().get(0).getProductInfo().getAttrInfo().getImage();
         String unique = orderList.get(pos).getCartInfo().get(0).getUnique();
         IntentUtils.startIntent(OrderListActivity.this, EstimatePublishActivity.class, "goodsImage", image, "unique", unique);
     }
@@ -310,7 +309,27 @@ public class OrderListActivity extends BaseActivity {
             super.onSucceed(msg);
             switch (msg.arg1) {
                 case 0: //订单列表
-                    analysisJson(msg.obj.toString());
+                    DialogHelp.hideLoading();
+                    refreshLayout.finishRefreshing();
+                    refreshLayout.finishLoadmore();
+                    getOrderList(msg.obj.toString(), new OnHttpCallback<List<RespOrderList.OrderList>>() {
+
+                        @Override
+                        public void success(List<RespOrderList.OrderList> result) {
+                            if (page == 1) {
+                                orderList.clear();
+                            }
+                            orderList.addAll(result);
+                            adapter.refresh(orderList);
+
+                            orderMap.put(listIndex + "", orderList);
+                        }
+
+                        @Override
+                        public void error(int code, String msg) {
+                            tost(code + "," + msg);
+                        }
+                    });
                     break;
                 case 1: //确认收货
                 case 2://删除订单
@@ -340,129 +359,5 @@ public class OrderListActivity extends BaseActivity {
         } catch (Exception e) {
             tost(e.getMessage());
         }
-    }
-
-    //解析数据
-    private void analysisJson(String json) {
-
-        DialogHelp.hideLoading();
-
-        refreshLayout.finishRefreshing();
-        refreshLayout.finishLoadmore();
-
-        ArrayList<Object> arrayList = httpHander.jsonToList(json);
-        if (arrayList == null || arrayList.isEmpty()) {
-            return;
-        }
-
-        if (page == 1) orderList.clear();
-
-        for (int i = 0; i < arrayList.size(); i++) {
-            Map<String, Object> map = (Map<String, Object>) arrayList.get(i);
-            OrderListInfo orderListInfo = new OrderListInfo();
-
-            Map<String, Integer> integerMap = httpHander.getIntegerMap(map, "seckill_id", "bargain_id", "combination_id", "id",
-                    "total_num", "paid", "status", "refund_status", "pink_id");
-            Map<String, Long> longMap = httpHander.getLongMap(map, "add_time");
-            Map<String, String> stringMap = httpHander.getStringMap(map, "order_id", "pay_price", "total_price",
-                    "pay_postage", "total_postage", "pay_type", "coupon_price", "deduction_price", "_pay_time",
-                    "_add_time", "status_pic");
-            orderListInfo.setAdd_time(longMap.get("add_time"));
-            orderListInfo.setSeckill_id(integerMap.get("seckill_id"));
-            orderListInfo.setBargain_id(integerMap.get("bargain_id"));
-            orderListInfo.setCombination_id(integerMap.get("combination_id"));
-            orderListInfo.setId(integerMap.get("id"));
-            orderListInfo.setOrder_id(stringMap.get("order_id"));//订单id
-            orderListInfo.setPay_price(stringMap.get("pay_price"));//订单支付金额
-            orderListInfo.setTotal_num(integerMap.get("total_num"));//订单总数量
-            orderListInfo.setTotal_price(stringMap.get("total_price"));//订单总金额(不包含运费)
-            orderListInfo.setPay_postage(stringMap.get("pay_postage"));//订单运费
-            orderListInfo.setTotal_postage(stringMap.get("total_postage"));//订单总运费
-            orderListInfo.setPaid(integerMap.get("paid"));
-            orderListInfo.setStatus(integerMap.get("status"));//订单状态
-            orderListInfo.setRefund_status(integerMap.get("refund_status"));//订单退款状态
-            orderListInfo.setPay_type(stringMap.get("pay_type"));//订单支付方式
-            orderListInfo.setCoupon_price(stringMap.get("coupon_price"));//订单优惠劵金额
-//            orderListInfo.setDeduction_price(stringMap.get("deduction_price"));//订单减去金额
-            orderListInfo.setPink_id(integerMap.get("pink_id"));
-            orderListInfo.set_pay_time(stringMap.get("_pay_time"));//订单支付时间
-            orderListInfo.set_add_time(stringMap.get("_add_time"));//订单添加时间
-//            orderListInfo.setStatus_pic(stringMap.get("status_pic"));
-
-            Map<String, Object> map_status = (Map<String, Object>) map.get("_status");
-            if (map_status != null) {
-                OrderStatus statusBean = new OrderStatus();
-                /**
-                 * "_type": 1,
-                 * 			"_title": "未发货",
-                 * 			"_msg": "商家未发货,请耐心等待",
-                 * 			"_class": "state-nfh",
-                 * 			"_payType": "余额支付"
-                 */
-                statusBean.set_type((int) httpHander.getDouble(map_status, "_type"));
-                statusBean.set_class(httpHander.getString(map_status, "_class"));
-                statusBean.set_msg(httpHander.getString(map_status, "_msg"));
-                statusBean.set_payType(httpHander.getString(map_status, "_payType"));
-                statusBean.set_title(httpHander.getString(map_status, "_title"));
-                orderListInfo.set_status(statusBean);
-            } else {
-                orderListInfo.set_status(null);
-            }
-
-            //商品信息
-            ArrayList<Object> listCartInfo = (ArrayList<Object>) map.get("cartInfo");
-            List<ShoppingCartInfo> cartInfoList = new ArrayList<>();
-            if (listCartInfo != null && !listCartInfo.isEmpty()) {
-                for (int j = 0; j < listCartInfo.size(); j++) {
-                    Map<String, Object> mapGoods = (Map<String, Object>) listCartInfo.get(j);
-
-                    Map<String, Double> doubleMap1 = httpHander.getDoubleMap(mapGoods, "truePrice", "vip_truePrice");
-                    Map<String, Integer> integerMap1 = httpHander.getIntegerMap(mapGoods, "seckill_id", "bargain_id", "combination_id", "id",
-                            "uid", "product_id", "admin_id", "cart_num", "is_pay", "is_del", "is_new", "trueStock", "is_reply");
-                    Map<String, Long> longMap1 = httpHander.getLongMap(mapGoods, "add_time");
-                    Map<String, String> stringMap1 = httpHander.getStringMap(mapGoods, "type", "product_attr_unique",
-                            "costPrice", "unique");
-                    ShoppingCartInfo cartInfo = new ShoppingCartInfo();
-                    cartInfo.setId(integerMap1.get("id"));
-                    cartInfo.setProduct_id(integerMap1.get("product_id"));
-                    cartInfo.setProduct_attr_unique(stringMap1.get("product_attr_unique"));
-                    cartInfo.setCart_num(integerMap1.get("cart_num"));
-                    cartInfo.setCombination_id(integerMap1.get("combination_id"));
-                    cartInfo.setSeckill_id(integerMap1.get("seckill_id"));
-                    cartInfo.setBargain_id(integerMap1.get("bargain_id"));
-                    cartInfo.setUnique(stringMap1.get("unique"));
-
-                    Map<String, Object> mapProductInfo = (Map<String, Object>) mapGoods.get("productInfo");
-                    if (mapProductInfo != null) {
-                        StoreInfo productInfo = new StoreInfo();
-                        productInfo.setId((int) httpHander.getDouble(mapProductInfo, "id"));
-                        productInfo.setStore_name(httpHander.getString(mapProductInfo, "store_name"));
-
-                        Map<String, Object> mapGoodType = (Map<String, Object>) mapProductInfo.get("attrInfo");
-                        if (mapGoodType != null) {
-                            GoodsType goodType = new GoodsType();
-                            goodType.setProduct_id((int) httpHander.getDouble(mapGoodType, "product_id"));
-                            goodType.setSuk(httpHander.getString(mapGoodType, "suk"));
-                            goodType.setPrice(httpHander.getString(mapGoodType, "price"));
-                            goodType.setImage(httpHander.getString(mapGoodType, "image"));
-                            productInfo.setGoodsType(goodType);
-                        } else {
-                            GoodsType goodType = new GoodsType();
-                            goodType.setProduct_id((int) httpHander.getDouble(mapProductInfo, "id"));
-                            goodType.setPrice(httpHander.getString(mapProductInfo, "price"));
-                            goodType.setImage(httpHander.getString(mapProductInfo, "image"));
-                            productInfo.setGoodsType(goodType);
-                        }
-                        cartInfo.setProductInfo(productInfo);
-                    }
-
-                    cartInfoList.add(cartInfo);
-                }
-                orderListInfo.setCartInfo(cartInfoList);
-            }
-            orderList.add(orderListInfo);
-        }
-        orderMap.put(listIndex + "", orderList);
-        adapter.refresh(orderList);
     }
 }

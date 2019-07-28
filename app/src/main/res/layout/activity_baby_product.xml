@@ -15,9 +15,17 @@
 
         <include layout="@layout/include_banner_grid" />
 
-        <include layout="@layout/include_brand_recommond" />
+        <include
+            layout="@layout/include_brand_recommond"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin10" />
 
-        <include layout="@layout/include_good_favor" />
+        <include
+            layout="@layout/include_good_favor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin10" />
 
     </LinearLayout>
 

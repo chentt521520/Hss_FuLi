@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/margin5"
-        android:paddingTop="@dimen/margin5">
+        android:paddingTop="@dimen/margin5"
+        android:paddingBottom="@dimen/margin5">
 
         <!--搜索-->
         <include
@@ -39,7 +39,7 @@
             android:layout_weight="1"
             android:divider="#00000000"
             android:dividerHeight="10dp"
-            android:padding="10dp"
+            android:paddingEnd="15dp"
             android:scrollbars="none" />
 
         <View
@@ -90,8 +90,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:drawablePadding="5dp"
                     android:drawableRight="@mipmap/more_image"
+                    android:drawablePadding="5dp"
                     android:padding="10dp"
                     android:singleLine="true"
                     android:text="更多"
@@ -100,7 +100,6 @@
             </LinearLayout>
 
             <!--商品-->
-            <!--<com.example.haoss.views.MyGridView-->
             <GridView
                 android:id="@+id/twopage_gridview"
                 android:layout_width="match_parent"

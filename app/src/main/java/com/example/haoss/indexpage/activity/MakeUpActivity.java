@@ -8,18 +8,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.TextView;
 
 import com.example.applibrary.base.Netconfig;
 import com.example.applibrary.custom.CustomerScrollView;
 import com.example.applibrary.custom.viewfragment.FragmentDataInfo;
 import com.example.applibrary.custom.viewfragment.FragmentView;
 import com.example.applibrary.custom.viewfragment.OnclickFragmentView;
+import com.example.applibrary.entity.NavInfo;
+import com.example.applibrary.entity.Recommond;
 import com.example.applibrary.httpUtils.HttpHander;
 import com.example.applibrary.utils.IntentUtils;
-import com.example.applibrary.utils.ViewUtils;
-import com.example.applibrary.widget.freshLoadView.RefreshLayout;
-import com.example.applibrary.widget.freshLoadView.RefreshListenerAdapter;
 import com.example.haoss.R;
 import com.example.haoss.base.BaseActivity;
 import com.example.haoss.goods.details.GoodsDetailsActivity;
@@ -28,8 +26,6 @@ import com.example.haoss.goods.search.GoodsSearchActivity;
 import com.example.haoss.indexpage.adapter.BrandRecommondAdapter;
 import com.example.haoss.indexpage.adapter.GridFavorAdapter;
 import com.example.haoss.indexpage.adapter.GridSortNavAdapter;
-import com.example.haoss.indexpage.entity.NavInfo;
-import com.example.haoss.indexpage.entity.Recommond;
 import com.example.haoss.views.MyGridView;
 
 import java.util.ArrayList;
@@ -40,9 +36,6 @@ import java.util.Map;
 public class MakeUpActivity extends BaseActivity {
 
     private FragmentView carousel;  //轮播
-    private TextView action_search_ss;  //搜索
-    private MyGridView gridNav, gridFavor;   //导航和推荐处
-    private RecyclerView gridBrandRecommad;
 
     private ArrayList<FragmentDataInfo> listBanner; //轮播
     private List<NavInfo> listNav, listBrandRecommad;
@@ -64,7 +57,6 @@ public class MakeUpActivity extends BaseActivity {
     private String title;
     private int id;
 
-    //    private RefreshLayout refreshLayout;
     private int page = 1;
 
     @Override
@@ -77,6 +69,8 @@ public class MakeUpActivity extends BaseActivity {
     }
 
     private void initData() {
+        listNav = new ArrayList<>();
+        listBrandRecommad = new ArrayList<>();
         listFavor = new ArrayList<>();
         Bundle bundle = getIntent().getExtras();
         title = bundle.getString("title");
@@ -88,13 +82,12 @@ public class MakeUpActivity extends BaseActivity {
         this.getTitleView().setTitleText(title);
 
         CustomerScrollView scrollView = findViewById(R.id.scroll_view);
-        action_search_ss = findViewById(R.id.action_search_ss);
         carousel = findViewById(R.id.ui_bannar);
-        gridNav = findViewById(R.id.ui_grid_nav);
-        gridBrandRecommad = findViewById(R.id.ui_grid_brand_recommad);
-        gridFavor = findViewById(R.id.ui_grid_favor);
+        MyGridView gridNav = findViewById(R.id.ui_grid_nav);
+        RecyclerView gridBrandRecommad = findViewById(R.id.ui_grid_brand_recommad);
+        MyGridView gridFavor = findViewById(R.id.ui_grid_favor);
 
-        action_search_ss.setOnClickListener(onClickListener);
+        findViewById(R.id.action_search_ss).setOnClickListener(onClickListener);
         gridNav.setOnItemClickListener(onNavClickListener);
         gridFavor.setOnItemClickListener(onFavorClickListener);
 
@@ -118,19 +111,10 @@ public class MakeUpActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
+        gideNavAdapter = new GridSortNavAdapter(this, listNav);
+        gridNav.setAdapter(gideNavAdapter);
         gideFavorAdapter = new GridFavorAdapter(this, listFavor);
         gridFavor.setAdapter(gideFavorAdapter);
-//        refreshLayout = findViewById(R.id.refresh_layout);
-//        refreshLayout.setEnableRefresh(false);
-//        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
-//            @Override
-//            public void onLoadMore(RefreshLayout refreshLayout) {
-//                super.onLoadMore(refreshLayout);
-//                page++;
-//                getRecommond();
-//            }
-//        });
         scrollView.setOnScrollListener(new CustomerScrollView.OnScrollListener() {
             @Override
             public void loadMore() {
@@ -202,11 +186,7 @@ public class MakeUpActivity extends BaseActivity {
                 info.setImageUrl(image);
                 listNav.add(info);
             }
-            if (gideNavAdapter == null) {
-                gideNavAdapter = new GridSortNavAdapter(this, listNav);
-                gridNav.setAdapter(gideNavAdapter);
-            } else
-                gideNavAdapter.notifyDataSetChanged();
+            gideNavAdapter.refresh(listNav);
         }
 
         //倾情推荐：品牌-->点击进入该品牌的分类
@@ -239,7 +219,6 @@ public class MakeUpActivity extends BaseActivity {
     private void recommondJson(String s) {
         ArrayList<Object> listLike = httpHander.jsonToList(s);   //猜您喜欢
 
-//        refreshLayout.finishLoadmore();
         if (listLike == null || listLike.isEmpty()) {
             return;
         }
@@ -287,7 +266,6 @@ public class MakeUpActivity extends BaseActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent(MakeUpActivity.this, GoodsListActivity.class);
             intent.putExtra("searchType", listNav.get(position).getId());
-            intent.putExtra("searchName", listNav.get(position).getName());
             startActivity(intent);
         }
     };
@@ -297,7 +275,6 @@ public class MakeUpActivity extends BaseActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             IntentUtils.startIntent(listFavor.get(position).getId(), MakeUpActivity.this, GoodsDetailsActivity.class);
-
         }
     };
 

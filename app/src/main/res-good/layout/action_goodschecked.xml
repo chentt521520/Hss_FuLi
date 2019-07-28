@@ -7,10 +7,10 @@
     <!--商品详情5按钮-->
     <!--3按钮，联系客服、收藏、购物车-->
 
-    <!--客服-->
+    <!--客服-->0
     <RelativeLayout
         android:id="@+id/action_button_kefu"
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="match_parent">
 
         <TextView
@@ -28,7 +28,7 @@
     <!--收藏-->
     <RelativeLayout
         android:id="@+id/action_button_collect"
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="match_parent">
 
         <TextView
@@ -47,7 +47,7 @@
     <!--购物车-->
     <RelativeLayout
         android:id="@+id/action_button_car"
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="match_parent">
 
         <TextView

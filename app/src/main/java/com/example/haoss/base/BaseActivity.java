@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -40,6 +42,7 @@ public class BaseActivity extends AppCompatActivity {
     public LinearLayout.LayoutParams layoutParamsWW = null;
 
     private CustomTitleView titleView;
+    private LinearLayout linearBar;
     /**
      * 水印显示的文本
      */
@@ -72,7 +75,9 @@ public class BaseActivity extends AppCompatActivity {
         layoutParamsWW = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         titleView = new CustomTitleView(this);
+
         Application application = (Application) getApplication();
+
     }
 
     /**
@@ -183,5 +188,15 @@ public class BaseActivity extends AppCompatActivity {
      */
     public void showToast(int resId, int duration) {
         Toast.makeText(this, "" + this.getResources().getText(resId), duration).show();
+    }
+
+    public void showInput(EditText et, boolean flag) {
+        InputMethodManager im = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
+        if (flag) {
+            im.showSoftInput(et, 0);
+        } else {
+            //上下两种都可以 im.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+            im.hideSoftInputFromWindow(et.getWindowToken(), 0);
+        }
     }
 }

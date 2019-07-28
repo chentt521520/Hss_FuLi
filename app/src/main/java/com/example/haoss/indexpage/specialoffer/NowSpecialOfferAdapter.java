@@ -2,7 +2,6 @@ package com.example.haoss.indexpage.specialoffer;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.applibrary.resp.RespTodaySales;
 import com.example.applibrary.utils.IntentUtils;
 import com.example.applibrary.utils.TextViewUtils;
 import com.example.haoss.R;
@@ -23,10 +22,10 @@ import java.util.List;
 //特价列表适配器
 public class NowSpecialOfferAdapter extends BaseAdapter {
 
-    Context context;
-    List<NowSpecialOfferInfo> list;
+    private Context context;
+    private List<RespTodaySales.TodaySales> list;
 
-    public NowSpecialOfferAdapter(Context context, List<NowSpecialOfferInfo> list) {
+    public NowSpecialOfferAdapter(Context context, List<RespTodaySales.TodaySales> list) {
         this.context = context;
         this.list = list;
     }
@@ -66,17 +65,17 @@ public class NowSpecialOfferAdapter extends BaseAdapter {
         info = (Info) view.getTag();
 
         //设置数据
-        NowSpecialOfferInfo nowSpecialOfferInfo = list.get(position);
+        RespTodaySales.TodaySales todaySales = list.get(position);
         Glide.with(context)
-                .load(nowSpecialOfferInfo.getImage())
+                .load(todaySales.getImage())
                 .into(info.item_nowspecialoffer_image);
-        info.item_nowspecialoffer_name.setText(nowSpecialOfferInfo.getName());
+        info.item_nowspecialoffer_name.setText(todaySales.getTitle());
         TextViewUtils.setTextAddLine(info.item_nowspecialoffer_originalcost);
-        info.item_nowspecialoffer_originalcost.setText("¥ " + nowSpecialOfferInfo.getOriginalCost());
-        info.item_nowspecialoffer_money.setText("¥ " + nowSpecialOfferInfo.getMoney());
-        info.item_nowspecialoffer_sales.setText("已抢" + nowSpecialOfferInfo.getSales() + "件");
+        info.item_nowspecialoffer_originalcost.setText("¥ " + todaySales.getOt_price());
+        info.item_nowspecialoffer_money.setText("¥ " + todaySales.getPrice());
+        info.item_nowspecialoffer_sales.setText("已抢" + todaySales.getSales() + "件");
         info.item_nowspecialoffer_sb.setMax(100); //最大进度
-        info.item_nowspecialoffer_sb.setProgress(nowSpecialOfferInfo.getPercent());  //当前进度
+        info.item_nowspecialoffer_sb.setProgress(todaySales.getPercent());  //当前进度
         //购买监听
         info.item_nowspecialoffer_go.setOnClickListener(new View.OnClickListener() {
             @Override
