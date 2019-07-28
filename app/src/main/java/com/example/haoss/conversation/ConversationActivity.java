@@ -14,7 +14,6 @@ public class ConversationActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
-        setContentView(R.layout.activity_conversation);
 
         findViewById(R.id.page_back).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,6 +1,11 @@
 package com.example.haoss.goods.search;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,10 +70,12 @@ public class GoodsSearchAdapter extends BaseAdapter {
         info = (Info) view.getTag();
         GoodList goodsInfo = list.get(position);
         ImageUtils.imageLoad(context, goodsInfo.getImage(), info.item_goodssearch_lmage, 0, 0);
-        info.item_goodssearch_name.setText(goodsInfo.getStore_name());
         info.item_goodssearch_money.setText("¥ " + goodsInfo.getPrice());
         info.item_goodssearch_sales.setText(goodsInfo.getSales() + " 人已购买");
         info.item_goodssearch_repertory.setText("库存数量：" + goodsInfo.getStock());
+
+        info.item_goodssearch_name.setText(goodsInfo.getStore_name());
+
         if (goodsInfo.getStore_type() == 1) {
             info.item_good_type.setText("海外直邮");
         } else if (goodsInfo.getStore_type() == 2) {
@@ -76,6 +83,7 @@ public class GoodsSearchAdapter extends BaseAdapter {
         } else {
             info.item_good_type.setText("国内");
         }
+
         return view;
     }
 

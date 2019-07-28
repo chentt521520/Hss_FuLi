@@ -4,6 +4,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:id="@+id/page_back"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:padding="@dimen/margin10"
+            android:src="@mipmap/page_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的客服"
+            android:textColor="#333333"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
     <fragment
         android:id="@+id/conversation"
         android:name="io.rong.imkit.fragment.ConversationFragment"

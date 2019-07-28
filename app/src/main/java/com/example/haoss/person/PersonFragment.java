@@ -31,6 +31,7 @@ import com.example.haoss.integralshop.IntegralShopActivity;
 import com.example.haoss.person.address.AddresShowActivity;
 import com.example.haoss.person.adpter.SelfGvadapter;
 import com.example.haoss.person.aftersale.AfterSaleActivity;
+import com.example.haoss.person.cardConvert.CardNumberConvertActivity;
 import com.example.haoss.person.collect.CollectListActivity;
 import com.example.haoss.person.coupon.CouponActivity;
 import com.example.haoss.person.dingdan.OrderListActivity;
@@ -110,6 +111,14 @@ public class PersonFragment extends BaseFragment {
     //积分商城
     @BindView(R.id.person_my_shouhuo_integralshop)
     TextView integralshop;
+    //卡券兑换
+    @BindView(R.id.person_my_card_convert)
+    TextView cardConvert;
+    //实名认证
+    @BindView(R.id.person_indenty)
+    TextView personIndenty;
+
+
     Unbinder unbinder;
     private Context mContext;
     private View personView;
@@ -281,7 +290,8 @@ public class PersonFragment extends BaseFragment {
 
     //钱包、地址、条款、意见、设置、订单按钮监听
     @OnClick({R.id.person_my_money_pg, R.id.person_my_shouhuo_address, R.id.person_my_fuwu_tiaok, R.id.person_my_yijian_fankui,
-            R.id.person_setting_btn, R.id.person_chakan_dingdan, R.id.person_xiaoxi_btn, R.id.person_xiaoxi_msg, R.id.person_my_shouhuo_myservice, R.id.person_my_shouhuo_integralshop})
+            R.id.person_setting_btn, R.id.person_chakan_dingdan, R.id.person_xiaoxi_btn, R.id.person_xiaoxi_msg, R.id.person_my_shouhuo_myservice,
+            R.id.person_my_shouhuo_integralshop, R.id.person_my_card_convert, R.id.person_indenty})
     public void onViewClicked(View view) {
         if (!instance.isLogin()) {//w未登录
             IntentUtils.startIntentForResult(0, mContext, LoginActivity.class, null, 4);
@@ -312,6 +322,12 @@ public class PersonFragment extends BaseFragment {
                 break;
             case R.id.person_my_shouhuo_myservice:   //我的客服
                 startActivity(new Intent(getContext(), ServerOnlineActivity.class));
+                break;
+            case R.id.person_my_card_convert:   //购物卡兑换
+                IntentUtils.startIntent(mContext, CardNumberConvertActivity.class);
+                break;
+            case R.id.person_indenty:   //身份认证
+                IntentUtils.startIntent(mContext, AuthenticationActivity.class);
                 break;
             case R.id.person_my_shouhuo_integralshop:   //积分商城
                 IntentUtils.startIntent(mContext, IntegralShopActivity.class);

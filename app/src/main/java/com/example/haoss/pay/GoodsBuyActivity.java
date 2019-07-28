@@ -840,14 +840,14 @@ public class GoodsBuyActivity extends BaseActivity {
     }
 
     private void toOrderList(final int flag) {
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            public void run() {
+//        Timer timer = new Timer();
+//        TimerTask task = new TimerTask() {
+//            public void run() {
                 IntentUtils.startIntent(flag, GoodsBuyActivity.this, OrderListActivity.class);
-                finish();
-            }
-        };
-        timer.schedule(task, 2500);
+//                finish();
+//            }
+//        };
+//        timer.schedule(task, 2500);
     }
 
 

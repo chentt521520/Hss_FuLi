@@ -187,7 +187,7 @@ public class ShopCatFragment extends BaseFragment {
                 } else {//特价商品
                     Intent intent = new Intent(getContext(), GoodsDetailsActivity.class);
                     intent.putExtra(IntentUtils.intentActivityFlag, seckill_id);
-                    intent.putExtra("flag", 1);
+                    intent.putExtra("flag", ConfigVariate.flagSalesIntent);
                     startActivity(intent);
                 }
             }

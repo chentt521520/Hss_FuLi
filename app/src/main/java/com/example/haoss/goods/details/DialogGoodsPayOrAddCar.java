@@ -171,27 +171,34 @@ public class DialogGoodsPayOrAddCar extends Dialog {
         StoreInfo storeInfo = detailsInfo.getStoreInfo();
         Map<String, Object> productValue = detailsInfo.getProductValue();
         //没有商品属性
+        /**
+         * 特价商品有属性与无属性是product_id=id
+         * 正常商品无属性时使用
+         */
         if (productValue == null || productValue.size() == 0) {
             dialog_goodspayoraddcar_type.setVisibility(View.GONE);
             GoodsBuyInfo goodInfo = new GoodsBuyInfo();
             goodInfo.setId(storeInfo.getId());
-            goodInfo.setProduct_id(storeInfo.getProduct_id());
+            goodInfo.setProduct_id(storeInfo.getId());
             goodInfo.setImage(storeInfo.getImage());
             goodInfo.setPrice(storeInfo.getPrice());
             goodInfo.setSales(storeInfo.getSales());
             goodInfo.setStock(storeInfo.getStock());
             map.put("def", goodInfo);
         } else { //有商品属性
+            /**
+             * 特价商品有属性与无属性是product_id=id
+             */
             dialog_goodspayoraddcar_type.setVisibility(View.VISIBLE);
             for (Map.Entry<String, Object> entry : productValue.entrySet()) {
                 String key = entry.getKey();
                 mapKey.add(key);
                 Map<String, Object> value = (Map<String, Object>) productValue.get(key);
-                Map<String, Integer> inter = httpHander.getIntegerMap(value, "stock", "sales", "ficti", "product_id", "id");
+                Map<String, Integer> inter = httpHander.getIntegerMap(value, "stock", "sales", "ficti", "product_id");
                 Map<String, String> string1 = httpHander.getStringMap(value, "suk", "price", "image", "unique", "cost");
                 GoodsBuyInfo goodInfo = new GoodsBuyInfo();
                 goodInfo.setId(storeInfo.getId());
-                goodInfo.setProduct_id(storeInfo.getProduct_id());
+                goodInfo.setProduct_id(inter.get("product_id"));
                 goodInfo.setStock(inter.get("stock"));
                 goodInfo.setFicti(inter.get("ficti"));
                 goodInfo.setSales(inter.get("sales"));
@@ -270,11 +277,11 @@ public class DialogGoodsPayOrAddCar extends Dialog {
         map.put("cartNum", number);
         map.put("uniqueId", goodInfo.getUniqueId());
         map.put("token", AppLibLication.getInstance().getToken());
-        if (flag == 1) {//特价
+        if (flag == ConfigVariate.flagSalesIntent) {//特价
             map.put("productId", goodInfo.getId());
             map.put("seckillId", goodInfo.getId());
         } else {
-            map.put("productId", goodInfo.getProduct_id());
+            map.put("productId", goodInfo.getId());
         }
         httpHander.okHttpMapPost(context, url, map, 1);
     }
@@ -320,7 +327,7 @@ public class DialogGoodsPayOrAddCar extends Dialog {
         map.put("cartNum", number);
         map.put("uniqueId", goodInfo.getUniqueId());
         map.put("token", AppLibLication.getInstance().getToken());
-        if (flag == 1) {//特价
+        if (flag == ConfigVariate.flagSalesIntent) {//特价
             map.put("seckillId", goodInfo.getId());
             map.put("productId", goodInfo.getId());
         } else {
@@ -358,7 +365,7 @@ public class DialogGoodsPayOrAddCar extends Dialog {
                             Map data = getMap(ret, "data");
                             String cartId = httpHander.getString(data, "cartId");
                             Intent intent = new Intent(context, GoodsBuyActivity.class);
-                            if (flag == 1) {
+                            if (flag == ConfigVariate.flagSalesIntent) {
                                 intent.putExtra("flag", ConfigVariate.flagSalesIntent);
                             } else {
                                 intent.putExtra("flag", ConfigVariate.flagGoodsToPayIntent);

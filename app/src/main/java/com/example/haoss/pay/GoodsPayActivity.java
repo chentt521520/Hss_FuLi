@@ -238,13 +238,13 @@ public class GoodsPayActivity extends BaseActivity {
     }
 
     private void toOrderList(final int flag) {
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            public void run() {
+//        Timer timer = new Timer();
+//        TimerTask task = new TimerTask() {
+//            public void run() {
                 IntentUtils.startIntent(flag, GoodsPayActivity.this, OrderListActivity.class);
-            }
-        };
-        timer.schedule(task, 2500);
+//            }
+//        };
+//        timer.schedule(task, 2500);
     }
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
